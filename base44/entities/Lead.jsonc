@@ -14,6 +14,9 @@
     "age": {
       "type": "number"
     },
+    "age_range": {
+      "type": "string"
+    },
     "income": {
       "type": "string"
     },
@@ -25,6 +28,14 @@
     },
     "phone": {
       "type": "string"
+    },
+    "variant": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B"
+      ],
+      "default": "A"
     },
     "tcpa_consent": {
       "type": "boolean"

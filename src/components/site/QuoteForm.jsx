@@ -68,6 +68,7 @@ export default function QuoteForm() {
     const qs = new URLSearchParams(window.location.search);
     await base44.entities.Lead.create({
       ...data,
+      variant: 'A',
       full_name: name.trim(),
       email: email.trim(),
       phone: digits,
