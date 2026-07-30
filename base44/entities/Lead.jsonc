@@ -1,0 +1,65 @@
+{
+  "name": "Lead",
+  "type": "object",
+  "properties": {
+    "zip": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "household": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    },
+    "income": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "tcpa_consent": {
+      "type": "boolean"
+    },
+    "tcpa_consent_text": {
+      "type": "string"
+    },
+    "tcpa_timestamp": {
+      "type": "string"
+    },
+    "utm_source": {
+      "type": "string"
+    },
+    "utm_campaign": {
+      "type": "string"
+    },
+    "utm_medium": {
+      "type": "string"
+    },
+    "gclid": {
+      "type": "string"
+    },
+    "fbclid": {
+      "type": "string"
+    },
+    "landing_page": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "zip",
+    "phone",
+    "tcpa_consent"
+  ]
+}
