@@ -4,7 +4,7 @@ import { Image } from '@/components/ui/image';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
-import LicenseStrip from '@/components/site/LicenseStrip';
+import CarrierStrip from '@/components/site/CarrierStrip';
 import QuoteForm from '@/components/site/QuoteForm';
 import PlanCards from '@/components/site/PlanCards';
 import HowItWorks from '@/components/site/HowItWorks';
@@ -70,7 +70,7 @@ export default function Home() {
         </div>
       </section>
 
-      <LicenseStrip />
+      <CarrierStrip />
 
       {/* Plans */}
       <section className="py-20 md:py-28">

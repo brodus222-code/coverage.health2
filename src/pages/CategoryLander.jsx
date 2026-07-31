@@ -2,7 +2,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
-import LicenseStrip from '@/components/site/LicenseStrip';
+import CarrierStrip from '@/components/site/CarrierStrip';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 import LanderHero from '@/components/landing/LanderHero';
@@ -26,7 +26,7 @@ export default function CategoryLander() {
         intro={cat.intro}
         bullets={cat.benefits.map(([title]) => title)}
       />
-      <LicenseStrip />
+      <CarrierStrip />
 
       {cat.notComprehensive && (
         <LanderNotice>

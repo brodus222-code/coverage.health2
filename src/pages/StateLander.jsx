@@ -2,7 +2,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
-import LicenseStrip from '@/components/site/LicenseStrip';
+import CarrierStrip from '@/components/site/CarrierStrip';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 import LanderHero from '@/components/landing/LanderHero';
@@ -40,7 +40,7 @@ export default function StateLander() {
         bullets={state.facts}
         lockedState={{ abbr: state.abbr, name: state.name }}
       />
-      <LicenseStrip />
+      <CarrierStrip />
       <LanderBenefits heading={`Why ${state.name} households call us`} items={benefits} />
       <section className="pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto px-5 md:px-10">
