@@ -11,27 +11,24 @@ const CARRIERS = [
 
 export default function CarrierStrip() {
   return (
-    <div className="bg-white border-y border-slate-200 py-8 md:py-10">
-      <div className="max-w-7xl mx-auto px-5 md:px-10 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-6">
+    <div className="bg-white border-y border-slate-200 py-10 md:py-12">
+      <div className="max-w-6xl mx-auto px-5 md:px-10 text-center">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-8">
           Compare plans and networks from top-rated carriers, including
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 md:gap-x-12">
           {CARRIERS.map((c) => (
-            <div
-              key={c.name}
-              className="rounded-xl border border-slate-200/80 bg-white h-16 md:h-20 flex items-center justify-center px-3"
-            >
+            <div key={c.name} className="h-9 md:h-11 flex items-center" style={{ filter: 'grayscale(1) opacity(0.55)' }}>
               <Image
                 src={c.src}
                 alt={`${c.name} logo`}
                 fittingType="fit"
-                className="w-full h-full"
+                className="h-full w-auto max-w-[140px] md:max-w-[180px]"
               />
             </div>
           ))}
         </div>
-        <p className="text-[11px] text-slate-400 mt-6 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-[11px] text-slate-400 mt-8 max-w-3xl mx-auto leading-relaxed">
           Carrier names and logos are trademarks of their respective owners and are shown for identification only. Plan and network availability varies by state and county; not all carriers are offered in every area.
         </p>
       </div>
