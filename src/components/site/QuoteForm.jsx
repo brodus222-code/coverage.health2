@@ -82,6 +82,7 @@ export default function QuoteForm({ lockedState = null }) {
       utm_medium: qs.get('utm_medium') || '',
       gclid: qs.get('gclid') || '',
       fbclid: qs.get('fbclid') || '',
+      msclkid: qs.get('msclkid') || '',
       landing_page: window.location.href,
       user_agent: navigator.userAgent,
     });
