@@ -1,7 +1,7 @@
 const CARRIERS = [
   { name: 'UnitedHealthcare', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/a4e4a1a1a_UHClogo.jpeg' },
-  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/3e3d7b1cf_bcbslogo.jpeg' },
-  { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/1fa432048_cignalogo.jpeg' },
+  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c36ac2146_Gemini_Generated_Image_50y5u950y5u950y5.png' },
+  { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/f61175671_cigna_logo.png' },
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c9a6ec4c0_aetnalogo.jpeg' },
   { name: 'Ambetter', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/e9efda220_ambetterlogo.jpeg' },
   { name: 'First Health', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/608947826_FirstHealthlogo.jpeg' },
@@ -21,7 +21,7 @@ export default function CarrierStrip() {
               src={c.src}
               alt={`${c.name} logo`}
               className="h-9 md:h-11 w-auto max-w-[140px] md:max-w-[180px] object-contain"
-              style={{ filter: 'grayscale(1) opacity(0.55)' }}
+              style={{ opacity: 0.9 }}
             />
           ))}
         </div>
