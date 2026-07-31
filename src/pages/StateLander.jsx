@@ -38,6 +38,7 @@ export default function StateLander() {
         headline={state.headline}
         intro={state.intro}
         bullets={state.facts}
+        lockedState={{ abbr: state.abbr, name: state.name }}
       />
       <LicenseStrip />
       <LanderBenefits heading={`Why ${state.name} households call us`} items={benefits} />

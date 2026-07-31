@@ -23,8 +23,9 @@ const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#FF6B35] bg-[#FFF2EC] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#FF6B35]'}`;
 const btnCls = 'w-full inline-flex items-center justify-center gap-2 bg-[#FF6B35] hover:bg-[#E85A26] text-white font-bold text-[17px] rounded-xl px-5 py-4 transition-all hover:shadow-lg hover:shadow-[#FF6B35]/30 disabled:opacity-60';
 
-export default function QuoteForm() {
+export default function QuoteForm({ lockedState = null }) {
   const navigate = useNavigate();
+  const [locked, setLocked] = useState(lockedState);
   const [step, setStep] = useState(1);
   const [data, setData] = useState({});
   const [err, setErr] = useState('');
@@ -42,6 +43,7 @@ export default function QuoteForm() {
   const nextFromZip = () => {
     const st = /^[0-9]{5}$/.test(zip.trim()) ? zipState(zip.trim()) : null;
     if (!st) return setErr('Enter a valid 5-digit ZIP in a state we serve: FL, NC, NE, TN, IL, NJ, TX, GA, OH, SC, NV, AZ, CA.');
+    if (locked && st !== locked.abbr) return setErr(`That ZIP is not in ${locked.name}. Double-check it — or if you need coverage in another state, use the link below.`);
     setData((d) => ({ ...d, zip: zip.trim(), state: st }));
     go(2);
   };
@@ -104,10 +106,19 @@ export default function QuoteForm() {
         <motion.div key={step} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
           {step === 1 && (
             <div>
-              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">Where do you live?</h4>
-              <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="zip">ZIP code</label>
+              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">
+                {locked ? `Where in ${locked.name} do you live?` : 'Where do you live?'}
+              </h4>
+              <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="zip">
+                {locked ? `${locked.name} ZIP code` : 'ZIP code'}
+              </label>
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="e.g. 32922" autoComplete="postal-code" className={inputCls} />
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>Get started <ArrowRight className="w-4 h-4" /></button>
+              {locked && (
+                <button type="button" onClick={() => { setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
+                  I need coverage in a different state
+                </button>
+              )}
               <p className="flex items-center justify-center gap-1.5 text-xs text-slate-500 mt-3"><Lock className="w-3 h-3" /> Your information is encrypted and never sold to spam lists.</p>
             </div>
           )}

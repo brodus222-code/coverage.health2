@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Check, Star } from 'lucide-react';
 import QuoteForm from '@/components/site/QuoteForm';
 
-export default function LanderHero({ eyebrow, headline, intro, bullets }) {
+export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
       <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#FF6B35]/[0.06] blur-3xl" />
@@ -34,7 +34,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets }) {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="lg:sticky lg:top-24">
-          <QuoteForm />
+          <QuoteForm lockedState={lockedState} />
         </motion.div>
       </div>
     </section>
