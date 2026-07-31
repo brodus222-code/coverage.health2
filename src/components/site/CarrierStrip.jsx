@@ -1,5 +1,3 @@
-import { Image } from '@/components/ui/image';
-
 const CARRIERS = [
   { name: 'UnitedHealthcare', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/a4e4a1a1a_UHClogo.jpeg' },
   { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/3e3d7b1cf_bcbslogo.jpeg' },
@@ -18,14 +16,13 @@ export default function CarrierStrip() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 md:gap-x-12">
           {CARRIERS.map((c) => (
-            <div key={c.name} className="h-9 md:h-11 flex items-center" style={{ filter: 'grayscale(1) opacity(0.55)' }}>
-              <Image
-                src={c.src}
-                alt={`${c.name} logo`}
-                fittingType="fit"
-                className="h-full w-auto max-w-[140px] md:max-w-[180px]"
-              />
-            </div>
+            <img
+              key={c.name}
+              src={c.src}
+              alt={`${c.name} logo`}
+              className="h-9 md:h-11 w-auto max-w-[140px] md:max-w-[180px] object-contain"
+              style={{ filter: 'grayscale(1) opacity(0.55)' }}
+            />
           ))}
         </div>
         <p className="text-[11px] text-slate-400 mt-8 max-w-3xl mx-auto leading-relaxed">
