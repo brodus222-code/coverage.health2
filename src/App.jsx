@@ -13,6 +13,8 @@ import VariantB from './pages/VariantB';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+import StateLander from './pages/StateLander';
+import CategoryLander from './pages/CategoryLander';
 import LeadsDashboard from './pages/LeadsDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -57,6 +59,8 @@ const AuthenticatedApp = () => {
       <Route path="/about" element={<About />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/health-insurance/:stateSlug" element={<StateLander />} />
+      <Route path="/coverage/:categorySlug" element={<CategoryLander />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -10,6 +10,7 @@ import PlanCards from '@/components/site/PlanCards';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 import PremiumEstimator from '@/components/site/PremiumEstimator';
+import LanderDirectory from '@/components/landing/LanderDirectory';
 
 const TICKS = [
   'Plans starting under $200/mo for many households*',
@@ -104,6 +105,8 @@ export default function Home() {
           <CtaBand />
         </div>
       </section>
+
+      <LanderDirectory />
 
       <SiteFooter />
       <MobileCallBar />
