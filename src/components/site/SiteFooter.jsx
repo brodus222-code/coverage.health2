@@ -12,6 +12,13 @@ export default function SiteFooter() {
             <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />Licensed insurance agency · Illinois</p>
           </div>
           <div className="space-y-1.5">
+            <b className="text-white block mb-2">Company</b>
+            <Link to="/about" className="block hover:text-white transition-colors">About Us</Link>
+            <Link to="/faq" className="block hover:text-white transition-colors">FAQ</Link>
+            <Link to="/testimonials" className="block hover:text-white transition-colors">Testimonials</Link>
+            <Link to="/contact" className="block hover:text-white transition-colors">Contact Us</Link>
+          </div>
+          <div className="space-y-1.5">
             <b className="text-white block mb-2">Legal</b>
             <Link to="/privacy" className="block hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="block hover:text-white transition-colors">Terms of Use</Link>
