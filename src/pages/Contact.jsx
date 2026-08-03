@@ -68,7 +68,7 @@ export default function Contact() {
               [Street Address, Suite #]<br />
               Chicago, Illinois [ZIP]
             </p>
-            <p className="text-xs text-slate-500 mt-4">Licensed insurance agency domiciled in Illinois · NPN: [AGENCY NPN]. Written correspondence only — sales and service are handled by phone and email.</p>
+            <p className="text-xs text-slate-500 mt-4">Licensed insurance agency domiciled in Illinois · NPN: 21554495. Written correspondence only — sales and service are handled by phone and email.</p>
           </div>
 
           <div className="bg-slate-900 rounded-2xl p-7 flex flex-col justify-center">

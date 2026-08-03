@@ -9,7 +9,7 @@ export default function SiteFooter() {
             <Link to="/" className="font-display font-extrabold text-xl text-white">
               Coverage<span className="text-[#FF6B35]">.</span>Health
             </Link>
-            <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />Licensed insurance agency · Illinois</p>
+            <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />Licensed insurance agency · Illinois · NPN 21554495</p>
           </div>
           <div className="space-y-1.5">
             <b className="text-white block mb-2">Company</b>
