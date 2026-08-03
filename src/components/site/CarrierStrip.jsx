@@ -3,6 +3,7 @@ const CARRIERS = [
   { name: 'First Health', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/608947826_FirstHealthlogo.jpeg' },
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png' },
   { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/99411d2fb_bcbs_logo_transparent.png' },
+  { name: 'Blue Cross Blue Shield (wide)', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/09db35733_bcbs_logo_transparent2x.png' },
   { name: 'Ambetter', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/e9efda220_ambetterlogo.jpeg' },
 ];
 
