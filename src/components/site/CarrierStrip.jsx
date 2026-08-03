@@ -2,7 +2,7 @@ const CARRIERS = [
   { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/f61175671_cigna_logo.png' },
   { name: 'First Health', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/608947826_FirstHealthlogo.jpeg' },
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png', maxH: 'max-h-[26px] md:max-h-[30px]' },
-  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/09db35733_bcbs_logo_transparent2x.png' },
+  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/09db35733_bcbs_logo_transparent2x.png', nudge: 10 },
   { name: 'Ambetter', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/e9efda220_ambetterlogo.jpeg' },
 ];
 
@@ -15,7 +15,7 @@ export default function CarrierStrip() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 md:gap-x-12">
           {CARRIERS.map((c) => (
-            <div key={c.name} className="h-11 md:h-12 w-[130px] md:w-[160px] flex items-center justify-center">
+            <div key={c.name} className="h-11 md:h-12 w-[130px] md:w-[160px] flex items-center justify-center" style={c.nudge ? { transform: `translateY(${c.nudge}px)` } : undefined}>
               <img
                 src={c.src}
                 alt={`${c.name} logo`}
