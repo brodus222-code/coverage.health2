@@ -28,7 +28,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
         <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#FF6B35]/[0.06] blur-3xl" />
         <div className="max-w-7xl mx-auto px-5 md:px-10 py-14 md:py-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-start">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-last lg:order-none">
             <span className="inline-flex items-center gap-2 bg-[#FFF2EC] text-[#E85A26] font-bold text-xs tracking-[0.08em] uppercase rounded-full px-4 py-1.5 mb-6">
               Free quote · No obligation · 13 states
             </span>
@@ -64,7 +64,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }} className="lg:sticky lg:top-24">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }} className="order-first lg:order-none lg:sticky lg:top-24">
             <QuoteForm />
           </motion.div>
         </div>

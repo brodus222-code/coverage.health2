@@ -7,7 +7,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
       <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#FF6B35]/[0.06] blur-3xl" />
       <div className="max-w-7xl mx-auto px-5 md:px-10 py-12 md:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-start">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="order-last lg:order-none">
           <span className="inline-flex items-center gap-2 bg-[#FFF2EC] text-[#E85A26] font-bold text-xs tracking-[0.08em] uppercase rounded-full px-4 py-1.5 mb-6">
             {eyebrow}
           </span>
@@ -33,7 +33,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="lg:sticky lg:top-24">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="order-first lg:order-none lg:sticky lg:top-24">
           <QuoteForm lockedState={lockedState} />
         </motion.div>
       </div>
