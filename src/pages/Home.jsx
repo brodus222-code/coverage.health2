@@ -9,7 +9,7 @@ import QuoteForm from '@/components/site/QuoteForm';
 import PlanCards from '@/components/site/PlanCards';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
-import PremiumEstimator from '@/components/site/PremiumEstimator';
+
 import LanderDirectory from '@/components/landing/LanderDirectory';
 
 const TICKS = [
@@ -81,13 +81,6 @@ export default function Home() {
             Self-employed, between jobs, early retiree, or just tired of overpaying — one call compares every category below against your ZIP code, doctors, and budget.
           </p>
           <PlanCards />
-        </div>
-      </section>
-
-      {/* Coverage estimator */}
-      <section className="pb-20 md:pb-28">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
-          <PremiumEstimator />
         </div>
       </section>
 
