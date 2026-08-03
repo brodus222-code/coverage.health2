@@ -4,7 +4,7 @@ import { Image } from '@/components/ui/image';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
-import CarrierStrip from '@/components/site/CarrierStrip';
+import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import QuoteForm from '@/components/site/QuoteForm';
 import PlanCards from '@/components/site/PlanCards';
 import HowItWorks from '@/components/site/HowItWorks';
@@ -39,6 +39,7 @@ export default function Home() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-2">
+            <CarrierMiniGrid />
             <p className="text-lg text-slate-600 max-w-[46ch] mb-8">
               Compare Under-65 private PPO, ACA marketplace, and supplemental plans side by side. Answer a few questions and a licensed agent shows you real prices for your ZIP code — in minutes, not days.
             </p>
@@ -68,8 +69,6 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-
-        <CarrierStrip />
       </section>
 
       {/* Plans */}
