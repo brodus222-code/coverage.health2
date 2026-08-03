@@ -4,6 +4,7 @@ const CARRIERS = [
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png', maxH: 'max-h-[26px] md:max-h-[30px]' },
   { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/2b2cb24fb_bcbs_logo_transparent.png', nudge: 10 },
   { name: 'Ambetter', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/d41da441d_ambetter_logo_transparent.png' },
+  { name: 'Kaiser Permanente', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/7ca7ef087_kaiser_permanente_transparent.png' },
 ];
 
 export default function CarrierStrip() {
