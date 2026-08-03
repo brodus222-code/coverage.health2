@@ -54,7 +54,7 @@ export default function ThankYou() {
         <div className="mt-12 bg-slate-900 rounded-2xl p-6 md:p-7 text-center">
           <p className="text-white font-display font-bold mb-1">You're in licensed hands</p>
           <p className="text-slate-300 text-sm">
-            Coverage.Health is operated by <b className="text-white">HealthLink Insurance Agency LLC</b>, a licensed insurance agency domiciled in Illinois and licensed in AZ, CA, FL, GA, IL, NE, NV, NJ, NC, OH, SC, TN &amp; TX. NPN: [AGENCY NPN].
+            Coverage.Health is operated by <b className="text-white">HealthLink Insurance Agency LLC</b>, a licensed insurance agency domiciled in Illinois and licensed in AZ, CA, FL, GA, IL, NE, NV, NJ, NC, OH, SC, TN &amp; TX. NPN: 21554495.
           </p>
         </div>
       </main>
