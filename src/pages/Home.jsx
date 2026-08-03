@@ -27,7 +27,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
         <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#FF6B35]/[0.06] blur-3xl" />
-        <div className="max-w-7xl mx-auto px-5 md:px-10 py-14 md:py-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-8 lg:gap-y-0 gap-x-12 lg:gap-x-16 items-start">
+        <div className="max-w-7xl mx-auto px-5 md:px-10 pt-14 md:pt-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-8 lg:gap-y-0 gap-x-12 lg:gap-x-16 items-start">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-1">
             <h1 className="font-display font-extrabold text-slate-900 text-4xl md:text-5xl lg:text-[64px] leading-[1.05] tracking-tight lg:mb-6">
               Health insurance that fits your budget, <em className="not-italic text-[#FF6B35]">explained by a human.</em>
@@ -68,9 +68,9 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-      </section>
 
-      <CarrierStrip />
+        <CarrierStrip />
+      </section>
 
       {/* Plans */}
       <section className="py-20 md:py-28">
