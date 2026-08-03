@@ -2,8 +2,7 @@ const CARRIERS = [
   { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/f61175671_cigna_logo.png' },
   { name: 'First Health', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/608947826_FirstHealthlogo.jpeg' },
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png' },
-  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/99411d2fb_bcbs_logo_transparent.png' },
-  { name: 'Blue Cross Blue Shield (wide)', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/09db35733_bcbs_logo_transparent2x.png' },
+  { name: 'Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/09db35733_bcbs_logo_transparent2x.png', nudge: 4 },
   { name: 'Ambetter', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/e9efda220_ambetterlogo.jpeg' },
 ];
 
@@ -21,7 +20,7 @@ export default function CarrierStrip() {
               src={c.src}
               alt={`${c.name} logo`}
               className="h-9 md:h-11 w-auto max-w-[140px] md:max-w-[180px] object-contain"
-              style={{ opacity: 0.9 }}
+              style={{ opacity: 0.9, transform: c.nudge ? `translateY(${c.nudge}px)` : undefined }}
             />
           ))}
         </div>
