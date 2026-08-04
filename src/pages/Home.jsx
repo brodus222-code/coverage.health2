@@ -48,10 +48,11 @@ export default function Home() {
                 focalPointY={0.4}
               />
             </div>
+            <div className="mt-6"><CarrierMiniGrid /></div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-2">
-            <CarrierMiniGrid />
+            <div className="lg:hidden"><CarrierMiniGrid /></div>
             <p className="text-lg text-slate-600 max-w-[46ch] mb-8">
               Compare Under-65 private PPO, ACA marketplace, and supplemental plans side by side. Answer a few questions and a licensed agent shows you real prices for your ZIP code — in minutes, not days.
             </p>
