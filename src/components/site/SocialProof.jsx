@@ -9,8 +9,8 @@ export default function SocialProof() {
         ))}
       </div>
       <div className="leading-tight">
-        <p className="font-display font-extrabold text-slate-900 text-[15px]">500,000+</p>
-        <p className="text-[12px] text-slate-500">individuals &amp; families assisted through our network</p>
+        <p className="font-display font-extrabold text-slate-900 text-[15px]">13 states</p>
+        <p className="text-[12px] text-slate-500">licensed agents ready to compare plans &amp; pricing for you</p>
       </div>
     </div>
   );

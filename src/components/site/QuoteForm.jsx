@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Lock, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ZIP_PREFIXES = {
@@ -111,7 +111,6 @@ export default function QuoteForm({ lockedState = null }) {
                   I need coverage in a different state
                 </button>
               )}
-              <p className="flex items-center justify-center gap-1.5 text-xs text-slate-500 mt-3"><Lock className="w-3 h-3" /> Your information is encrypted and never sold to spam lists.</p>
             </div>
           )}
           {step === 2 && (
