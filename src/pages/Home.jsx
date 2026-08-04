@@ -36,7 +36,8 @@ export default function Home() {
               Health insurance that fits your budget, <em className="not-italic text-[#EAB308]">explained by a human.</em>
             </h1>
             <div className="mt-6"><QuoteForm mode="hero" /></div>
-            <div className="mt-5"><SocialProof /></div>
+            <div className="mt-6"><CarrierMiniGrid /></div>
+            <div className="mt-5 lg:hidden"><SocialProof /></div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }} className="hidden lg:block lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 self-start">
@@ -48,11 +49,10 @@ export default function Home() {
                 focalPointY={0.4}
               />
             </div>
-            <div className="mt-6"><CarrierMiniGrid /></div>
+            <div className="mt-6"><SocialProof /></div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-2">
-            <div className="lg:hidden"><CarrierMiniGrid /></div>
             <p className="text-lg text-slate-600 max-w-[46ch] mb-8">
               Compare Under-65 private PPO, ACA marketplace, and supplemental plans side by side. Answer a few questions and a licensed agent shows you real prices for your ZIP code — in minutes, not days.
             </p>
