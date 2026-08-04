@@ -46,6 +46,9 @@
     "tcpa_timestamp": {
       "type": "string"
     },
+    "text_updates_opt_in": {
+      "type": "boolean"
+    },
     "utm_source": {
       "type": "string"
     },

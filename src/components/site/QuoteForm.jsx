@@ -17,7 +17,7 @@ function zipState(z) {
   return null;
 }
 
-const CONSENT_TEXT = 'By checking this box and clicking "See My Quotes," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its licensed agent partners to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
+const CONSENT_TEXT = 'By clicking "See My Quotes," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its licensed agent partners to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
 const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
@@ -34,7 +34,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [tcpa, setTcpa] = useState(false);
+  const [textUpdates, setTextUpdates] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const total = 5;
 
@@ -74,7 +74,6 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
     e.preventDefault();
     const digits = phone.replace(/\D/g, '');
     if (!/^1?[2-9]\d{9}$/.test(digits)) return setErr('Enter a valid 10-digit US phone number.');
-    if (!tcpa) return setErr('Please check the consent box to receive your quotes.');
     setErr('');
     setSubmitting(true);
     const qs = new URLSearchParams(window.location.search);
@@ -85,6 +84,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       email: email.trim(),
       phone: digits,
       tcpa_consent: true,
+      text_updates_opt_in: textUpdates,
       tcpa_consent_text: CONSENT_TEXT,
       tcpa_timestamp: new Date().toISOString(),
       utm_source: qs.get('utm_source') || '',
@@ -160,15 +160,16 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
                 <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" className={inputCls} /></div>
                 <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label><input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} /></div>
               </div>
-              <label className="flex gap-2.5 items-start mt-4 cursor-pointer text-[11.5px] leading-relaxed text-slate-500">
-                <input type="checkbox" checked={tcpa} onChange={(e) => setTcpa(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
-                <span>
-                  By checking this box and clicking "See My Quotes," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its <Link to="/disclosures#partners" target="_blank" className="underline text-slate-700">licensed agent partners</Link> to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
-                </span>
+              <label className="flex gap-2.5 items-start mt-4 cursor-pointer">
+                <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
+                <span className="text-[13px] font-semibold text-slate-800 leading-snug">Text me updates about my quote <span className="font-medium text-slate-500">(optional)</span></span>
               </label>
               <button type="submit" disabled={submitting} className={`${btnCls} mt-4`}>
                 {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>See My Quotes <ArrowRight className="w-4 h-4" /></>}
               </button>
+              <p className="text-[11.5px] leading-relaxed text-slate-500 mt-3">
+                By clicking "See My Quotes," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its <Link to="/disclosures#partners" target="_blank" className="underline text-slate-700">licensed agent partners</Link> to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
+              </p>
               <p className="text-center text-xs text-slate-500 mt-3">Reviewed by a licensed agent — not a robo-quote.</p>
             </form>
           )}
