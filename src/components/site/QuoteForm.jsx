@@ -110,9 +110,6 @@ export default function QuoteForm({ lockedState = null }) {
               <h4 className="font-display font-bold text-lg text-slate-900 mb-4">
                 {locked ? `Where in ${locked.name} do you live?` : 'Where do you live?'}
               </h4>
-              <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="zip">
-                {locked ? `${locked.name} ZIP code` : 'ZIP code'}
-              </label>
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter Your ZIP Code..." autoComplete="postal-code" className={inputCls} />
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>See My Options <ArrowRight className="w-4 h-4" /></button>
               {locked && (
