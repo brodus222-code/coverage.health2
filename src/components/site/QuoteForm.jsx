@@ -23,13 +23,13 @@ const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
 const btnCls = 'w-full inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-4 transition-all hover:shadow-lg hover:shadow-[#EAB308]/30 disabled:opacity-60';
 
-export default function QuoteForm({ lockedState = null }) {
+export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null }) {
   const navigate = useNavigate();
   const [locked, setLocked] = useState(lockedState);
-  const [step, setStep] = useState(1);
-  const [data, setData] = useState({});
+  const [step, setStep] = useState(mode === 'quote' ? 2 : 1);
+  const [data, setData] = useState(mode === 'quote' ? (initialData || {}) : {});
   const [err, setErr] = useState('');
-  const [zip, setZip] = useState('');
+  const [zip, setZip] = useState(mode === 'quote' ? (initialData?.zip || '') : '');
   const [age, setAge] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,6 +45,16 @@ export default function QuoteForm({ lockedState = null }) {
     if (!st) return setErr('Enter a valid 5-digit ZIP in a state we serve: FL, NC, NE, TN, IL, NJ, TX, GA, OH, SC, NV, AZ, CA.');
     if (locked && st !== locked.abbr) return setErr(`That ZIP is not in ${locked.name}. Double-check it — or if you need coverage in another state, use the link below.`);
     setData((d) => ({ ...d, zip: zip.trim(), state: st }));
+    if (mode === 'hero') {
+      const qs = new URLSearchParams(window.location.search);
+      const out = new URLSearchParams();
+      ['utm_source', 'utm_campaign', 'utm_medium', 'gclid', 'fbclid', 'msclkid'].forEach((k) => { const v = qs.get(k); if (v) out.set(k, v); });
+      out.set('zip', zip.trim());
+      out.set('state', st);
+      if (locked) { out.set('lock', locked.abbr); out.set('lname', locked.name); }
+      navigate(`/quote?${out.toString()}`);
+      return;
+    }
     go(2);
   };
 
@@ -92,7 +102,7 @@ export default function QuoteForm({ lockedState = null }) {
 
   return (
     <div className="relative" id="quote">
-      <p className="font-display font-bold text-lg text-slate-900 leading-snug">Enter your ZIP code to view plans, pricing, and enrollment options available in your area.</p>
+      <p className="font-display font-bold text-lg text-slate-900 leading-snug">{mode === 'quote' ? `Almost there — a few quick questions and a licensed agent will prepare your quotes for ZIP ${initialData?.zip || ''}.` : 'Enter your ZIP code to view plans, pricing, and enrollment options available in your area.'}</p>
       <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
         <div
           className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
@@ -107,9 +117,9 @@ export default function QuoteForm({ lockedState = null }) {
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter Your ZIP Code..." autoComplete="postal-code" className={inputCls} />
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>See My Options <ArrowRight className="w-4 h-4" /></button>
               {locked && (
-                <button type="button" onClick={() => { setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
+                <a href={`/quote?lock=${locked.abbr}&lname=${encodeURIComponent(locked.name)}`} onClick={(e) => { e.preventDefault(); setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
                   I need coverage in a different state
-                </button>
+                </a>
               )}
             </div>
           )}
@@ -166,7 +176,7 @@ export default function QuoteForm({ lockedState = null }) {
       </AnimatePresence>
 
       {err && <p className="text-red-600 text-[13px] mt-3">{err}</p>}
-      {step > 1 && (
+      {step > (mode === 'quote' ? 2 : 1) && (
         <button type="button" onClick={() => go(step - 1)} className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-slate-900 mt-4 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back
         </button>

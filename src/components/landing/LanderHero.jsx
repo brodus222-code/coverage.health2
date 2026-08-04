@@ -18,7 +18,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24">
-          <QuoteForm lockedState={lockedState} />
+          <QuoteForm mode="hero" lockedState={lockedState} />
           <div className="mt-5"><SocialProof /></div>
         </motion.div>
 

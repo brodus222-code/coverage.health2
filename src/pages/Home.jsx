@@ -38,7 +38,7 @@ export default function Home() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }} className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24">
-            <QuoteForm />
+            <QuoteForm mode="hero" />
             <div className="mt-5"><SocialProof /></div>
           </motion.div>
 

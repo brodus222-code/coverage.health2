@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import ThankYou from './pages/ThankYou';
+import Quote from './pages/Quote';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclosures from './pages/Disclosures';
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/leads-dashboard" element={<LeadsDashboard />} />
       </Route>
+      <Route path="/quote" element={<Quote />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
