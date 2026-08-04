@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { Check, Star } from 'lucide-react';
 import QuoteForm from '@/components/site/QuoteForm';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
+import YearBadge from '@/components/site/YearBadge';
+import SocialProof from '@/components/site/SocialProof';
 
 export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null }) {
   return (
@@ -9,6 +11,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
       <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#FF6B35]/[0.06] blur-3xl" />
       <div className="max-w-7xl mx-auto px-5 md:px-10 py-12 md:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-8 lg:gap-y-0 gap-x-12 lg:gap-x-16 items-start">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="lg:col-start-1 lg:row-start-1">
+          <div className="mb-4"><YearBadge /></div>
           <h1 className="font-display font-extrabold text-slate-900 text-4xl md:text-5xl lg:text-[56px] leading-[1.06] tracking-tight lg:mb-6">
             {headline}
           </h1>
@@ -16,6 +19,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24">
           <QuoteForm lockedState={lockedState} />
+          <div className="mt-5"><SocialProof /></div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="lg:col-start-1 lg:row-start-2">

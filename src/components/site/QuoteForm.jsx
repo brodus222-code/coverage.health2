@@ -19,9 +19,9 @@ function zipState(z) {
 
 const CONSENT_TEXT = 'By checking this box and clicking "See My Quotes," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its licensed agent partners to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
-const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#FF6B35] focus:ring-4 focus:ring-[#FF6B35]/20 transition-shadow';
-const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#FF6B35] bg-[#FFF2EC] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#FF6B35]'}`;
-const btnCls = 'w-full inline-flex items-center justify-center gap-2 bg-[#FF6B35] hover:bg-[#E85A26] text-white font-bold text-[17px] rounded-xl px-5 py-4 transition-all hover:shadow-lg hover:shadow-[#FF6B35]/30 disabled:opacity-60';
+const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
+const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
+const btnCls = 'w-full inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-4 transition-all hover:shadow-lg hover:shadow-[#EAB308]/30 disabled:opacity-60';
 
 export default function QuoteForm({ lockedState = null }) {
   const navigate = useNavigate();
@@ -94,8 +94,8 @@ export default function QuoteForm({ lockedState = null }) {
     <div className="glass-card rounded-2xl p-6 md:p-7 relative overflow-hidden" id="quote">
       <div className="flex justify-between items-baseline">
         <h3 className="font-display font-bold text-xl text-slate-900">See your plan options</h3>
-        <span className="text-xs font-bold tracking-wider text-[#FF6B35]">{step} OF {total}</span>
-      </div>
+        <span className="text-xs font-bold tracking-wider text-[#EAB308]">{step} OF {total}</span>
+        </div>
       <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
         <div
           className="h-full rounded-full bg-gradient-to-r from-[#FF9A6B] to-[#FF6B35] shadow-[0_0_10px_#FF6B35] transition-all duration-500"
@@ -113,8 +113,8 @@ export default function QuoteForm({ lockedState = null }) {
               <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="zip">
                 {locked ? `${locked.name} ZIP code` : 'ZIP code'}
               </label>
-              <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="e.g. 32922" autoComplete="postal-code" className={inputCls} />
-              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>Get started <ArrowRight className="w-4 h-4" /></button>
+              <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter Your ZIP Code..." autoComplete="postal-code" className={inputCls} />
+              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>See My Options <ArrowRight className="w-4 h-4" /></button>
               {locked && (
                 <button type="button" onClick={() => { setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
                   I need coverage in a different state
