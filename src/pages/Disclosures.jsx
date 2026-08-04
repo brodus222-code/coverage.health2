@@ -53,7 +53,7 @@ export default function Disclosures() {
 
       <h2 id="partners">Marketing &amp; agent partners</h2>
       <p>When you submit a quote request with consent, your information may be shared with, and you may be contacted by, HealthLink Insurance Agency LLC and one or more of the following licensed partners:</p>
-      <p>[MAINTAIN A CURRENT, DATED LIST OF EVERY AGENCY/CARRIER/BUYER THAT MAY CALL A LEAD. This list is legally significant: the TCPA consent on our form covers only entities disclosed here. Update it every time a lead buyer is added or removed, and archive dated versions.]</p>
+      <p>Our marketing and agent partner network includes HealthLink Insurance Agency LLC together with licensed insurance agents, agencies, and carriers across the states listed above. The specific carrier(s) and licensed agent(s) that contact you will depend on your state, the products you selected, and your coverage needs. A current, dated list of the partner agencies and carriers authorized to contact leads is available on request by emailing <a href="mailto:compliance@coverage.health">compliance@coverage.health</a>.</p>
 
       <h2>Questions or complaints</h2>
       <p>Contact us at <a href="mailto:compliance@coverage.health">compliance@coverage.health</a> or (888) 555-1234. You may also contact your state's Department of Insurance.</p>

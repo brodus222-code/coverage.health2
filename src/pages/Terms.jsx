@@ -5,8 +5,7 @@ export default function Terms() {
   return (
     <LegalShell
       title="Terms of Use"
-      meta="Effective date: [DATE]"
-      notice="Template for counsel review. Confirm arbitration clause enforceability and state-specific insurance advertising requirements before launch."
+      meta="Effective date: 8/4/2026"
     >
       <h2>1. Agreement</h2>
       <p>These Terms govern your use of Coverage.Health, operated by HealthLink Insurance Agency LLC ("we"). By using the site or submitting a quote request, you agree to these Terms and our <Link to="/privacy">Privacy Policy</Link>.</p>
@@ -27,13 +26,13 @@ export default function Terms() {
       <p>The site is provided "as is" without warranties of any kind. To the maximum extent permitted by law, our total liability arising from your use of the site will not exceed $100. Nothing in these Terms limits rights you have under applicable insurance law.</p>
 
       <h2>7. Dispute resolution</h2>
-      <p>Any dispute arising from these Terms or your use of the site will be resolved by binding individual arbitration in [county], Illinois under the rules of the American Arbitration Association, and you waive participation in class actions, except where prohibited by law. Illinois law governs, without regard to conflict-of-law rules.</p>
+      <p>Any dispute arising from these Terms or your use of the site will be resolved by binding individual arbitration in Illinois under the rules of the American Arbitration Association, and you waive participation in class actions, except where prohibited by law. Illinois law governs, without regard to conflict-of-law rules.</p>
 
       <h2>8. Changes</h2>
       <p>We may update these Terms by posting a revised version with a new effective date. Continued use after changes constitutes acceptance.</p>
 
       <h2>9. Contact</h2>
-      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health · [Registered address] · <a href="mailto:help@coverage.health">help@coverage.health</a></p>
+      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health · <a href="mailto:help@coverage.health">help@coverage.health</a></p>
     </LegalShell>
   );
 }

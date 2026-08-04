@@ -5,8 +5,7 @@ export default function Privacy() {
   return (
     <LegalShell
       title="Privacy Policy"
-      meta="Effective date: [DATE] · HealthLink Insurance Agency LLC d/b/a Coverage.Health"
-      notice='This is a working template. Have licensed privacy counsel review before launch, particularly the state-privacy-rights section (CA/TX/NJ/etc.) and the "sale/sharing" characterization of your lead flow.'
+      meta="Effective date: 8/4/2026 · HealthLink Insurance Agency LLC d/b/a Coverage.Health"
     >
       <h2>1. Who we are</h2>
       <p>Coverage.Health is operated by HealthLink Insurance Agency LLC, a licensed insurance agency organized in Illinois ("we," "us"). This policy explains what information we collect on this website, how we use it, and the choices you have.</p>
@@ -39,7 +38,7 @@ export default function Privacy() {
       <p>This site is not directed to individuals under 18, and we do not knowingly collect their information.</p>
 
       <h2>10. Contact</h2>
-      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health<br />[Registered address, Illinois]<br /><a href="mailto:privacy@coverage.health">privacy@coverage.health</a> · (888) 555-1234</p>
+      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health<br /><a href="mailto:privacy@coverage.health">privacy@coverage.health</a> · (888) 555-1234</p>
     </LegalShell>
   );
 }
