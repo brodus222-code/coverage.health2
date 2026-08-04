@@ -55,12 +55,12 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <div className="mt-10 hidden lg:block rounded-2xl overflow-hidden max-w-md">
+            <div className="mt-10 hidden lg:block rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(15,23,42,0.25)] ring-1 ring-slate-200/60 max-w-xl">
               <Image
-                src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/a658b65a5_generated_4c262240.png"
-                alt="A father laughing with his daughter in a sun-drenched living room — protected and at ease"
-                className="w-full h-64"
-                focalPointY={0.3}
+                src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/9a19a46ca_generated_image.png"
+                alt="A smiling family of four walking together along a garden path — protected and at ease"
+                className="w-full h-80"
+                focalPointY={0.4}
               />
             </div>
           </motion.div>
