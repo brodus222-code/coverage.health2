@@ -9,7 +9,7 @@ export default function CtaBand() {
         <p className="text-slate-300 mb-6">Licensed agents answer in under 30 seconds. Mon–Fri 8am–8pm ET.</p>
         <a
           href="tel:+18885551234"
-          className="inline-flex items-center gap-2.5 bg-[#FF6B35] hover:bg-[#E85A26] text-white font-bold text-lg rounded-xl px-7 py-4 w-fit transition-all hover:shadow-lg hover:shadow-[#FF6B35]/40"
+          className="inline-flex items-center gap-2.5 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-lg rounded-xl px-7 py-4 w-fit transition-all hover:shadow-lg hover:shadow-[#EAB308]/40"
         >
           <Phone className="w-5 h-5" /> <span className="dni-number">Call (888) 555-1234</span>
         </a>

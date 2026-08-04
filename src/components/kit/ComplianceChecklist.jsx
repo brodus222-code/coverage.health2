@@ -22,7 +22,7 @@ export default function ComplianceChecklist() {
       <div className="grid md:grid-cols-2 gap-3">
         {ITEMS.map(([title, body]) => (
           <div key={title} className="flex gap-3 border border-slate-200 rounded-xl p-4 bg-slate-50/50">
-            <ShieldAlert className="w-5 h-5 text-[#FF6B35] shrink-0 mt-0.5" />
+            <ShieldAlert className="w-5 h-5 text-[#EAB308] shrink-0 mt-0.5" />
             <div>
               <p className="font-bold text-slate-900 text-sm mb-0.5">{title}</p>
               <p className="text-[13.5px]">{body}</p>

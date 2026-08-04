@@ -98,7 +98,7 @@ export default function QuoteForm({ lockedState = null }) {
         </div>
       <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-[#FF9A6B] to-[#FF6B35] shadow-[0_0_10px_#FF6B35] transition-all duration-500"
+          className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
           style={{ width: `${(step / total) * 100}%` }}
         />
       </div>
@@ -158,7 +158,7 @@ export default function QuoteForm({ lockedState = null }) {
                 <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label><input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} /></div>
               </div>
               <label className="flex gap-2.5 items-start mt-4 cursor-pointer text-[11.5px] leading-relaxed text-slate-500">
-                <input type="checkbox" checked={tcpa} onChange={(e) => setTcpa(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#FF6B35]" />
+                <input type="checkbox" checked={tcpa} onChange={(e) => setTcpa(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
                 <span>
                   By checking this box and clicking "See My Quotes," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its <Link to="/disclosures#partners" target="_blank" className="underline text-slate-700">licensed agent partners</Link> to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
                 </span>

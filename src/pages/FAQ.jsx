@@ -27,9 +27,9 @@ export default function FAQ() {
 
       <section className="bg-gradient-to-b from-white to-[#F8FAFC]">
         <div className="max-w-3xl mx-auto px-5 py-16 md:py-20 text-center">
-          <span className="inline-block bg-[#FFF2EC] text-[#E85A26] font-bold text-xs tracking-[0.08em] uppercase rounded-full px-4 py-1.5 mb-6">FAQ</span>
+          <span className="inline-block bg-[#FFF8E6] text-[#CA8A04] font-bold text-xs tracking-[0.08em] uppercase rounded-full px-4 py-1.5 mb-6">FAQ</span>
           <h1 className="font-display font-extrabold text-slate-900 text-4xl md:text-5xl tracking-tight mb-4">Frequently asked questions</h1>
-          <p className="text-lg text-slate-600">Straight answers about coverage, quotes, and how we work. Can't find yours? <a href="tel:+18885551234" className="text-[#E85A26] font-semibold underline">Call us</a> — asking questions is free too.</p>
+          <p className="text-lg text-slate-600">Straight answers about coverage, quotes, and how we work. Can't find yours? <a href="tel:+18885551234" className="text-[#CA8A04] font-semibold underline">Call us</a> — asking questions is free too.</p>
         </div>
       </section>
 
@@ -38,7 +38,7 @@ export default function FAQ() {
           <Accordion type="single" collapsible className="w-full">
             {FAQS.map(({ q, a }, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-slate-200/80">
-                <AccordionTrigger className="text-left font-display font-bold text-slate-900 text-[16px] hover:no-underline hover:text-[#E85A26]">{q}</AccordionTrigger>
+                <AccordionTrigger className="text-left font-display font-bold text-slate-900 text-[16px] hover:no-underline hover:text-[#CA8A04]">{q}</AccordionTrigger>
                 <AccordionContent className="text-slate-600 text-[15px] leading-relaxed">{a}</AccordionContent>
               </AccordionItem>
             ))}
@@ -51,7 +51,7 @@ export default function FAQ() {
             <p className="text-slate-300 text-sm">Licensed agents answer in under 30 seconds, Mon–Fri 8am–8pm ET.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <a href="tel:+18885551234" className="inline-flex items-center gap-2 bg-[#FF6B35] hover:bg-[#E85A26] text-white font-bold rounded-xl px-6 py-3.5 transition-colors">
+            <a href="tel:+18885551234" className="inline-flex items-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold rounded-xl px-6 py-3.5 transition-colors">
               <Phone className="w-4 h-4" /> <span className="dni-number">(888) 555-1234</span>
             </a>
             <Link to="/" className="inline-flex items-center bg-white text-slate-900 font-bold rounded-xl px-6 py-3.5 hover:bg-slate-100 transition-colors">Get my quote</Link>

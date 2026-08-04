@@ -8,7 +8,7 @@ export default function LegalShell({ title, meta, notice, children }) {
     <div className="min-h-screen bg-[#F8FAFC]">
       <TopBar />
       <main className="max-w-3xl mx-auto px-5 py-14 md:py-20">
-        <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E85A26] hover:text-[#FF6B35] mb-8">
+        <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#CA8A04] hover:text-[#EAB308] mb-8">
           <ArrowLeft className="w-4 h-4" /> Back to Coverage.Health
         </Link>
         <h1 className="font-display font-extrabold text-3xl md:text-4xl text-slate-900 tracking-tight mb-2">{title}</h1>
@@ -18,7 +18,7 @@ export default function LegalShell({ title, meta, notice, children }) {
             <b>Internal note — remove before publishing:</b> {notice}
           </div>
         )}
-        <div className="space-y-4 text-slate-600 text-[15.5px] leading-relaxed [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-xl [&_h2]:text-slate-900 [&_h2]:mt-8 [&_h2]:mb-1 [&_a]:text-[#E85A26] [&_a]:underline [&_b]:text-slate-900">
+        <div className="space-y-4 text-slate-600 text-[15.5px] leading-relaxed [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-xl [&_h2]:text-slate-900 [&_h2]:mt-8 [&_h2]:mb-1 [&_a]:text-[#CA8A04] [&_a]:underline [&_b]:text-slate-900">
           {children}
         </div>
       </main>

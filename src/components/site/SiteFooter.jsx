@@ -7,7 +7,7 @@ export default function SiteFooter() {
         <div className="flex flex-wrap justify-between gap-10 mb-10">
           <div>
             <Link to="/" className="font-display font-extrabold text-xl text-white">
-              Coverage<span className="text-[#FF6B35]">.</span>Health
+              Coverage<span className="text-[#EAB308]">.</span>Health
             </Link>
             <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />Licensed insurance agency · Illinois · NPN 21554495</p>
           </div>

@@ -18,7 +18,7 @@ export default function LeadsStats({ leads }) {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       {stats.map(({ icon: Icon, label, value }) => (
         <div key={label} className="bg-white border border-slate-200 rounded-2xl p-5 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-[#FFF2EC] text-[#FF6B35] grid place-items-center shrink-0">
+          <div className="w-11 h-11 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center shrink-0">
             <Icon className="w-5 h-5" />
           </div>
           <div>

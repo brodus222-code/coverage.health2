@@ -29,7 +29,7 @@ export default function PlanCards() {
     <div className="grid md:grid-cols-3 gap-5 lg:gap-8">
       {PLANS.map(({ icon: Icon, title, body, pills, fit }) => (
         <div key={title} className="bg-white border border-slate-200 rounded-2xl p-7 lg:p-8 transition-all hover:shadow-xl hover:shadow-slate-900/5 hover:-translate-y-1">
-          <div className="w-12 h-12 rounded-xl bg-[#FFF2EC] text-[#FF6B35] grid place-items-center mb-5">
+          <div className="w-12 h-12 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center mb-5">
             <Icon className="w-6 h-6" />
           </div>
           <h3 className="font-display font-bold text-lg text-slate-900 mb-2.5">{title}</h3>
@@ -39,7 +39,7 @@ export default function PlanCards() {
               <span key={p} className="text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 rounded-full px-3 py-1">{p}</span>
             ))}
           </div>
-          <p className="text-[13px] font-semibold text-[#E85A26]">{fit}</p>
+          <p className="text-[13px] font-semibold text-[#CA8A04]">{fit}</p>
         </div>
       ))}
     </div>

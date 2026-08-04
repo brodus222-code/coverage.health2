@@ -46,12 +46,12 @@ export default function LaunchPlan() {
         <div key={p.name} className="border border-slate-200 rounded-xl p-5 bg-slate-50/50">
           <div className="flex items-center gap-2.5 mb-3">
             <h3 className="!mb-0">{p.name}</h3>
-            {p.badge && <span className="text-[11px] font-bold uppercase tracking-wider bg-[#FF6B35] text-white rounded-full px-2.5 py-0.5">{p.badge}</span>}
+            {p.badge && <span className="text-[11px] font-bold uppercase tracking-wider bg-[#EAB308] text-white rounded-full px-2.5 py-0.5">{p.badge}</span>}
           </div>
           <ul className="space-y-2">
             {p.items.map((it) => (
               <li key={it} className="flex gap-2.5 items-start text-[14.5px]">
-                <CheckSquare className="w-4 h-4 text-[#FF6B35] mt-0.5 shrink-0" />
+                <CheckSquare className="w-4 h-4 text-[#EAB308] mt-0.5 shrink-0" />
                 {it}
               </li>
             ))}
