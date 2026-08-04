@@ -43,10 +43,10 @@ export default function ThankYou() {
         <div className="text-center">
           <p className="font-semibold text-slate-900 mb-3">Want your quotes right now? Skip the wait:</p>
           <a
-            href="tel:+18885551234"
+            href="tel:+18553955001"
             className="inline-flex items-center gap-2.5 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-lg rounded-xl px-8 py-4 transition-all hover:shadow-lg hover:shadow-[#EAB308]/40"
           >
-            <Phone className="w-5 h-5" /> <span className="dni-number">Call (888) 555-1234</span>
+            <Phone className="w-5 h-5" /> <span className="dni-number">Call (855) 395-5001</span>
           </a>
           <p className="text-xs text-slate-500 mt-4">Agents available Mon–Fri 8am–8pm ET.</p>
         </div>

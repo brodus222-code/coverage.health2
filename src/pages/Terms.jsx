@@ -32,7 +32,7 @@ export default function Terms() {
       <p>We may update these Terms by posting a revised version with a new effective date. Continued use after changes constitutes acceptance.</p>
 
       <h2>9. Contact</h2>
-      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health · <a href="mailto:help@coverage.health">help@coverage.health</a></p>
+      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health · 2501 Chatham Rd, Suite R, Springfield, IL 62704 · (855) 395-5001 · <a href="mailto:help@coverage.health">help@coverage.health</a></p>
     </LegalShell>
   );
 }

@@ -10,10 +10,10 @@ export default function MobileCallBar() {
         </span>
         <span className="leading-tight min-w-0">
           <span className="block text-[10px] text-slate-300">Licensed Advisor Available</span>
-          <span className="dni-number block text-white font-bold text-sm">(888) 555-1234</span>
+          <span className="dni-number block text-white font-bold text-sm">(855) 395-5001</span>
         </span>
       </div>
-      <a href="tel:+18885551234" className="bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
+      <a href="tel:+18553955001" className="bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
         Call Now
       </a>
     </div>

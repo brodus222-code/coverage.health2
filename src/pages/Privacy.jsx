@@ -38,7 +38,7 @@ export default function Privacy() {
       <p>This site is not directed to individuals under 18, and we do not knowingly collect their information.</p>
 
       <h2>10. Contact</h2>
-      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health<br /><a href="mailto:privacy@coverage.health">privacy@coverage.health</a> · (888) 555-1234</p>
+      <p>HealthLink Insurance Agency LLC d/b/a Coverage.Health<br />2501 Chatham Rd, Suite R · Springfield, IL 62704<br /><a href="mailto:privacy@coverage.health">privacy@coverage.health</a> · (855) 395-5001</p>
     </LegalShell>
   );
 }

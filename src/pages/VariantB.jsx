@@ -19,11 +19,11 @@ export default function VariantB() {
           <Link to="/b" className="font-heading font-extrabold text-[19px] text-[#132A47]">
             Coverage<b className="text-[#FF6B57]">.</b>Health
           </Link>
-          <a href="tel:+18885551234" className="text-right font-bold text-[#132A47] text-[15px] leading-tight">
+          <a href="tel:+18553955001" className="text-right font-bold text-[#132A47] text-[15px] leading-tight">
             <small className="hidden sm:flex items-center justify-end gap-1.5 font-medium text-[#4A6076] text-[11.5px]">
               Licensed agents online <span className="w-2 h-2 rounded-full bg-[#22B573] inline-block" />
             </small>
-            <span className="dni-number">(888) 555-1234</span>
+            <span className="dni-number">(855) 395-5001</span>
           </a>
         </div>
       </header>
@@ -60,8 +60,8 @@ export default function VariantB() {
           {/* Skip-to-call band (desktop) */}
           <div className="hidden md:flex mt-7 bg-[#132A47] rounded-[14px] px-5 py-4 items-center justify-between gap-4 flex-wrap">
             <p className="text-[#B9CBE0] text-sm"><b className="text-white">Rather just talk it through?</b> Licensed agents answer in under 30 seconds, Mon–Fri 8am–8pm ET.</p>
-            <a href="tel:+18885551234" className="bg-white text-[#132A47] font-heading font-extrabold rounded-[10px] px-5 py-3 text-base whitespace-nowrap inline-flex items-center gap-2">
-              <Phone className="w-4 h-4" /> <span className="dni-number">(888) 555-1234</span>
+            <a href="tel:+18553955001" className="bg-white text-[#132A47] font-heading font-extrabold rounded-[10px] px-5 py-3 text-base whitespace-nowrap inline-flex items-center gap-2">
+              <Phone className="w-4 h-4" /> <span className="dni-number">(855) 395-5001</span>
             </a>
           </div>
         </div>
@@ -79,10 +79,10 @@ export default function VariantB() {
 
       {/* Sticky mobile call bar */}
       <a
-        href="tel:+18885551234"
+        href="tel:+18553955001"
         className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#FF6B57] text-white font-heading font-extrabold text-[16.5px] text-center py-3.5 flex items-center justify-center gap-2"
       >
-        <Phone className="w-4 h-4" /> Skip the form — call <span className="dni-number">(888) 555-1234</span>
+        <Phone className="w-4 h-4" /> Skip the form — call <span className="dni-number">(855) 395-5001</span>
       </a>
     </div>
   );

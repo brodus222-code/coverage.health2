@@ -9,7 +9,7 @@ const CHANNELS = [
     icon: Phone,
     title: 'Talk to a licensed agent',
     body: 'Fastest way to get quotes, ask plan questions, or make changes to a pending application.',
-    action: <a href="tel:+18885551234" className="dni-number font-display font-extrabold text-xl text-[#CA8A04] hover:underline">(888) 555-1234</a>,
+    action: <a href="tel:+18553955001" className="dni-number font-display font-extrabold text-xl text-[#CA8A04] hover:underline">(855) 395-5001</a>,
     note: 'Mon–Fri 8am–8pm ET',
   },
   {
@@ -65,8 +65,8 @@ export default function Contact() {
             <p className="text-slate-600 leading-relaxed">
               HealthLink Insurance Agency LLC<br />
               d/b/a Coverage.Health<br />
-              [Street Address, Suite #]<br />
-              Chicago, Illinois [ZIP]
+              2501 Chatham Rd, Suite R<br />
+              Springfield, IL 62704
             </p>
             <p className="text-xs text-slate-500 mt-4">Licensed insurance agency domiciled in Illinois · NPN: 21554495. Written correspondence only — sales and service are handled by phone and email.</p>
           </div>

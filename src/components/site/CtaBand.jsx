@@ -8,10 +8,10 @@ export default function CtaBand() {
         <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white mb-3">Prefer to talk it through?</h2>
         <p className="text-slate-300 mb-6">Licensed agents answer in under 30 seconds. Mon–Fri 8am–8pm ET.</p>
         <a
-          href="tel:+18885551234"
+          href="tel:+18553955001"
           className="inline-flex items-center gap-2.5 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-lg rounded-xl px-7 py-4 w-fit transition-all hover:shadow-lg hover:shadow-[#EAB308]/40"
         >
-          <Phone className="w-5 h-5" /> <span className="dni-number">Call (888) 555-1234</span>
+          <Phone className="w-5 h-5" /> <span className="dni-number">Call (855) 395-5001</span>
         </a>
       </div>
       <div className="hidden md:block w-[340px] lg:w-[420px]">

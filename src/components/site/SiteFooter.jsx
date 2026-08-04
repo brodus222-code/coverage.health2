@@ -9,7 +9,7 @@ export default function SiteFooter() {
             <Link to="/" className="font-display font-extrabold text-xl text-white">
               Coverage<span className="text-[#EAB308]">.</span>Health
             </Link>
-            <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />Licensed insurance agency · Illinois · NPN 21554495</p>
+            <p className="mt-2">A service of HealthLink Insurance Agency LLC<br />2501 Chatham Rd, Suite R · Springfield, IL 62704<br />Licensed insurance agency · Illinois · NPN 21554495</p>
           </div>
           <div className="space-y-1.5">
             <b className="text-white block mb-2">Company</b>
@@ -26,7 +26,7 @@ export default function SiteFooter() {
           </div>
           <div className="space-y-1.5">
             <b className="text-white block mb-2">Contact</b>
-            <a href="tel:+18885551234" className="dni-number block hover:text-white transition-colors">(888) 555-1234</a>
+            <a href="tel:+18553955001" className="dni-number block hover:text-white transition-colors">(855) 395-5001</a>
             <a href="mailto:help@coverage.health" className="block hover:text-white transition-colors">help@coverage.health</a>
           </div>
         </div>

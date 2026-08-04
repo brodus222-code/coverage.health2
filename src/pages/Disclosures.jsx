@@ -56,7 +56,8 @@ export default function Disclosures() {
       <p>Our marketing and agent partner network includes HealthLink Insurance Agency LLC together with licensed insurance agents, agencies, and carriers across the states listed above. The specific carrier(s) and licensed agent(s) that contact you will depend on your state, the products you selected, and your coverage needs. A current, dated list of the partner agencies and carriers authorized to contact leads is available on request by emailing <a href="mailto:compliance@coverage.health">compliance@coverage.health</a>.</p>
 
       <h2>Questions or complaints</h2>
-      <p>Contact us at <a href="mailto:compliance@coverage.health">compliance@coverage.health</a> or (888) 555-1234. You may also contact your state's Department of Insurance.</p>
+      <p>HealthLink Insurance Agency LLC · 2501 Chatham Rd, Suite R · Springfield, IL 62704</p>
+      <p>Contact us at <a href="mailto:compliance@coverage.health">compliance@coverage.health</a> or (855) 395-5001. You may also contact your state's Department of Insurance.</p>
     </LegalShell>
   );
 }
