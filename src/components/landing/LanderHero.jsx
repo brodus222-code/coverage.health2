@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check, Star } from 'lucide-react';
+import { Check } from 'lucide-react';
 import QuoteForm from '@/components/site/QuoteForm';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import YearBadge from '@/components/site/YearBadge';
@@ -33,14 +33,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
               </li>
             ))}
           </ul>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
-            <span className="flex gap-0.5 text-amber-400" aria-hidden="true">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-            </span>
-            <span><b className="text-slate-900">4.8/5</b> from verified customers</span>
-            <span>·</span>
-            <span>Licensed agency · NPN on request</span>
-          </div>
+
         </motion.div>
       </div>
     </section>
