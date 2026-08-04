@@ -23,7 +23,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="lg:col-start-1 lg:row-start-2">
-          <CarrierMiniGrid />
+          <CarrierMiniGrid stateAbbr={lockedState?.abbr} />
           <p className="text-lg text-slate-600 max-w-[52ch] mb-8">{intro}</p>
           <ul className="space-y-3 mb-8">
             {bullets.map((b) => (
