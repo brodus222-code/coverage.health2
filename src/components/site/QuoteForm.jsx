@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MatchingAnimation from '@/components/site/MatchingAnimation';
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -97,6 +98,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       user_agent: navigator.userAgent,
     });
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
+    await new Promise((r) => setTimeout(r, 1500));
     navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}`);
   };
 
@@ -153,6 +155,9 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
             </div>
           )}
           {step === 5 && (
+            submitting ? (
+              <MatchingAnimation state={data.state} />
+            ) : (
             <form onSubmit={submit}>
               <h4 className="font-display font-bold text-lg text-slate-900 mb-4">Where should we send your quotes?</h4>
               <div className="space-y-3.5">
@@ -172,6 +177,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
               </p>
               <p className="text-center text-xs text-slate-500 mt-3">Reviewed by a licensed agent — not a robo-quote.</p>
             </form>
+            )
           )}
         </motion.div>
       </AnimatePresence>
