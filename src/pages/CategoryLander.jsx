@@ -2,7 +2,6 @@ import { useParams, Navigate } from 'react-router-dom';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
-import CarrierStrip from '@/components/site/CarrierStrip';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 import LanderHero from '@/components/landing/LanderHero';
@@ -26,8 +25,6 @@ export default function CategoryLander() {
         intro={cat.intro}
         bullets={cat.benefits.map(([title]) => title)}
       />
-      <CarrierStrip />
-
       {cat.notComprehensive && (
         <LanderNotice>
           <b>Important:</b> Short-term medical, fixed indemnity, and limited benefit plans are <b>not comprehensive major medical insurance</b> and do not satisfy all requirements of the Affordable Care Act. They may exclude pre-existing conditions and are not available in every state. If you need guaranteed coverage of a pre-existing condition, a licensed agent will direct you to an ACA-compliant plan instead. Read all plan documents carefully before enrolling.
