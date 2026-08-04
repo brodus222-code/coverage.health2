@@ -92,10 +92,7 @@ export default function QuoteForm({ lockedState = null }) {
 
   return (
     <div className="glass-card rounded-2xl p-6 md:p-7 relative overflow-hidden" id="quote">
-      <div className="flex justify-between items-baseline">
-        <h3 className="font-display font-bold text-xl text-slate-900">See your plan options</h3>
-        <span className="text-xs font-bold tracking-wider text-[#EAB308]">{step} OF {total}</span>
-        </div>
+      <p className="font-display font-bold text-lg text-slate-900 leading-snug">Enter your ZIP code to view plans, pricing, and enrollment options available in your area.</p>
       <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
         <div
           className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
@@ -107,9 +104,6 @@ export default function QuoteForm({ lockedState = null }) {
         <motion.div key={step} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
           {step === 1 && (
             <div>
-              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">
-                {locked ? `Where in ${locked.name} do you live?` : 'Where do you live?'}
-              </h4>
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter Your ZIP Code..." autoComplete="postal-code" className={inputCls} />
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>See My Options <ArrowRight className="w-4 h-4" /></button>
               {locked && (
