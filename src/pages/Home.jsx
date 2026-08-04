@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check, Star } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Image } from '@/components/ui/image';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
@@ -55,14 +55,6 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
-              <span className="flex gap-0.5 text-amber-400" aria-hidden="true">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-              </span>
-              <span><b className="text-slate-900">4.8/5</b> from verified customers</span>
-              <span>·</span>
-              <span>Licensed agency · NPN on request</span>
-            </div>
             <div className="mt-10 hidden lg:block rounded-2xl overflow-hidden max-w-md">
               <Image
                 src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/a658b65a5_generated_4c262240.png"
