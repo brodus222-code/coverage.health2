@@ -91,7 +91,7 @@ export default function QuoteForm({ lockedState = null }) {
   };
 
   return (
-    <div className="glass-card rounded-2xl p-6 md:p-7 relative overflow-hidden" id="quote">
+    <div className="relative" id="quote">
       <p className="font-display font-bold text-lg text-slate-900 leading-snug">Enter your ZIP code to view plans, pricing, and enrollment options available in your area.</p>
       <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
         <div
