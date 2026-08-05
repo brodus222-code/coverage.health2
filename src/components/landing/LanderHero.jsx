@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Check } from 'lucide-react';
 import QuoteForm from '@/components/site/QuoteForm';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import YearBadge from '@/components/site/YearBadge';
@@ -17,7 +16,7 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
             {headline}
           </h1>
           <div className="mt-6"><QuoteForm mode="hero" lockedState={lockedState} /></div>
-          <div className="mt-6"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
+          <div className="mt-6 lg:hidden"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
           <div className="mt-5 lg:hidden"><SocialProof /></div>
         </motion.div>
 
@@ -30,19 +29,8 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
               focalPointY={0.4}
             />
           </div>
+          <div className="mt-6"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
           <div className="mt-6"><SocialProof /></div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="lg:col-start-1 lg:row-start-2">
-          <p className="text-lg text-slate-600 max-w-[52ch] mb-8">{intro}</p>
-          <ul className="space-y-3 mb-8">
-            {bullets.map((b) => (
-              <li key={b} className="flex gap-3 items-start font-medium text-slate-900">
-                <span className="mt-0.5 w-5 h-5 rounded-full bg-[#EAB308]/10 text-[#EAB308] grid place-items-center shrink-0"><Check className="w-3.5 h-3.5" /></span>
-                {b}
-              </li>
-            ))}
-          </ul>
         </motion.div>
       </div>
     </section>

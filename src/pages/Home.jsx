@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
 import { Image } from '@/components/ui/image';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
@@ -13,13 +12,6 @@ import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 
 import LanderDirectory from '@/components/landing/LanderDirectory';
-
-const TICKS = [
-  'Plans starting under $200/mo for many households*',
-  'See if you qualify for ACA subsidies that lower your premium',
-  'PPO options with nationwide networks — keep your doctor',
-  'Dental & vision can be added in the same call',
-];
 
 export default function Home() {
   return (
@@ -36,7 +28,7 @@ export default function Home() {
               Health insurance that fits your budget, <em className="not-italic text-[#EAB308]">explained by a human.</em>
             </h1>
             <div className="mt-6"><QuoteForm mode="hero" /></div>
-            <div className="mt-6"><CarrierMiniGrid /></div>
+            <div className="mt-6 lg:hidden"><CarrierMiniGrid /></div>
             <div className="mt-5 lg:hidden"><SocialProof /></div>
           </motion.div>
 
@@ -49,21 +41,8 @@ export default function Home() {
                 focalPointY={0.4}
               />
             </div>
+            <div className="mt-6"><CarrierMiniGrid /></div>
             <div className="mt-6"><SocialProof /></div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-2">
-            <p className="text-lg text-slate-600 max-w-[46ch] mb-8">
-              Compare Under-65 private PPO, ACA marketplace, and supplemental plans side by side. Answer a few questions and a licensed agent shows you real prices for your ZIP code — in minutes, not days.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {TICKS.map((t) => (
-                <li key={t} className="flex gap-3 items-start font-medium text-slate-900">
-                  <span className="mt-0.5 w-5 h-5 rounded-full bg-[#EAB308]/10 text-[#EAB308] grid place-items-center shrink-0"><Check className="w-3.5 h-3.5" /></span>
-                  {t}
-                </li>
-              ))}
-            </ul>
           </motion.div>
         </div>
       </section>
