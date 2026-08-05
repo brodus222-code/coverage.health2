@@ -27,12 +27,21 @@
             "args": {
               "email": "${ .trigger.data.email }",
               "full_name": "${ .trigger.data.full_name }",
+              "phone": "${ .trigger.data.phone }",
               "zip": "${ .trigger.data.zip }",
               "state": "${ .trigger.data.state }",
               "household": "${ .trigger.data.household }",
               "age": "${ .trigger.data.age }",
               "age_range": "${ .trigger.data.age_range }",
-              "income": "${ .trigger.data.income }"
+              "income": "${ .trigger.data.income }",
+              "variant": "${ .trigger.data.variant }",
+              "tcpa_consent": "${ .trigger.data.tcpa_consent }",
+              "tcpa_timestamp": "${ .trigger.data.tcpa_timestamp }",
+              "landing_page": "${ .trigger.data.landing_page }",
+              "utm_source": "${ .trigger.data.utm_source }",
+              "utm_campaign": "${ .trigger.data.utm_campaign }",
+              "gclid": "${ .trigger.data.gclid }",
+              "fbclid": "${ .trigger.data.fbclid }"
             }
           },
           "then": "end",
