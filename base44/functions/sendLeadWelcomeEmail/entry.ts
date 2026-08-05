@@ -85,7 +85,54 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
     }
 
     const resendData = await resendRes.json();
-    return Response.json({ success: true, message_id: resendData.id, subject: llmResult.subject });
+
+    // Send lead notification to internal team
+    const leadDetails = [
+      `Name: ${full_name || 'Not provided'}`,
+      `Email: ${email}`,
+      `Phone: ${body.phone || 'Not provided'}`,
+      `ZIP: ${zip || 'Not provided'}`,
+      `State: ${state || 'Not provided'}`,
+      `Household: ${household || 'Not provided'}`,
+      `Age: ${age || age_range || 'Not provided'}`,
+      `Income: ${income || 'Not provided'}`,
+      `Variant: ${body.variant || 'A'}`,
+      `Landing Page: ${body.landing_page || 'Not provided'}`,
+      `UTM Source: ${body.utm_source || 'None'}`,
+      `UTM Campaign: ${body.utm_campaign || 'None'}`,
+      `GCLID: ${body.gclid || 'None'}`,
+      `FBCLID: ${body.fbclid || 'None'}`,
+      `TCPA Consent: ${body.tcpa_consent ? 'Yes' : 'No'}`,
+      `TCPA Timestamp: ${body.tcpa_timestamp || 'None'}`
+    ].join('<br>');
+
+    const notificationHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+        <h2 style="color: #EAB308; margin-bottom: 8px;">🔔 New Lead Received</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">A new health insurance lead has been captured on Coverage.Health.</p>
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <tr><td style="padding: 8px 0; color: #1A202C;">${leadDetails}</td></tr>
+        </table>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+        <p style="color: #94a3b8; font-size: 12px;">Coverage.Health Lead System</p>
+      </div>
+    `;
+
+    const notifyRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${secrets.get('RESEND_API')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Coverage.Health Leads <no-reply@coverage.health>',
+        to: ['john@healthlinkagency.com'],
+        subject: `New Lead: ${full_name || 'Unknown'} — ${state || 'Unknown State'}`,
+        html: notificationHtml
+      })
+    });
+
+    return Response.json({ success: true, message_id: resendData.id, subject: llmResult.subject, notification_sent: notifyRes.ok });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
