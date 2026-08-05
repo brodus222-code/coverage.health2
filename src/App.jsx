@@ -27,6 +27,7 @@ import Terms from './pages/Terms';
 import Disclosures from './pages/Disclosures';
 import Campaigns from './pages/Campaigns';
 import Ops from './pages/Ops';
+import HealthInsuranceGuide from './pages/HealthInsuranceGuide';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -76,6 +77,7 @@ const AuthenticatedApp = () => {
       <Route path="/disclosures" element={<Disclosures />} />
       <Route path="/campaigns" element={<Campaigns />} />
       <Route path="/ops" element={<Ops />} />
+      <Route path="/health-insurance-guide" element={<HealthInsuranceGuide />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

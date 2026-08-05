@@ -1,0 +1,27 @@
+{
+  "name": "Plan",
+  "type": "object",
+  "properties": {
+    "plan_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "carrier": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "metal_tier": {
+      "type": "string"
+    },
+    "monthly_premium": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "plan_name"
+  ]
+}
