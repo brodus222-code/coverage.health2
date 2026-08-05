@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check, Phone, PhoneCall, FileSearch, ClipboardList } from 'lucide-react';
 import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
@@ -9,6 +11,14 @@ const TIMELINE = [
 ];
 
 export default function ThankYou() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('lead_submitted')) {
+      navigate('/', { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
       <TopBar />

@@ -98,6 +98,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       user_agent: navigator.userAgent,
     });
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
+    sessionStorage.setItem('lead_submitted', 'true');
     await new Promise((r) => setTimeout(r, 1500));
     navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}`);
   };
