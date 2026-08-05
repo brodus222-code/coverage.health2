@@ -31,15 +31,24 @@ export default async function(req: Request): Promise<Response> {
 
     const base44 = createClientFromRequest(req);
 
-    // Only allow admin users or service-role calls (workflow).
-    // Regular authenticated users are rejected.
+    // Require platform-authenticated request. isAuthenticated() returns true
+    // only for valid user tokens or legitimate service-role workflow invocations;
+    // invalid/missing tokens are rejected here before any catch-block logic.
+    const isAuthed = await base44.auth.isAuthenticated();
+    if (!isAuthed) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // For user-authenticated calls, require admin role.
+    // Service-role calls (from the workflow) have no user context —
+    // isAuthenticated() is true but me() throws, which is expected.
     try {
-      const currentUser = await base44.users.me();
+      const currentUser = await base44.auth.me();
       if (currentUser.role !== 'admin') {
         return Response.json({ error: 'Forbidden' }, { status: 403 });
       }
     } catch {
-      // No user context — service-role call (from the workflow)
+      // Service-role call from the workflow — isAuthenticated() passed.
     }
 
     const body = await req.json();
