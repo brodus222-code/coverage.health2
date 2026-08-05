@@ -21,14 +21,14 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
         <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#EAB308]/[0.06] blur-3xl" />
-        <div className="max-w-7xl mx-auto px-5 md:px-10 pt-14 md:pt-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-10 lg:gap-y-0 gap-x-12 lg:gap-x-16 items-start">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-1">
+        <div className="max-w-7xl mx-auto px-5 md:px-10 pt-14 md:pt-24 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-10 lg:gap-y-0 gap-x-12 lg:gap-x-16 lg:items-stretch">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col">
             <div className="mb-4"><YearBadge /></div>
             <h1 className="font-display font-extrabold text-slate-900 text-4xl md:text-5xl lg:text-[64px] leading-[1.05] tracking-tight lg:mb-6">
               Health insurance that fits your budget, <em className="not-italic text-[#EAB308]">explained by a human.</em>
             </h1>
             <div className="mt-6"><QuoteForm mode="hero" /></div>
-            <div className="mt-6 lg:hidden"><CarrierMiniGrid /></div>
+            <div className="mt-6 lg:mt-auto"><CarrierMiniGrid /></div>
             <div className="mt-5 lg:hidden"><SocialProof /></div>
           </motion.div>
 
@@ -41,7 +41,6 @@ export default function Home() {
                 focalPointY={0.4}
               />
             </div>
-            <div className="mt-6"><CarrierMiniGrid /></div>
             <div className="mt-6"><SocialProof /></div>
           </motion.div>
         </div>
