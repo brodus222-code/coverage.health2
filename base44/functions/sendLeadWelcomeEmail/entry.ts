@@ -68,7 +68,7 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
     const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${secrets.get('RESEND_API_KEY')}`,
+        'Authorization': `Bearer ${secrets.get('RESEND_API')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
