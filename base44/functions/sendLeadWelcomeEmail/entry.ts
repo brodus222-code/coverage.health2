@@ -1,14 +1,50 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { secrets } from 'base44:runtime';
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function sanitize(str: unknown, maxLen: number): string {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/[\r\n\t]/g, ' ')
+    .replace(/[<>]/g, '')
+    .replace(/["'`\\]/g, '')
+    .slice(0, maxLen)
+    .trim();
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 export default async function(req: Request): Promise<Response> {
   try {
-    const body = await req.json();
-    const { email, full_name, zip, state, household, age, age_range, income } = body;
-
-    if (!email) {
-      return Response.json({ error: 'No email address on lead' }, { status: 400 });
+    // Require authentication — blocks unauthenticated open-relay abuse
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
+
+    const body = await req.json();
+
+    // Validate and sanitize email
+    const rawEmail = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    if (!EMAIL_RE.test(rawEmail) || rawEmail.length > 254) {
+      return Response.json({ error: 'Invalid email address' }, { status: 400 });
+    }
+
+    // Sanitize all user-supplied inputs before LLM concatenation
+    const full_name = sanitize(body.full_name, 100);
+    const zip = sanitize(body.zip, 10);
+    const state = sanitize(body.state, 50);
+    const household = sanitize(body.household, 20);
+    const age = typeof body.age === 'number' ? body.age : undefined;
+    const age_range = sanitize(body.age_range, 20);
+    const income = sanitize(body.income, 50);
 
     const base44 = createClientFromRequest(req);
 
@@ -73,7 +109,7 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       },
       body: JSON.stringify({
         from: 'Coverage.Health <no-reply@coverage.health>',
-        to: [email],
+        to: [rawEmail],
         subject: llmResult.subject,
         html: llmResult.html
       })
@@ -86,24 +122,33 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
 
     const resendData = await resendRes.json();
 
-    // Send lead notification to internal team
+    // Send lead notification to internal team — escape all user-supplied values
+    const escPhone = escapeHtml(sanitize(body.phone, 20));
+    const escVariant = escapeHtml(sanitize(body.variant, 2));
+    const escLanding = escapeHtml(sanitize(body.landing_page, 200));
+    const escUtmSource = escapeHtml(sanitize(body.utm_source, 100));
+    const escUtmCampaign = escapeHtml(sanitize(body.utm_campaign, 100));
+    const escGclid = escapeHtml(sanitize(body.gclid, 100));
+    const escFbclid = escapeHtml(sanitize(body.fbclid, 100));
+    const escTcpaTs = escapeHtml(sanitize(body.tcpa_timestamp, 50));
+
     const leadDetails = [
-      `Name: ${full_name || 'Not provided'}`,
-      `Email: ${email}`,
-      `Phone: ${body.phone || 'Not provided'}`,
-      `ZIP: ${zip || 'Not provided'}`,
-      `State: ${state || 'Not provided'}`,
-      `Household: ${household || 'Not provided'}`,
-      `Age: ${age || age_range || 'Not provided'}`,
-      `Income: ${income || 'Not provided'}`,
-      `Variant: ${body.variant || 'A'}`,
-      `Landing Page: ${body.landing_page || 'Not provided'}`,
-      `UTM Source: ${body.utm_source || 'None'}`,
-      `UTM Campaign: ${body.utm_campaign || 'None'}`,
-      `GCLID: ${body.gclid || 'None'}`,
-      `FBCLID: ${body.fbclid || 'None'}`,
+      `Name: ${escapeHtml(full_name || 'Not provided')}`,
+      `Email: ${escapeHtml(rawEmail)}`,
+      `Phone: ${escPhone}`,
+      `ZIP: ${escapeHtml(zip || 'Not provided')}`,
+      `State: ${escapeHtml(state || 'Not provided')}`,
+      `Household: ${escapeHtml(household || 'Not provided')}`,
+      `Age: ${escapeHtml(String(age || age_range || 'Not provided'))}`,
+      `Income: ${escapeHtml(income || 'Not provided')}`,
+      `Variant: ${escVariant}`,
+      `Landing Page: ${escLanding}`,
+      `UTM Source: ${escUtmSource}`,
+      `UTM Campaign: ${escUtmCampaign}`,
+      `GCLID: ${escGclid}`,
+      `FBCLID: ${escFbclid}`,
       `TCPA Consent: ${body.tcpa_consent ? 'Yes' : 'No'}`,
-      `TCPA Timestamp: ${body.tcpa_timestamp || 'None'}`
+      `TCPA Timestamp: ${escTcpaTs}`
     ].join('<br>');
 
     const notificationHtml = `
@@ -127,7 +172,7 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       body: JSON.stringify({
         from: 'Coverage.Health Leads <no-reply@coverage.health>',
         to: ['john@healthlinkagency.com'],
-        subject: `New Lead: ${full_name || 'Unknown'} — ${state || 'Unknown State'}`,
+        subject: `New Lead: ${full_name || 'Unknown'} - ${state || 'Unknown State'}`,
         html: notificationHtml
       })
     });
