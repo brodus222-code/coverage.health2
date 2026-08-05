@@ -6,7 +6,7 @@ export default function TopBar() {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/70">
       <div className="max-w-7xl mx-auto px-5 md:px-10 h-16 md:h-[72px] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="w-9 h-9 rounded-full bg-[#1A202C] text-white grid place-items-center font-display font-extrabold text-base shrink-0">C</span>
+          <img src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/0dd9dfbd3_image.png" alt="Coverage.Health logo" className="w-9 h-9 rounded-full object-cover shrink-0" />
           <span className="leading-none">
             <span className="block font-display font-extrabold text-[17px] md:text-lg text-slate-900 tracking-tight">Coverage.Health</span>
             <span className="block text-[8.5px] md:text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400 mt-0.5">Powered by HealthLink</span>
