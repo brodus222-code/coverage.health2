@@ -29,6 +29,19 @@ export default async function(req: Request): Promise<Response> {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const base44 = createClientFromRequest(req);
+
+    // Only allow admin users or service-role calls (workflow).
+    // Regular authenticated users are rejected.
+    try {
+      const currentUser = await base44.users.me();
+      if (currentUser.role !== 'admin') {
+        return Response.json({ error: 'Forbidden' }, { status: 403 });
+      }
+    } catch {
+      // No user context — service-role call (from the workflow)
+    }
+
     const body = await req.json();
 
     // Validate and sanitize email
@@ -45,8 +58,6 @@ export default async function(req: Request): Promise<Response> {
     const age = typeof body.age === 'number' ? body.age : undefined;
     const age_range = sanitize(body.age_range, 20);
     const income = sanitize(body.income, 50);
-
-    const base44 = createClientFromRequest(req);
 
     const firstName = full_name ? full_name.split(' ')[0] : 'there';
 
