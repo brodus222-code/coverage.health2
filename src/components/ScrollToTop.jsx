@@ -18,6 +18,10 @@ export default function ScrollToTop() {
   useEffect(() => {
     if (navigationType === "POP") return;
 
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "PageView");
+    }
+
     if (hash) {
       const id = getHashId(hash);
       const timer = window.setTimeout(() => {
