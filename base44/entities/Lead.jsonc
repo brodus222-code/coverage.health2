@@ -37,6 +37,20 @@
       ],
       "default": "A"
     },
+    "status": {
+      "type": "string",
+      "enum": [
+        "New",
+        "Contacted",
+        "Qualified",
+        "Converted",
+        "Lost"
+      ],
+      "default": "New"
+    },
+    "selected_plan": {
+      "type": "string"
+    },
     "tcpa_consent": {
       "type": "boolean"
     },

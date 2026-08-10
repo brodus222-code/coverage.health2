@@ -1,0 +1,157 @@
+{
+  "name": "Lead Followup Sequence",
+  "description": "When a new lead is created, wait 7 days. If the lead is still 'New' with no plan selected, send a follow-up email. Wait 7 more days; if still unresponsive, notify the sales team.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "Lead",
+      "events": [
+        "create"
+      ]
+    },
+    "condition": "${ .trigger.data.email != null and .trigger.data.email != \"\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "lead_followup_sequence",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "wait_7_days": {
+          "wait": "P7D",
+          "then": "check_lead_1",
+          "x-base44": {
+            "title": "Wait 7 days",
+            "description": "Initial follow-up delay"
+          }
+        }
+      },
+      {
+        "check_lead_1": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "checkLeadForFollowUp",
+            "args": {
+              "lead_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "decide_followup",
+          "x-base44": {
+            "title": "Check lead status",
+            "description": "Fetch current lead state"
+          }
+        }
+      },
+      {
+        "decide_followup": {
+          "switch": [
+            {
+              "when": "${ .check_lead_1.needs_followup == true }",
+              "then": "send_followup"
+            },
+            {
+              "when": "${ true }",
+              "then": "end"
+            }
+          ],
+          "x-base44": {
+            "title": "Needs follow-up?",
+            "description": "Status New & no plan selected"
+          }
+        }
+      },
+      {
+        "send_followup": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendLeadFollowUpEmail",
+            "args": {
+              "email": "${ .check_lead_1.email }",
+              "full_name": "${ .check_lead_1.full_name }",
+              "phone": "${ .check_lead_1.phone }",
+              "state": "${ .check_lead_1.state }",
+              "zip": "${ .check_lead_1.zip }",
+              "age": "${ .check_lead_1.age }",
+              "age_range": "${ .check_lead_1.age_range }",
+              "household": "${ .check_lead_1.household }",
+              "income": "${ .check_lead_1.income }"
+            }
+          },
+          "then": "wait_7_more",
+          "x-base44": {
+            "title": "Send follow-up email",
+            "description": "Personalized nudge to lead"
+          }
+        }
+      },
+      {
+        "wait_7_more": {
+          "wait": "P7D",
+          "then": "check_lead_2",
+          "x-base44": {
+            "title": "Wait 7 more days",
+            "description": "Second follow-up delay"
+          }
+        }
+      },
+      {
+        "check_lead_2": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "checkLeadForFollowUp",
+            "args": {
+              "lead_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "decide_notify",
+          "x-base44": {
+            "title": "Re-check lead status",
+            "description": "Fetch current lead state"
+          }
+        }
+      },
+      {
+        "decide_notify": {
+          "switch": [
+            {
+              "when": "${ .check_lead_2.needs_followup == true }",
+              "then": "notify_sales"
+            },
+            {
+              "when": "${ true }",
+              "then": "end"
+            }
+          ],
+          "x-base44": {
+            "title": "Still unresponsive?",
+            "description": "Status New & no plan selected"
+          }
+        }
+      },
+      {
+        "notify_sales": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "notifySalesTeam",
+            "args": {
+              "lead_id": "${ .trigger.entity_id }",
+              "email": "${ .check_lead_2.email }",
+              "full_name": "${ .check_lead_2.full_name }",
+              "phone": "${ .check_lead_2.phone }",
+              "state": "${ .check_lead_2.state }",
+              "zip": "${ .check_lead_2.zip }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Notify sales team",
+            "description": "Alert sales about cold lead"
+          }
+        }
+      }
+    ]
+  }
+}
