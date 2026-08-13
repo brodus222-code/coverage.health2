@@ -87,6 +87,12 @@
     "user_agent": {
       "type": "string"
     },
+    "meta_event_id": {
+      "type": "string"
+    },
+    "meta_fbp": {
+      "type": "string"
+    },
     "description": {
       "type": "string",
       "maxLength": 1000

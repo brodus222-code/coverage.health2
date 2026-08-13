@@ -66,6 +66,9 @@ export default function QuizCardB({ onStepChange }) {
     setErr('');
     setSubmitting(true);
     const qs = new URLSearchParams(window.location.search);
+    const metaEventId = (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
+    const metaFbp = fbpMatch ? fbpMatch[1] : '';
     await base44.entities.Lead.create({
       ...data,
       variant: 'B',
@@ -83,7 +86,16 @@ export default function QuizCardB({ onStepChange }) {
       msclkid: qs.get('msclkid') || '',
       landing_page: window.location.href,
       user_agent: navigator.userAgent,
+      meta_event_id: metaEventId,
+      meta_fbp: metaFbp,
     });
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
+        content_name: 'Health Insurance Quote',
+        content_category: 'Health Insurance',
+        state: data.state || '',
+      }, { eventID: metaEventId });
+    }
     base44.analytics.track({ eventName: 'lead_submit', properties: { variant: 'B', state: data.state || '' } });
     navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}&v=B`);
   };

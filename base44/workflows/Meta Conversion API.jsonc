@@ -1,0 +1,49 @@
+{
+  "name": "Meta Conversion API",
+  "description": "Sends the Lead conversion event to Meta via the Conversions API (CAPI) for server-side tracking, deduplicated with the client-side Pixel event via event_id.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "Lead",
+      "events": [
+        "create"
+      ]
+    },
+    "condition": "${ .trigger.data.meta_event_id != null and .trigger.data.meta_event_id != \"\" and .trigger.data.email != null and .trigger.data.email != \"\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "meta_conversion_api",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "send_capi": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendMetaConversion",
+            "args": {
+              "event_id": "${ .trigger.data.meta_event_id }",
+              "email": "${ .trigger.data.email }",
+              "phone": "${ .trigger.data.phone }",
+              "zip": "${ .trigger.data.zip }",
+              "state": "${ .trigger.data.state }",
+              "full_name": "${ .trigger.data.full_name }",
+              "landing_page": "${ .trigger.data.landing_page }",
+              "user_agent": "${ .trigger.data.user_agent }",
+              "fbclid": "${ .trigger.data.fbclid }",
+              "fbp": "${ .trigger.data.meta_fbp }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Send CAPI event",
+            "description": "Server-side Meta conversion"
+          }
+        }
+      }
+    ]
+  }
+}
