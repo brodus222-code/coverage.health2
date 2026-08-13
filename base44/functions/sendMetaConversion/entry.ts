@@ -48,10 +48,9 @@ export default async function(req: Request): Promise<Response> {
       if (parts[0]) userData.fn = [await sha256(parts[0].toLowerCase())];
       if (parts.length > 1) userData.ln = [await sha256(parts.slice(1).join(' ').toLowerCase())];
     }
-    // fbc constructed from fbclid — Meta's click ID for attribution.
-    if (fbclid) userData.fbc = [`fb.1.${Date.now()}.${fbclid}`];
-    // fbp — browser ID from the _fbp cookie, passed from the client.
-    if (fbp) userData.fbp = [fbp];
+    // fbc and fbp must be strings (not arrays) per Meta CAPI spec.
+    if (fbclid) userData.fbc = `fb.1.${Date.now()}.${fbclid}`;
+    if (fbp) userData.fbp = fbp;
     if (user_agent) userData.client_user_agent = user_agent;
 
     const payload = {
