@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MatchingAnimation from '@/components/site/MatchingAnimation';
+import { isTestEnvironment, trackMetaLead, trackUetLead } from '@/lib/tracking';
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -78,7 +79,8 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
     setErr('');
     setSubmitting(true);
     const qs = new URLSearchParams(window.location.search);
-    const metaEventId = (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    const isTest = isTestEnvironment();
+    const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
     const metaFbp = fbpMatch ? fbpMatch[1] : '';
     await base44.entities.Lead.create({
@@ -102,19 +104,12 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       meta_event_id: metaEventId,
       meta_fbp: metaFbp,
     });
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', {
-        content_name: 'Health Insurance Quote',
-        content_category: 'Health Insurance',
-        state: data.state || '',
-      }, { eventID: metaEventId });
-    }
-    if (typeof window.uet_report_conversion === 'function') {
-      const normalizedPhone = `+1${digits.replace(/^1/, '').slice(-10)}`;
-      window.uetq = window.uetq || [];
-      window.uetq.push('set', { pid: { em: email.trim().toLowerCase(), ph: normalizedPhone } });
-      window.uet_report_conversion({ revenue_value: 1.0, currency: 'USD', transaction_id: metaEventId });
-    }
+    trackMetaLead({
+      content_name: 'Health Insurance Quote',
+      content_category: 'Health Insurance',
+      state: data.state || '',
+    }, metaEventId);
+    trackUetLead(email.trim().toLowerCase(), digits, metaEventId);
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
     sessionStorage.setItem('lead_submitted', 'true');
     await new Promise((r) => setTimeout(r, 1500));

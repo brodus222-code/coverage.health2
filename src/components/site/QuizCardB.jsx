@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, ArrowLeft, Loader2, User, Users, Baby, Home as HomeIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { isTestEnvironment, trackMetaLead } from '@/lib/tracking';
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -66,7 +67,8 @@ export default function QuizCardB({ onStepChange }) {
     setErr('');
     setSubmitting(true);
     const qs = new URLSearchParams(window.location.search);
-    const metaEventId = (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    const isTest = isTestEnvironment();
+    const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
     const metaFbp = fbpMatch ? fbpMatch[1] : '';
     await base44.entities.Lead.create({
@@ -89,13 +91,11 @@ export default function QuizCardB({ onStepChange }) {
       meta_event_id: metaEventId,
       meta_fbp: metaFbp,
     });
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', {
-        content_name: 'Health Insurance Quote',
-        content_category: 'Health Insurance',
-        state: data.state || '',
-      }, { eventID: metaEventId });
-    }
+    trackMetaLead({
+      content_name: 'Health Insurance Quote',
+      content_category: 'Health Insurance',
+      state: data.state || '',
+    }, metaEventId);
     base44.analytics.track({ eventName: 'lead_submit', properties: { variant: 'B', state: data.state || '' } });
     navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}&v=B`);
   };
