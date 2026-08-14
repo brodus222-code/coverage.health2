@@ -1,5 +1,5 @@
 import { ShieldCheck, HeartPulse, Layers, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PLANS = [
   {
@@ -26,10 +26,11 @@ const PLANS = [
 ];
 
 export default function PlanCards() {
+  const navigate = useNavigate();
   return (
     <div className="grid md:grid-cols-3 gap-5 lg:gap-8">
       {PLANS.map(({ icon: Icon, title, body, pills, fit }) => (
-        <Link key={title} to="/quote" className="block bg-white border border-slate-200 rounded-2xl p-7 lg:p-8 transition-all hover:shadow-xl hover:shadow-slate-900/5 hover:-translate-y-1 hover:border-[#EAB308] cursor-pointer">
+        <div key={title} onClick={() => navigate('/quote')} className="block bg-white border border-slate-200 rounded-2xl p-7 lg:p-8 transition-all hover:shadow-xl hover:shadow-slate-900/5 hover:-translate-y-1 hover:border-[#EAB308] cursor-pointer">
           <div className="w-12 h-12 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center mb-5">
             <Icon className="w-6 h-6" />
           </div>
@@ -44,7 +45,7 @@ export default function PlanCards() {
           <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-[#CA8A04] group-hover:gap-2 transition-all">
             See my quotes <ArrowRight className="w-4 h-4" />
           </span>
-        </Link>
+        </div>
       ))}
     </div>
   );
