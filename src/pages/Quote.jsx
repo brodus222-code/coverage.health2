@@ -28,7 +28,7 @@ export default function Quote() {
           )}
           {!hasZip && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="mb-5 flex items-center gap-3 bg-white border border-slate-200 rounded-full py-2 pl-2 pr-4 w-fit max-w-full mx-auto text-[13.5px] text-slate-600">
-              <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2E90FA] to-[#7BB8FC] text-white grid place-items-center font-display font-extrabold shrink-0 text-sm">CH</span>
+              <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#1A202C] to-[#2D3A52] text-white grid place-items-center font-display font-extrabold shrink-0 text-sm">CH</span>
               <span>Answer <b className="text-slate-900">5 quick questions</b> — a licensed agent for your state matches your plans. Free, no obligation.</span>
             </motion.div>
           )}
