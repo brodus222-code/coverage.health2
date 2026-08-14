@@ -80,7 +80,7 @@ export default function VariantB() {
       {/* Sticky mobile call bar */}
       <a
         href="tel:+18553955001"
-        className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#FF6B57] text-white font-heading font-extrabold text-[16.5px] text-center py-3.5 flex items-center justify-center gap-2"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-[#F0755A] text-white font-heading font-extrabold text-[16.5px] text-center py-3.5 flex items-center justify-center gap-2"
       >
         <Phone className="w-4 h-4" /> Skip the form — call <span className="dni-number">(855) 395-5001</span>
       </a>
