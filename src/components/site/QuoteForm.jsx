@@ -110,6 +110,8 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       }, { eventID: metaEventId });
     }
     if (window.uetq && typeof window.uetq.push === 'function') {
+      const normalizedPhone = `+1${digits.replace(/^1/, '').slice(-10)}`;
+      window.uetq.push('set', { pid: { em: email.trim().toLowerCase(), ph: normalizedPhone } });
       window.uetq.push('event', 'lead_submit', { revenue_value: 1.0, currency: 'USD', transaction_id: metaEventId });
     }
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
