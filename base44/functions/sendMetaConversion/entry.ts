@@ -20,6 +20,18 @@ export default async function(req: Request): Promise<Response> {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // For user-authenticated calls, require admin role.
+    // Service-role calls (from the workflow) have no user context —
+    // isAuthenticated() is true but me() throws, which is expected.
+    try {
+      const currentUser = await base44.auth.me();
+      if (currentUser.role !== 'admin') {
+        return Response.json({ error: 'Forbidden' }, { status: 403 });
+      }
+    } catch {
+      // Service-role call from the workflow — isAuthenticated() passed.
+    }
+
     const body = await req.json();
     const accessToken = secrets.get('META_ACCESS_TOKEN');
     if (!accessToken) {
