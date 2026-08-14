@@ -109,10 +109,11 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
         state: data.state || '',
       }, { eventID: metaEventId });
     }
-    if (window.uetq && typeof window.uetq.push === 'function') {
+    if (typeof window.uet_report_conversion === 'function') {
       const normalizedPhone = `+1${digits.replace(/^1/, '').slice(-10)}`;
+      window.uetq = window.uetq || [];
       window.uetq.push('set', { pid: { em: email.trim().toLowerCase(), ph: normalizedPhone } });
-      window.uetq.push('event', 'submit_lead_form', { revenue_value: 1.0, currency: 'USD', transaction_id: metaEventId });
+      window.uet_report_conversion({ revenue_value: 1.0, currency: 'USD', transaction_id: metaEventId });
     }
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
     sessionStorage.setItem('lead_submitted', 'true');
