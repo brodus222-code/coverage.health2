@@ -109,6 +109,10 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
         state: data.state || '',
       }, { eventID: metaEventId });
     }
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', { event_category: 'engagement', event_label: 'Health Insurance Quote', state: data.state || '' });
+      window.gtag('event', 'conversion', { send_to: 'AW-XXXXXXX/XXXXXXXX', value: 1.0, currency: 'USD', transaction_id: metaEventId });
+    }
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
     sessionStorage.setItem('lead_submitted', 'true');
     await new Promise((r) => setTimeout(r, 1500));
