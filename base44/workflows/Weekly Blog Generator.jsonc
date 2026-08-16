@@ -1,0 +1,44 @@
+{
+  "name": "Weekly Blog Generator",
+  "description": "Generates a new SEO-optimized blog article 3 times per week (Mon, Wed, Fri at 9am ET) using a top-tier AI writer.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 9 * * 1,3,5",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "weekly_blog_generator",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "generate_article": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "generateBlogArticle"
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Generate article",
+            "description": "AI-written SEO article"
+          }
+        }
+      }
+    ]
+  }
+}

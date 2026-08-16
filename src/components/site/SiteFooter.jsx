@@ -17,6 +17,7 @@ export default function SiteFooter() {
             <Link to="/faq" className="block hover:text-white transition-colors">FAQ</Link>
             <Link to="/contact" className="block hover:text-white transition-colors">Contact Us</Link>
             <Link to="/health-insurance-guide" className="block hover:text-white transition-colors">Insurance Guide</Link>
+            <Link to="/blog" className="block hover:text-white transition-colors">Blog</Link>
           </div>
           <div className="space-y-1.5">
             <b className="text-white block mb-2">Legal</b>
