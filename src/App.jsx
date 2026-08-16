@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import PageViewTracker from './components/PageViewTracker';
+import CallClickTracker from './components/CallClickTracker';
 // Add page imports here
 import Home from './pages/Home';
 import VariantB from './pages/VariantB';
@@ -99,6 +100,7 @@ function App() {
         <Router>
           <ScrollToTop />
           <PageViewTracker />
+          <CallClickTracker />
           <AuthenticatedApp />
         </Router>
         <Toaster />

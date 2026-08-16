@@ -32,3 +32,21 @@ export function trackUetLead(email = '', phoneDigits = '', eventId = '') {
   window.uetq.push('set', { pid: { em: email.trim().toLowerCase(), ph: normalizedPhone } });
   window.uet_report_conversion({ revenue_value: 1.0, currency: 'USD', transaction_id: eventId });
 }
+
+// Microsoft Ads UET custom event for click-to-call. The Microsoft event goal is
+// configured to match Action = "call_click" and Category = "engagement".
+export function trackUetCallClick(label = '') {
+  if (isTestEnvironment()) return;
+  window.uetq = window.uetq || [];
+  window.uetq.push('event', 'call_click', {
+    event_category: 'engagement',
+    event_label: label,
+  });
+}
+
+// Meta Pixel equivalent, so call clicks are visible on both platforms.
+export function trackMetaCallClick(label = '') {
+  if (isTestEnvironment()) return;
+  if (typeof window.fbq !== 'function') return;
+  window.fbq('track', 'Contact', { content_name: 'Click to call', content_category: label });
+}
