@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowUp, ArrowDown, ArrowUpDown, Inbox } from 'lucide-react';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
+import LeadDetailSheet from '@/components/leads/LeadDetailSheet';
 
 const COLUMNS = [
   { key: 'created_date', label: 'Received' },
@@ -14,19 +15,23 @@ const COLUMNS = [
   { key: 'age_range', label: 'Age' },
   { key: 'income', label: 'Income' },
   { key: 'variant', label: 'Variant' },
-  { key: 'utm_source', label: 'Source' },
+  { key: 'channel', label: 'Channel' },
+  { key: 'utm_campaign', label: 'Campaign' },
 ];
 
 function sourceOf(lead) {
+  if (lead.channel) return lead.channel;
+  if (lead.msclkid) return 'Microsoft Ads';
+  if (lead.gclid) return 'Google Ads';
+  if (lead.fbclid) return 'Meta Ads';
   if (lead.utm_source) return lead.utm_source;
-  if (lead.gclid) return 'google';
-  if (lead.fbclid) return 'meta';
-  return 'direct';
+  return 'Direct';
 }
 
 export default function LeadsTable({ leads }) {
   const [sortKey, setSortKey] = useState('created_date');
   const [dir, setDir] = useState(-1);
+  const [selected, setSelected] = useState(null);
 
   const toggle = (key) => {
     if (key === sortKey) setDir(-dir);
@@ -34,8 +39,8 @@ export default function LeadsTable({ leads }) {
   };
 
   const sorted = [...leads].sort((a, b) => {
-    const av = sortKey === 'utm_source' ? sourceOf(a) : (a[sortKey] ?? '');
-    const bv = sortKey === 'utm_source' ? sourceOf(b) : (b[sortKey] ?? '');
+    const av = sortKey === 'channel' ? sourceOf(a) : (a[sortKey] ?? '');
+    const bv = sortKey === 'channel' ? sourceOf(b) : (b[sortKey] ?? '');
     if (av === bv) return 0;
     return (av > bv ? 1 : -1) * dir;
   });
@@ -51,6 +56,8 @@ export default function LeadsTable({ leads }) {
   }
 
   return (
+    <>
+    <LeadDetailSheet lead={selected} onClose={() => setSelected(null)} />
     <div className="bg-white border border-slate-200 rounded-2xl overflow-x-auto">
       <table className="w-full text-sm min-w-[980px]">
         <thead>
@@ -69,10 +76,10 @@ export default function LeadsTable({ leads }) {
         </thead>
         <tbody>
           {sorted.map((lead) => (
-            <tr key={lead.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60">
+            <tr key={lead.id} onClick={() => setSelected(lead)} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60 cursor-pointer">
               <td className="px-4 py-3 whitespace-nowrap text-slate-600">{format(new Date(lead.created_date), 'MMM d, h:mm a')}</td>
               <td className="px-4 py-3 font-semibold text-slate-900 whitespace-nowrap">{lead.full_name || '—'}</td>
-              <td className="px-4 py-3 whitespace-nowrap"><a href={`tel:${lead.phone}`} className="text-[#CA8A04] font-medium hover:underline">{lead.phone}</a></td>
+              <td className="px-4 py-3 whitespace-nowrap"><a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="text-[#CA8A04] font-medium hover:underline">{lead.phone}</a></td>
               <td className="px-4 py-3 text-slate-600">{lead.email || '—'}</td>
               <td className="px-4 py-3 font-semibold text-slate-900">{lead.state || '—'}</td>
               <td className="px-4 py-3 text-slate-600">{lead.zip}</td>
@@ -84,11 +91,17 @@ export default function LeadsTable({ leads }) {
                   {lead.variant || 'A'}
                 </Badge>
               </td>
-              <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{sourceOf(lead)}</td>
+              <td className="px-4 py-3 whitespace-nowrap">
+                <Badge variant="outline" className={lead.is_paid ? 'border-emerald-300 text-emerald-700 bg-emerald-50' : 'border-slate-300 text-slate-600 bg-slate-50'}>
+                  {sourceOf(lead)}
+                </Badge>
+              </td>
+              <td className="px-4 py-3 text-slate-600 whitespace-nowrap max-w-[180px] truncate">{lead.utm_campaign || '—'}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    </>
   );
 }

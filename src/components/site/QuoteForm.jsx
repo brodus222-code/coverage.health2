@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MatchingAnimation from '@/components/site/MatchingAnimation';
 import { isTestEnvironment, trackMetaLead, trackUetLead } from '@/lib/tracking';
+import { trackFunnel, leadAttributionFields } from '@/lib/funnel';
+import { secondsSinceSessionStart } from '@/lib/attribution';
+
+const STEP_NAMES = { 2: 'Household', 3: 'Age', 4: 'Income', 5: 'Contact info' };
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -40,6 +44,12 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   const [submitting, setSubmitting] = useState(false);
   const total = 5;
 
+  // Records which screen each visitor reached, so drop-off is visible per step.
+  useEffect(() => {
+    if (step < 2) return;
+    trackFunnel('quote_step', { step_number: step, step_name: STEP_NAMES[step] || `Step ${step}`, variant: 'A', state: data.state || '' });
+  }, [step]);
+
   const go = (n) => { setErr(''); setStep(n); };
 
   const nextFromZip = () => {
@@ -47,6 +57,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
     if (!st) return setErr('Enter a valid 5-digit ZIP in a state we serve: FL, NC, NE, TN, IL, NJ, TX, GA, OH, SC, NV, AZ, CA.');
     if (locked && st !== locked.abbr) return setErr(`That ZIP is not in ${locked.name}. Double-check it — or if you need coverage in another state, use the link below.`);
     setData((d) => ({ ...d, zip: zip.trim(), state: st }));
+    trackFunnel('quote_start', { variant: 'A', state: st });
     if (mode === 'hero') {
       const qs = new URLSearchParams(window.location.search);
       const out = new URLSearchParams();
@@ -78,7 +89,6 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
     if (!/^1?[2-9]\d{9}$/.test(digits)) return setErr('Enter a valid 10-digit US phone number.');
     setErr('');
     setSubmitting(true);
-    const qs = new URLSearchParams(window.location.search);
     const isTest = isTestEnvironment();
     const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
@@ -93,12 +103,8 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       text_updates_opt_in: textUpdates,
       tcpa_consent_text: CONSENT_TEXT,
       tcpa_timestamp: new Date().toISOString(),
-      utm_source: qs.get('utm_source') || '',
-      utm_campaign: qs.get('utm_campaign') || '',
-      utm_medium: qs.get('utm_medium') || '',
-      gclid: qs.get('gclid') || '',
-      fbclid: qs.get('fbclid') || '',
-      msclkid: qs.get('msclkid') || '',
+      ...leadAttributionFields(),
+      time_to_convert_seconds: secondsSinceSessionStart(),
       landing_page: window.location.href,
       user_agent: navigator.userAgent,
       meta_event_id: metaEventId,
@@ -110,6 +116,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       state: data.state || '',
     }, metaEventId);
     trackUetLead(email.trim().toLowerCase(), digits, metaEventId);
+    trackFunnel('lead_submit', { variant: 'A', state: data.state || '' });
     base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
     sessionStorage.setItem('lead_submitted', 'true');
     await new Promise((r) => setTimeout(r, 1500));

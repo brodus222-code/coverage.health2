@@ -1,0 +1,109 @@
+{
+  "name": "TrafficEvent",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Anonymous per-visit session identifier"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "page_view",
+        "quote_start",
+        "quote_step",
+        "lead_submit",
+        "call_click"
+      ]
+    },
+    "step_number": {
+      "type": "number"
+    },
+    "step_name": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "landing_page": {
+      "type": "string",
+      "description": "First page of the session"
+    },
+    "referrer": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string",
+      "description": "Resolved acquisition channel, e.g. Microsoft Ads / Google Ads / Organic Search"
+    },
+    "is_paid": {
+      "type": "boolean",
+      "default": false
+    },
+    "device": {
+      "type": "string",
+      "enum": [
+        "mobile",
+        "tablet",
+        "desktop"
+      ]
+    },
+    "variant": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "utm_source": {
+      "type": "string"
+    },
+    "utm_medium": {
+      "type": "string"
+    },
+    "utm_campaign": {
+      "type": "string"
+    },
+    "utm_term": {
+      "type": "string"
+    },
+    "utm_content": {
+      "type": "string"
+    },
+    "gclid": {
+      "type": "string"
+    },
+    "msclkid": {
+      "type": "string"
+    },
+    "fbclid": {
+      "type": "string"
+    },
+    "is_test": {
+      "type": "boolean",
+      "default": false,
+      "description": "True for preview/dev traffic so it can be excluded from reporting"
+    }
+  },
+  "required": [
+    "session_id",
+    "event_type"
+  ],
+  "rls": {
+    "create": null,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -63,6 +63,31 @@
     "text_updates_opt_in": {
       "type": "boolean"
     },
+    "session_id": {
+      "type": "string",
+      "description": "Links this lead to its TrafficEvent session"
+    },
+    "channel": {
+      "type": "string",
+      "description": "Resolved acquisition channel"
+    },
+    "is_paid": {
+      "type": "boolean",
+      "default": false
+    },
+    "device": {
+      "type": "string"
+    },
+    "referrer": {
+      "type": "string"
+    },
+    "first_landing_page": {
+      "type": "string",
+      "description": "First page of the session that produced this lead"
+    },
+    "time_to_convert_seconds": {
+      "type": "number"
+    },
     "utm_source": {
       "type": "string"
     },
@@ -70,6 +95,12 @@
       "type": "string"
     },
     "utm_medium": {
+      "type": "string"
+    },
+    "utm_term": {
+      "type": "string"
+    },
+    "utm_content": {
       "type": "string"
     },
     "gclid": {

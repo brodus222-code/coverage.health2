@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, ArrowLeft, Loader2, User, Users, Baby, Home as HomeIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { isTestEnvironment, trackMetaLead } from '@/lib/tracking';
+import { trackFunnel, leadAttributionFields } from '@/lib/funnel';
+import { secondsSinceSessionStart } from '@/lib/attribution';
+
+const STEP_NAMES = { 2: 'Age', 3: 'ZIP code', 4: 'Income', 5: 'Contact info' };
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -46,8 +50,15 @@ export default function QuizCardB({ onStepChange }) {
   const [tcpa, setTcpa] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  // Records which screen each visitor reached, so drop-off is visible per step.
+  useEffect(() => {
+    if (step < 2) return;
+    trackFunnel('quote_step', { step_number: step, step_name: STEP_NAMES[step] || `Step ${step}`, variant: 'B', state: data.state || '' });
+  }, [step]);
+
   const go = (n) => { setErr(''); setStep(n); onStepChange?.(n); };
   const pick = (field, value, nextStep) => {
+    if (step === 1) trackFunnel('quote_start', { variant: 'B' });
     setData((d) => ({ ...d, [field]: value }));
     setTimeout(() => go(nextStep), 180);
   };
@@ -66,7 +77,6 @@ export default function QuizCardB({ onStepChange }) {
     if (!tcpa) return setErr('Please check the consent box to see your matches.');
     setErr('');
     setSubmitting(true);
-    const qs = new URLSearchParams(window.location.search);
     const isTest = isTestEnvironment();
     const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
@@ -80,12 +90,8 @@ export default function QuizCardB({ onStepChange }) {
       tcpa_consent: true,
       tcpa_consent_text: CONSENT_TEXT,
       tcpa_timestamp: new Date().toISOString(),
-      utm_source: qs.get('utm_source') || '',
-      utm_campaign: qs.get('utm_campaign') || '',
-      utm_medium: qs.get('utm_medium') || '',
-      gclid: qs.get('gclid') || '',
-      fbclid: qs.get('fbclid') || '',
-      msclkid: qs.get('msclkid') || '',
+      ...leadAttributionFields(),
+      time_to_convert_seconds: secondsSinceSessionStart(),
       landing_page: window.location.href,
       user_agent: navigator.userAgent,
       meta_event_id: metaEventId,
@@ -96,6 +102,7 @@ export default function QuizCardB({ onStepChange }) {
       content_category: 'Health Insurance',
       state: data.state || '',
     }, metaEventId);
+    trackFunnel('lead_submit', { variant: 'B', state: data.state || '' });
     base44.analytics.track({ eventName: 'lead_submit', properties: { variant: 'B', state: data.state || '' } });
     navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}&v=B`);
   };

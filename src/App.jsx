@@ -7,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
+import PageViewTracker from './components/PageViewTracker';
 // Add page imports here
 import Home from './pages/Home';
 import VariantB from './pages/VariantB';
@@ -16,6 +17,7 @@ import Contact from './pages/Contact';
 import StateLander from './pages/StateLander';
 import CategoryLander from './pages/CategoryLander';
 import LeadsDashboard from './pages/LeadsDashboard';
+import Analytics from './pages/Analytics';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -71,6 +73,7 @@ const AuthenticatedApp = () => {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/leads-dashboard" element={<LeadsDashboard />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Route>
       <Route path="/quote" element={<Quote />} />
       <Route path="/thank-you" element={<ThankYou />} />
@@ -95,6 +98,7 @@ function App() {
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <ScrollToTop />
+          <PageViewTracker />
           <AuthenticatedApp />
         </Router>
         <Toaster />

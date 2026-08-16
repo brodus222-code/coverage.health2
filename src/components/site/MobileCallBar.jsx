@@ -1,4 +1,5 @@
 import { Headphones } from 'lucide-react';
+import { trackFunnel } from '@/lib/funnel';
 
 export default function MobileCallBar() {
   return (
@@ -13,7 +14,7 @@ export default function MobileCallBar() {
           <span className="dni-number block text-white font-bold text-sm">(855) 395-5001</span>
         </span>
       </div>
-      <a href="tel:+18553955001" className="bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
+      <a href="tel:+18553955001" onClick={() => trackFunnel('call_click', { step_name: 'Mobile call bar' })} className="bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
         Call Now
       </a>
     </div>
