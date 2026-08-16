@@ -28,6 +28,8 @@ import Disclosures from './pages/Disclosures';
 import Campaigns from './pages/Campaigns';
 import Ops from './pages/Ops';
 import HealthInsuranceGuide from './pages/HealthInsuranceGuide';
+import Blog from './pages/Blog';
+import BlogArticle from './pages/BlogArticle';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -78,6 +80,8 @@ const AuthenticatedApp = () => {
       <Route path="/campaigns" element={<Campaigns />} />
       <Route path="/ops" element={<Ops />} />
       <Route path="/health-insurance-guide" element={<HealthInsuranceGuide />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<BlogArticle />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
