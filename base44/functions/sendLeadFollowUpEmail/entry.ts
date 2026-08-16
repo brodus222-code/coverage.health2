@@ -1,12 +1,9 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { secrets } from 'base44:runtime';
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { sanitize, sanitizeHtml, UNTRUSTED_DATA_NOTICE } from '../../shared/emailSanitize.ts';
 
-function sanitize(str: unknown, maxLen: number): string {
-  if (typeof str !== 'string') return '';
-  return str.replace(/[\r\n\t]/g, ' ').replace(/[<>]/g, '').replace(/["'`\\]/g, '').slice(0, maxLen).trim();
-}
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default async function(req: Request): Promise<Response> {
   try {
@@ -56,7 +53,8 @@ export default async function(req: Request): Promise<Response> {
 
     const prompt = `You are writing a friendly follow-up email for Coverage.Health, a licensed health insurance agency (HealthLink Insurance Agency LLC).
 
-LEAD DETAILS:
+<LEAD_DATA>
+${UNTRUSTED_DATA_NOTICE}
 - Name: ${full_name || 'Not provided'}
 - First name to use in greeting: ${firstName}
 - ZIP: ${zip || 'Not provided'}
@@ -64,8 +62,8 @@ LEAD DETAILS:
 - Household size: ${household || 'Not provided'}
 - Age: ${age || age_range || 'Not provided'}
 - Income bracket: ${income || 'Not provided'}
-
-PROFILE SUMMARY: ${profileContext}
+- Profile summary: ${profileContext}
+</LEAD_DATA>
 
 This person requested a health insurance quote about a week ago but hasn't moved forward yet. Write a warm, low-pressure follow-up email that:
 1. Gently checks in — acknowledges they requested a quote and we haven't connected yet
@@ -106,8 +104,8 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       body: JSON.stringify({
         from: 'Coverage.Health <no-reply@coverage.health>',
         to: [rawEmail],
-        subject: llmResult.subject,
-        html: llmResult.html
+        subject: String(llmResult.subject || 'Following up on your Coverage.Health quote').slice(0, 200),
+        html: sanitizeHtml(String(llmResult.html || ''))
       })
     });
 
