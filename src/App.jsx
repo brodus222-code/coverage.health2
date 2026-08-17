@@ -12,6 +12,7 @@ import CallClickTracker from './components/CallClickTracker';
 // Add page imports here
 import Home from './pages/Home';
 import VariantB from './pages/VariantB';
+import VariantC from './pages/VariantC';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
@@ -63,6 +64,7 @@ const AuthenticatedApp = () => {
       {/* Add your page Route elements here */}
       <Route path="/" element={<Home />} />
       <Route path="/b" element={<VariantB />} />
+      <Route path="/c" element={<VariantC />} />
       <Route path="/about" element={<About />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/contact" element={<Contact />} />
