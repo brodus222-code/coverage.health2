@@ -37,7 +37,7 @@ export default function Quote() {
             <QuoteForm mode={hasZip ? 'quote' : 'hero'} initialData={hasZip ? { zip, state } : {}} lockedState={lockedState} />
           </div>
           <div className="mt-5"><QuoteTrust /></div>
-          <div className="mt-5"><CallInsteadCard /></div>
+          <div className="mt-5"><CallInsteadCard zip={hasZip ? zip : ''} state={hasZip ? state : ''} /></div>
         </div>
       </section>
       <CompactFooter />
