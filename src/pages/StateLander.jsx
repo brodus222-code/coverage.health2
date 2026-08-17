@@ -38,13 +38,13 @@ export default function StateLander() {
         bullets={state.facts}
         lockedState={{ abbr: state.abbr, name: state.name }}
       />
-      <LanderBenefits heading={`Why ${state.name} households call us`} items={benefits} />
       <section className="pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto px-5 md:px-10">
           <h2 className="font-display font-extrabold text-slate-900 text-3xl md:text-4xl tracking-tight mb-10">How it works</h2>
           <HowItWorks />
         </div>
       </section>
+      <LanderBenefits heading={`Why ${state.name} households call us`} items={benefits} />
       <LanderFaq heading={`${state.name} health insurance questions`} faqs={faqs} />
       <section className="pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto px-5 md:px-10">
