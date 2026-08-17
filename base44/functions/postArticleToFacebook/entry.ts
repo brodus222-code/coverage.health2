@@ -1,6 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
 const BLOG_BASE_URL = 'https://coverage.health/blog';
+const COVERAGE_HEALTH_PAGE_ID = '1183580071498823';
 
 export default async function(req: Request): Promise<Response> {
   try {
@@ -40,19 +41,15 @@ export default async function(req: Request): Promise<Response> {
       return Response.json({ error: 'Facebook Pages connector not authorized' }, { status: 500 });
     }
 
-    // List managed Pages and pick the Coverage.Health page (fall back to the first).
-    const accountsRes = await fetch('https://graph.facebook.com/v25.0/me/accounts?fields=id,name,access_token', {
+    // Fetch the Coverage.Health Page directly by ID — it is granted to the app
+    // but does not appear in /me/accounts, so look it up explicitly.
+    const pageRes = await fetch(`https://graph.facebook.com/v25.0/${COVERAGE_HEALTH_PAGE_ID}?fields=id,name,access_token`, {
       headers: { 'Authorization': `Bearer ${accessToken}` }
     });
-    const accountsData: any = await accountsRes.json();
-    if (!accountsRes.ok) {
-      return Response.json({ error: `Facebook accounts error: ${JSON.stringify(accountsData)}` }, { status: 502 });
+    const page: any = await pageRes.json();
+    if (!pageRes.ok || !page.access_token) {
+      return Response.json({ error: `Facebook page error: ${JSON.stringify(page)}` }, { status: 502 });
     }
-    const pages = Array.isArray(accountsData.data) ? accountsData.data : [];
-    if (pages.length === 0) {
-      return Response.json({ error: 'No Facebook Pages available for this account' }, { status: 404 });
-    }
-    const page = pages.find((p: any) => /coverage/i.test(String(p.name || ''))) || pages[0];
 
     const blogUrl = `${BLOG_BASE_URL}/${article.slug}`;
     const message = `${article.title}\n\n${article.excerpt || ''}\n\nRead the full article: ${blogUrl}`;
