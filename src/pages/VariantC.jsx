@@ -7,6 +7,7 @@ import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import BenefitsB from '@/components/landerB/BenefitsB';
 import StepsB from '@/components/landerB/StepsB';
 import FaqB from '@/components/landerB/FaqB';
+import CompactFooter from '@/components/site/CompactFooter';
 
 export default function VariantC() {
   const [step, setStep] = useState(1);
@@ -20,9 +21,9 @@ export default function VariantC() {
       {/* Slim header */}
       <header className="sticky top-0 z-50 bg-white border-b border-[#DCE6F0]">
         <div className="max-w-[1080px] mx-auto px-4 h-[58px] flex items-center justify-between">
-          <Link to="/c" className="font-heading font-extrabold text-[19px] text-[#132A47]">
+          <span className="font-heading font-extrabold text-[19px] text-[#132A47]">
             Coverage<b className="text-[#FF6B57]">.</b>Health
-          </Link>
+          </span>
           <a href="tel:+18553955001" data-call-source="Variant C header" className="text-right font-bold text-[#132A47] text-[15px] leading-tight">
             <small className="hidden sm:flex items-center justify-end gap-1.5 font-medium text-[#4A6076] text-[11.5px]">
               Licensed agents online <span className="w-2 h-2 rounded-full bg-[#22B573] inline-block" />
@@ -111,15 +112,7 @@ export default function VariantC() {
         <FaqB />
       </main>
 
-      {/* Compact footer */}
-      <footer className="px-4 pb-24 md:pb-8 pt-8 text-[11.5px] text-[#7A8CA0] leading-relaxed bg-white border-t border-[#DCE6F0]">
-        <div className="max-w-[1080px] mx-auto space-y-2">
-          <p>Coverage.Health is owned and operated by HealthLink Insurance Agency LLC, a licensed insurance agency domiciled in Illinois and licensed in AZ, CA, FL, GA, IL, NE, NV, NJ, NC, OH, SC, TN, and TX. This is a commercial website; we are <b className="text-[#4A6076]">not a government website and are not affiliated with or endorsed by the U.S. government or the Health Insurance Marketplace (Healthcare.gov)</b>. Not all products are available in all states. Fixed indemnity, limited medical, and MEC plans are not comprehensive major medical insurance. Advertised examples are not guarantees; actual premiums depend on age, location, household size, income, tobacco use, and plan selection.</p>
-          <p>
-            <Link to="/privacy" className="text-[#5E7A96] underline">Privacy Policy</Link> · <Link to="/terms" className="text-[#5E7A96] underline">Terms of Use</Link> · <Link to="/disclosures" className="text-[#5E7A96] underline">Licensing &amp; Disclosures</Link> · <Link to="/privacy#rights" className="text-[#5E7A96] underline">Do Not Sell/Share My Info</Link> · © 2026 HealthLink Insurance Agency LLC
-          </p>
-        </div>
-      </footer>
+      <CompactFooter />
 
       {/* Sticky mobile call bar */}
       <a

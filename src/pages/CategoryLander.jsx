@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import TopBar from '@/components/site/TopBar';
-import SiteFooter from '@/components/site/SiteFooter';
+import CompactFooter from '@/components/site/CompactFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
@@ -8,7 +8,6 @@ import LanderHero from '@/components/landing/LanderHero';
 import LanderBenefits from '@/components/landing/LanderBenefits';
 import LanderFaq from '@/components/landing/LanderFaq';
 import LanderNotice from '@/components/landing/LanderNotice';
-import LanderDirectory from '@/components/landing/LanderDirectory';
 import { CATEGORIES } from '@/data/landerContent';
 
 export default function CategoryLander() {
@@ -18,7 +17,7 @@ export default function CategoryLander() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <TopBar />
+      <TopBar staticLogo />
       <LanderHero
         eyebrow={cat.eyebrow}
         headline={cat.headline}
@@ -42,8 +41,7 @@ export default function CategoryLander() {
         </div>
       </section>
 
-      <LanderDirectory />
-      <SiteFooter />
+      <CompactFooter />
       <MobileCallBar />
     </div>
   );

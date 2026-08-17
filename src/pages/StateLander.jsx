@@ -1,13 +1,12 @@
 import { useParams, Navigate } from 'react-router-dom';
 import TopBar from '@/components/site/TopBar';
-import SiteFooter from '@/components/site/SiteFooter';
+import CompactFooter from '@/components/site/CompactFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import HowItWorks from '@/components/site/HowItWorks';
 import CtaBand from '@/components/site/CtaBand';
 import LanderHero from '@/components/landing/LanderHero';
 import LanderBenefits from '@/components/landing/LanderBenefits';
 import LanderFaq from '@/components/landing/LanderFaq';
-import LanderDirectory from '@/components/landing/LanderDirectory';
 import { STATES } from '@/data/landerContent';
 
 export default function StateLander() {
@@ -31,7 +30,7 @@ export default function StateLander() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <TopBar />
+      <TopBar staticLogo />
       <LanderHero
         eyebrow={`${state.name} · Licensed agents · Free quote`}
         headline={state.headline}
@@ -52,8 +51,7 @@ export default function StateLander() {
           <CtaBand />
         </div>
       </section>
-      <LanderDirectory />
-      <SiteFooter />
+      <CompactFooter />
       <MobileCallBar />
     </div>
   );
