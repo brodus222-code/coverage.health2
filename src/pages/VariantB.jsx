@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Lock, Trophy, FileCheck } from 'lucide-react';
+import { Phone, Lock, Trophy, Award } from 'lucide-react';
 import QuizCardB from '@/components/site/QuizCardB';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 
@@ -50,7 +50,7 @@ export default function VariantB() {
           <div className="flex justify-center gap-6 flex-wrap mt-5 text-[12.5px] text-[#4A6076]">
             <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-[#132A47]">Encrypted</b> — never sold to spam lists</span>
             <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-[#132A47]">4.8/5</b> customer rating</span>
-            <span className="flex items-center gap-1.5"><FileCheck className="w-3.5 h-3.5" /> Licensed in <b className="text-[#132A47]">13 states</b></span>
+            <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> <b className="text-[#132A47]">A+</b> rated agency</span>
           </div>
 
           <div className="mt-6">
