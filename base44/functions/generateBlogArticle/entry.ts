@@ -87,7 +87,7 @@ Return a JSON object with exactly these fields:
 
     const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
-      model: 'claude_opus_4_8',
+      model: 'claude_sonnet_4_6',
       response_json_schema: {
         type: 'object',
         properties: {
