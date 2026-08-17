@@ -1,16 +1,14 @@
-import { Image } from '@/components/ui/image';
+import { Check } from 'lucide-react';
 
-const BADGES = [
-  { alt: 'Personalized Support', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/2476e733b_badge_personalized_support.png' },
-  { alt: 'Easy Enrollment', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/0d7f08ac5_badge_easy_enrollment.png' },
-  { alt: 'Secure & Private', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/091968bb5_badge_secure_private.png' },
-];
+const ITEMS = ['A+ Rating', 'Local Agents', '100% Free'];
 
 export default function TrustBadgeRow() {
   return (
-    <div className="grid grid-cols-3 gap-2.5 max-w-md">
-      {BADGES.map((b) => (
-        <Image key={b.alt} src={b.src} alt={b.alt} fittingType="fit" className="w-full h-12" />
+    <div className="flex items-center justify-center gap-3.5 text-[12.5px] text-slate-500">
+      {ITEMS.map((t) => (
+        <span key={t} className="inline-flex items-center gap-1 whitespace-nowrap">
+          <Check className="w-3.5 h-3.5 text-[#22B573] shrink-0" /> {t}
+        </span>
       ))}
     </div>
   );
