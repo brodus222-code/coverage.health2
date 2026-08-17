@@ -6,6 +6,7 @@ import CompactFooter from '@/components/site/CompactFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import QuoteForm from '@/components/site/QuoteForm';
 import QuoteTrust from '@/components/site/QuoteTrust';
+import CallInsteadCard from '@/components/site/CallInsteadCard';
 
 export default function Quote() {
   const [params] = useSearchParams();
@@ -36,6 +37,7 @@ export default function Quote() {
             <QuoteForm mode={hasZip ? 'quote' : 'hero'} initialData={hasZip ? { zip, state } : {}} lockedState={lockedState} />
           </div>
           <div className="mt-5"><QuoteTrust /></div>
+          <div className="mt-5"><CallInsteadCard /></div>
         </div>
       </section>
       <CompactFooter />
