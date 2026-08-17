@@ -1,11 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Lock, Trophy, FileCheck } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import TopBar from '@/components/site/TopBar';
 import CompactFooter from '@/components/site/CompactFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import QuoteForm from '@/components/site/QuoteForm';
-import SocialProof from '@/components/site/SocialProof';
+import QuoteTrust from '@/components/site/QuoteTrust';
 
 export default function Quote() {
   const [params] = useSearchParams();
@@ -35,14 +35,7 @@ export default function Quote() {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.12)] p-6 md:p-8">
             <QuoteForm mode={hasZip ? 'quote' : 'hero'} initialData={hasZip ? { zip, state } : {}} lockedState={lockedState} />
           </div>
-          {!hasZip && (
-            <div className="flex justify-center gap-6 flex-wrap mt-5 text-[12.5px] text-slate-500">
-              <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-slate-900">Encrypted</b> — never sold</span>
-              <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-slate-900">4.8/5</b> rating</span>
-              <span className="flex items-center gap-1.5"><FileCheck className="w-3.5 h-3.5" /> Licensed in <b className="text-slate-900">13 states</b></span>
-            </div>
-          )}
-          <div className="mt-5"><SocialProof /></div>
+          <div className="mt-5"><QuoteTrust /></div>
         </div>
       </section>
       <CompactFooter />
