@@ -44,13 +44,6 @@ export default function VariantB() {
             <span className="text-[12.5px] font-bold text-[#2E90FA] ml-1.5 min-w-[64px]">{Math.round((step / total) * 100)}% done</span>
           </div>
 
-          {/* HIPAA badge above the quiz card */}
-          <div className="flex justify-center mb-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#DCE6F0] bg-white px-3 py-1.5 text-[12.5px] text-[#4A6076]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#22B573]" /> <b className="text-[#132A47]">HIPAA</b>-compliant handling
-            </span>
-          </div>
-
           <QuizCardB onStepChange={setStep} />
 
           {/* Reassure row */}
@@ -58,6 +51,7 @@ export default function VariantB() {
             <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-[#132A47]">Encrypted</b> — never sold to spam lists</span>
             <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-[#132A47]">4.8/5</b> customer rating</span>
             <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> <b className="text-[#132A47]">A+</b> rated agency</span>
+            <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> <b className="text-[#132A47]">HIPAA</b>-compliant handling</span>
           </div>
 
           <div className="mt-6">
