@@ -17,8 +17,8 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
             {headline}
           </h1>
           <div className="mt-6"><QuoteForm mode="hero" lockedState={lockedState} /></div>
-          <div className="mt-5 lg:mt-auto flex justify-center"><TrustBadgeRow /></div>
-          <div className="mt-5 flex justify-center [&_p]:text-center"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
+          <div className="mt-5 lg:mt-auto [&>div]:mx-auto"><TrustBadgeRow /></div>
+          <div className="mt-5 [&_p]:text-center [&>div>div]:mx-auto"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
           <div className="mt-5 lg:hidden"><SocialProof /></div>
         </motion.div>
 
