@@ -7,7 +7,6 @@ import CtaBand from '@/components/site/CtaBand';
 import LanderHero from '@/components/landing/LanderHero';
 import LanderBenefits from '@/components/landing/LanderBenefits';
 import LanderFaq from '@/components/landing/LanderFaq';
-import LanderNotice from '@/components/landing/LanderNotice';
 import { CATEGORIES } from '@/data/landerContent';
 
 export default function CategoryLander() {

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Phone, Lock, Trophy, Award, ShieldCheck } from 'lucide-react';
 import QuizCardB from '@/components/site/QuizCardB';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
