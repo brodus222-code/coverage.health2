@@ -8,7 +8,9 @@ import { isTestEnvironment, trackMetaLead, trackUetLead } from '@/lib/tracking';
 import { trackFunnel, leadAttributionFields } from '@/lib/funnel';
 import { secondsSinceSessionStart } from '@/lib/attribution';
 
-const STEP_NAMES = { 2: 'Household', 3: 'Age', 4: 'Income', 5: 'Contact info' };
+const STEP_NAMES = { 2: 'Household', 3: 'Age', 4: 'Income', 5: 'Name', 6: 'Contact info' };
+
+const emailLooksValid = (v) => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim());
 
 const ZIP_PREFIXES = {
   FL: [[320, 349]], NC: [[270, 289]], NE: [[680, 693]], TN: [[370, 385]], IL: [[600, 629]],
@@ -42,7 +44,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   const [phone, setPhone] = useState('');
   const [textUpdates, setTextUpdates] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const total = 5;
+  const total = 6;
 
   // Records which screen each visitor reached, so drop-off is visible per step.
   useEffect(() => {
@@ -51,6 +53,10 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   }, [step]);
 
   const go = (n) => { setErr(''); setStep(n); };
+
+  const firstName = name.trim().split(' ')[0];
+  // Phone (and the closing pitch) only appear once a plausible email is in — one ask at a time.
+  const showPhone = emailLooksValid(email);
 
   const nextFromZip = () => {
     const st = /^[0-9]{5}$/.test(zip.trim()) ? zipState(zip.trim()) : null;
@@ -171,26 +177,53 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
               <div className="grid grid-cols-2 gap-2.5">
                 {['Under $30k', '$30k–$60k', '$60k–$100k', 'Over $100k'].map((v) => (
                   <button key={v} type="button" onClick={() => pick('income', v, 5)} className={choiceCls(data.income === v)}>{v}</button>
+
                 ))}
               </div>
             </div>
           )}
           {step === 5 && (
+            <div>
+              <h4 className="font-display font-bold text-lg text-slate-900 mb-2">Who should we address the quote to?</h4>
+              <p className="text-[13.5px] text-slate-600 mb-3.5">Your agent puts your name on the plan comparison so nothing gets mixed up.</p>
+              <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="fullname">Full name</label>
+              <input id="fullname" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="First and last name" className={inputCls} />
+              <button
+                type="button"
+                onClick={() => { if (name.trim().length < 2) return setErr('Please enter your name so we know who to address the quote to.'); go(6); }}
+                className={`${btnCls} mt-4`}
+              >
+                Continue <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+          {step === 6 && (
             submitting ? (
               <MatchingAnimation state={data.state} />
             ) : (
             <form onSubmit={submit}>
-              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">Where should we send your quotes?</h4>
+              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">
+                {firstName ? `${firstName}, where should we send your quotes?` : 'Where should we send your quotes?'}
+              </h4>
               <div className="space-y-3.5">
-                <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Full name</label><input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="First and last name" className={inputCls} /></div>
-                <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" className={inputCls} /></div>
-                <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label><input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} /></div>
+                <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" autoFocus className={inputCls} /></div>
+                {showPhone && (
+                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                    <div className="rounded-xl bg-[#FFF8E6] border border-[#EAB308]/40 px-3.5 py-3 mb-3">
+                      <p className="text-[13.5px] text-slate-800 leading-snug">
+                        <b className="text-slate-900">Last thing{firstName ? `, ${firstName}` : ''} —</b> plan prices and subsidy amounts have to be confirmed with a licensed agent before they can be quoted. Add your number and yours are confirmed in a 3-minute call, usually today.
+                      </p>
+                    </div>
+                    <label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label>
+                    <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} />
+                  </motion.div>
+                )}
               </div>
-              <label className="flex gap-2.5 items-start mt-4 cursor-pointer">
+              <label className={`flex gap-2.5 items-start mt-4 cursor-pointer ${showPhone ? '' : 'hidden'}`}>
                 <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
                 <span className="text-[13px] font-semibold text-slate-800 leading-snug">Text me updates about my quote <span className="font-medium text-slate-500">(optional)</span></span>
               </label>
-              <button type="submit" disabled={submitting} className={`${btnCls} mt-4`}>
+              <button type="submit" disabled={submitting || !showPhone} className={`${btnCls} mt-4`}>
                 {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>See My Quotes <ArrowRight className="w-4 h-4" /></>}
               </button>
               <p className="text-[11.5px] leading-relaxed text-slate-500 mt-3">
