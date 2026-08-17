@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Lock, Trophy, Award } from 'lucide-react';
+import { Phone, Lock, Trophy, Award, ShieldCheck } from 'lucide-react';
 import QuizCardB from '@/components/site/QuizCardB';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 
@@ -51,6 +51,7 @@ export default function VariantB() {
             <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-[#132A47]">Encrypted</b> — never sold to spam lists</span>
             <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-[#132A47]">4.8/5</b> customer rating</span>
             <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> <b className="text-[#132A47]">A+</b> rated agency</span>
+            <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> <b className="text-[#132A47]">HIPAA</b>-compliant handling</span>
           </div>
 
           <div className="mt-6">
