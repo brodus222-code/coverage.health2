@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, Lock, Trophy, FileCheck } from 'lucide-react';
 import TopBar from '@/components/site/TopBar';
-import SiteFooter from '@/components/site/SiteFooter';
+import CompactFooter from '@/components/site/CompactFooter';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import QuoteForm from '@/components/site/QuoteForm';
 import SocialProof from '@/components/site/SocialProof';
@@ -45,7 +45,7 @@ export default function Quote() {
           <div className="mt-5"><SocialProof /></div>
         </div>
       </section>
-      <SiteFooter />
+      <CompactFooter />
       <MobileCallBar />
     </div>
   );
