@@ -92,8 +92,8 @@ export default function VariantC() {
           </div>
         </section>
 
-        <BenefitsB />
         <StepsB />
+        <BenefitsB />
 
         {/* Call band */}
         <section className="px-4 pb-4">

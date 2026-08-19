@@ -23,14 +23,14 @@ export default function CategoryLander() {
         intro={cat.intro}
         bullets={cat.benefits.map(([title]) => title)}
       />
-      <LanderBenefits heading="What a licensed agent does for you here" items={cat.benefits} />
-
       <section className="pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto px-5 md:px-10">
           <h2 className="font-display font-extrabold text-slate-900 text-3xl md:text-4xl tracking-tight mb-10">How it works</h2>
           <HowItWorks />
         </div>
       </section>
+
+      <LanderBenefits heading="What a licensed agent does for you here" items={cat.benefits} />
 
       <LanderFaq heading="Common questions" faqs={cat.faqs} />
 
