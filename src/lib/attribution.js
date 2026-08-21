@@ -34,10 +34,17 @@ export function getDevice() {
 export function classifyChannel({ utm_source, utm_medium, gclid, msclkid, fbclid }, referrer) {
   if (msclkid) return { channel: 'Microsoft Ads', is_paid: true };
   if (gclid) return { channel: 'Google Ads', is_paid: true };
-  if (fbclid) return { channel: 'Meta Ads', is_paid: true };
 
   const medium = (utm_medium || '').toLowerCase().replace(/[\s-]/g, '');
   const source = (utm_source || '').toLowerCase();
+
+  // Facebook appends fbclid to organic post links too, so fbclid on its own is
+  // not proof of a paid click — only count it as Meta Ads when the URL is also
+  // tagged as paid traffic.
+  if (fbclid) {
+    if (PAID_MEDIUMS.includes(medium)) return { channel: 'Meta Ads', is_paid: true };
+    return { channel: 'Organic Social — Facebook', is_paid: false };
+  }
   if (medium && PAID_MEDIUMS.includes(medium)) {
     return { channel: `Paid — ${source || medium}`, is_paid: true };
   }

@@ -91,7 +91,7 @@ export default function Analytics() {
             ) : (
               <>
                 <SummaryCards summary={report.summary} leadRecords={report.leadsInRange} />
-                <TaggingAlert untaggedPaid={report.summary.untaggedPaid} paidSessions={report.summary.paidSessions} />
+                <TaggingAlert untaggedPaid={report.summary.untaggedPaid} paidSessions={report.summary.paidSessions} untaggedChannels={report.summary.untaggedChannels} />
 
                 <div className="grid lg:grid-cols-2 gap-5 mb-5">
                   <FunnelSteps funnel={report.funnel} />

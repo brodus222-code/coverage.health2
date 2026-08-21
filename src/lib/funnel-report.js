@@ -113,5 +113,8 @@ export function summarize(sessions) {
     convRate: sessions.length ? (leads.length / sessions.length) * 100 : 0,
     paidConvRate: paid.length ? (paidLeads.length / paid.length) * 100 : 0,
     untaggedPaid: paid.filter((s) => !s.utm_campaign).length,
+    // Which ad platforms the untagged paid clicks actually came from, so the
+    // dashboard only nags about the platforms that really need fixing.
+    untaggedChannels: [...new Set(paid.filter((s) => !s.utm_campaign).map((s) => s.channel))],
   };
 }
