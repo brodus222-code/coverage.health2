@@ -82,6 +82,10 @@
       "type": "boolean",
       "default": false,
       "description": "True for preview/dev traffic so it can be excluded from reporting"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
     }
   },
   "required": [
