@@ -29,7 +29,7 @@ const CONSENT_TEXT = 'By clicking "See My Quotes," I provide my electronic signa
 
 const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
-const btnCls = 'w-full inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-4 transition-all hover:shadow-lg hover:shadow-[#EAB308]/30 disabled:opacity-60';
+const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
 
 export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null }) {
   const navigate = useNavigate();
@@ -131,20 +131,26 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
 
   return (
     <div className="relative" id="quote">
-      <p className="font-display font-bold text-lg text-slate-900 leading-snug">{mode === 'quote' ? `Almost there — a few quick questions and a licensed agent will prepare your quotes for ZIP ${initialData?.zip || ''}.` : 'Enter your ZIP code to view plans, pricing, and enrollment options available in your area.'}</p>
-      <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
-          style={{ width: `${(step / total) * 100}%` }}
-        />
-      </div>
+      <p className="font-display font-bold text-lg text-slate-900 leading-snug">
+        {mode === 'quote' ? 'A few quick questions to compare your options' : 'Start with your ZIP code'}
+      </p>
+      {step > 1 && (
+        <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden" aria-label={`Step ${step} of ${total}`}>
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
+            style={{ width: `${(step / total) * 100}%` }}
+          />
+        </div>
+      )}
 
       <AnimatePresence mode="wait">
         <motion.div key={step} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
           {step === 1 && (
-            <div>
-              <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter Your ZIP Code..." autoComplete="postal-code" className={inputCls} />
-              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-4`}>See My Options <ArrowRight className="w-4 h-4" /></button>
+            <div className="mt-3">
+              <label className="sr-only" htmlFor="zip">ZIP code</label>
+              <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter your 5-digit ZIP code" autoComplete="postal-code" className={inputCls} />
+              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-3.5`}>Check Plans &amp; Prices <ArrowRight className="w-4 h-4" /></button>
+              <p className="mt-2.5 text-center text-xs text-slate-600">Takes about 2 minutes · Your information stays private</p>
               {locked && (
                 <a href={`/quote?lock=${locked.abbr}&lname=${encodeURIComponent(locked.name)}`} onClick={(e) => { e.preventDefault(); setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
                   I need coverage in a different state

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 
-export default function TopBar({ staticLogo = false }) {
+export default function TopBar({ staticLogo = false, hideCall = false }) {
   const brand = (
     <>
       <span className="w-9 h-9 rounded-full bg-[#1A202C] text-white grid place-items-center font-display font-extrabold text-base shrink-0">C</span>
@@ -20,11 +20,13 @@ export default function TopBar({ staticLogo = false }) {
         ) : (
           <Link to="/" className="flex items-center gap-2.5">{brand}</Link>
         )}
-        <a href="tel:+18553955001" data-call-source="Header" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-900 text-sm hover:border-slate-400 transition-colors">
-          <Phone className="w-4 h-4 md:w-3.5 md:h-3.5" />
-          <span className="md:hidden">Call Now</span>
-          <span className="dni-number hidden md:inline">(855) 395-5001</span>
-        </a>
+        {!hideCall && (
+          <a href="tel:+18553955001" data-call-source="Header" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-900 text-sm hover:border-slate-400 transition-colors">
+            <Phone className="w-4 h-4 md:w-3.5 md:h-3.5" />
+            <span className="md:hidden">Call Now</span>
+            <span className="dni-number hidden md:inline">(855) 395-5001</span>
+          </a>
+        )}
       </div>
     </header>
   );
