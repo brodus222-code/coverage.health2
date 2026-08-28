@@ -43,14 +43,16 @@ export default function PriceStateLander() {
             <div className="mt-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center lg:items-start gap-2.5 text-sm font-semibold text-foreground">
               {benefits.map((item) => <span key={item} className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-accent-foreground shrink-0" />{item}</span>)}
             </div>
-            <div className="mt-6 flex justify-center lg:justify-start"><CarrierMiniGrid stateAbbr={state.abbr} /></div>
-            <p className="text-sm text-muted-foreground max-w-xl mx-auto lg:mx-0">{state.name} enrolls through {state.exchange}.</p>
+            <p className="mt-5 text-sm text-muted-foreground max-w-xl mx-auto lg:mx-0">{state.name} enrolls through {state.exchange}.</p>
           </div>
           <div>
             <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm /></div>
             <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">Rates and availability vary by applicant, ZIP, plan type, and eligibility. $56/mo reflects available pricing for qualifying applicants.</p>
             <div className="mt-4"><QuoteTrust /></div>
           </div>
+        </section>
+        <section className="max-w-6xl mx-auto px-4 md:px-8 pb-8 flex justify-center [&_.max-w-md]:mx-auto [&_p]:text-center">
+          <CarrierMiniGrid stateAbbr={state.abbr} />
         </section>
         <section className="border-y border-border bg-card"><div className="max-w-4xl mx-auto px-5 py-6 flex gap-3 items-start justify-center"><ShieldCheck className="w-5 h-5 text-accent-foreground shrink-0 mt-0.5" /><p className="text-sm text-muted-foreground"><b className="text-foreground">Free and private.</b> Checking your options does not obligate you to enroll.</p></div></section>
       </main>
