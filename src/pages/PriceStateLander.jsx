@@ -4,6 +4,7 @@ import { Check, ShieldCheck } from 'lucide-react';
 import TopBar from '@/components/site/TopBar';
 import QuoteForm from '@/components/site/QuoteForm';
 import QuoteTrust from '@/components/site/QuoteTrust';
+import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import CompactFooter from '@/components/site/CompactFooter';
 import { STATES } from '@/data/landerContent';
 
@@ -42,7 +43,8 @@ export default function PriceStateLander() {
             <div className="mt-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center lg:items-start gap-2.5 text-sm font-semibold text-foreground">
               {benefits.map((item) => <span key={item} className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-accent-foreground shrink-0" />{item}</span>)}
             </div>
-            <p className="mt-5 text-sm text-muted-foreground max-w-xl mx-auto lg:mx-0">{state.name} enrolls through {state.exchange}.</p>
+            <div className="mt-6 flex justify-center lg:justify-start"><CarrierMiniGrid stateAbbr={state.abbr} /></div>
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto lg:mx-0">{state.name} enrolls through {state.exchange}.</p>
           </div>
           <div>
             <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm /></div>
