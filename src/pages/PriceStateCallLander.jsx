@@ -51,7 +51,7 @@ export default function PriceStateCallLander() {
           <div className="glass-card rounded-2xl p-5 md:p-7">
             <p className="text-center text-sm font-bold text-foreground mb-1">Prefer to check online?</p>
             <p className="text-center text-xs text-muted-foreground mb-4">Enter your ZIP to see available options.</p>
-            <QuoteForm />
+            <QuoteForm offer="under-65-56" />
             <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">Rates and availability vary by applicant, ZIP, plan type, and eligibility. $56/mo reflects available pricing for qualifying applicants.</p>
             <div className="mt-4"><QuoteTrust /></div>
           </div>

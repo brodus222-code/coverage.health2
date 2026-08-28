@@ -31,7 +31,7 @@ const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
 const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
 
-export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null }) {
+export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null, offer = '' }) {
   const navigate = useNavigate();
   const [locked, setLocked] = useState(lockedState);
   const [step, setStep] = useState(mode === 'quote' ? 2 : 1);
@@ -70,6 +70,9 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       ['utm_source', 'utm_campaign', 'utm_medium', 'gclid', 'fbclid', 'msclkid'].forEach((k) => { const v = qs.get(k); if (v) out.set(k, v); });
       out.set('zip', zip.trim());
       out.set('state', st);
+      // Carries the lander's offer messaging into the wizard.
+      const carriedOffer = offer || qs.get('offer') || '';
+      if (carriedOffer) out.set('offer', carriedOffer);
       if (locked) { out.set('lock', locked.abbr); out.set('lname', locked.name); }
       navigate(`/quote?${out.toString()}`);
       return;

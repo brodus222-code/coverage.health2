@@ -34,7 +34,7 @@ export default function Ppo89() {
             </div>
           </div>
           <div>
-            <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm /></div>
+            <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm offer="ppo-89" /></div>
             <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">Rates and availability vary by age, health history, ZIP, and eligibility. $89/mo reflects available pricing for qualifying applicants.</p>
             <div className="mt-4"><QuoteTrust /></div>
           </div>

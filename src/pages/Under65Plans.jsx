@@ -34,7 +34,7 @@ export default function Under65Plans() {
             </div>
           </div>
           <div>
-            <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm /></div>
+            <div className="glass-card rounded-2xl p-5 md:p-7"><QuoteForm offer="under-65-56" /></div>
             <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">Rates and availability vary by applicant, ZIP, plan type, and eligibility. $56/mo reflects available pricing for qualifying applicants.</p>
             <div className="mt-4"><QuoteTrust /></div>
           </div>
