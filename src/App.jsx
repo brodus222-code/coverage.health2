@@ -28,6 +28,7 @@ import ThankYou from './pages/ThankYou';
 import Quote from './pages/Quote';
 import Ppo89 from './pages/Ppo89';
 import Under65Plans from './pages/Under65Plans';
+import Under65Call from './pages/Under65Call';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclosures from './pages/Disclosures';
@@ -83,6 +84,7 @@ const AuthenticatedApp = () => {
       <Route path="/quote" element={<Quote />} />
       <Route path="/ppo-89" element={<Ppo89 />} />
       <Route path="/under-65-plans" element={<Under65Plans />} />
+      <Route path="/under-65-call" element={<Under65Call />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
