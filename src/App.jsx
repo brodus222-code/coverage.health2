@@ -29,6 +29,7 @@ import Quote from './pages/Quote';
 import Ppo89 from './pages/Ppo89';
 import Ppo89Call from './pages/Ppo89Call';
 import PriceStateLander from './pages/PriceStateLander';
+import PriceStateCallLander from './pages/PriceStateCallLander';
 import Under65Plans from './pages/Under65Plans';
 import Under65Call from './pages/Under65Call';
 import Privacy from './pages/Privacy';
@@ -87,6 +88,7 @@ const AuthenticatedApp = () => {
       <Route path="/ppo-89" element={<Ppo89 />} />
       <Route path="/ppo-89-call" element={<Ppo89Call />} />
       <Route path="/plans-56/:stateSlug" element={<PriceStateLander />} />
+      <Route path="/plans-56-call/:stateSlug" element={<PriceStateCallLander />} />
       <Route path="/under-65-plans" element={<Under65Plans />} />
       <Route path="/under-65-call" element={<Under65Call />} />
       <Route path="/thank-you" element={<ThankYou />} />
