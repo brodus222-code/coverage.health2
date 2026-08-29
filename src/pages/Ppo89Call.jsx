@@ -3,6 +3,7 @@ import { Check, Phone, ShieldCheck } from 'lucide-react';
 import TopBar from '@/components/site/TopBar';
 import QuoteForm from '@/components/site/QuoteForm';
 import QuoteTrust from '@/components/site/QuoteTrust';
+import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import MobileCallBar from '@/components/site/MobileCallBar';
 import CompactFooter from '@/components/site/CompactFooter';
 
@@ -37,6 +38,9 @@ export default function Ppo89Call() {
             <QuoteForm offer="ppo-89" />
             <div className="mt-4"><QuoteTrust /></div>
           </div>
+        </section>
+        <section className="max-w-6xl mx-auto px-4 md:px-8 pb-8 flex justify-center [&_.max-w-md]:mx-auto [&_p]:text-center">
+          <CarrierMiniGrid />
         </section>
         <section className="border-y border-border bg-card"><div className="max-w-4xl mx-auto px-5 py-6 flex gap-3 items-start justify-center"><ShieldCheck className="w-5 h-5 text-accent-foreground shrink-0 mt-0.5" /><p className="text-sm text-muted-foreground"><b className="text-foreground">Free and private.</b> Rates and availability vary by age, health history, ZIP, and eligibility.</p></div></section>
       </main>

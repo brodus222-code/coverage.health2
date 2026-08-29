@@ -1,3 +1,5 @@
+import { Image } from '@/components/ui/image';
+
 const BASE_CARRIERS = [
   { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/f61175671_cigna_logo.png' },
   { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png', maxH: 'max-h-[24px]' },
@@ -22,11 +24,11 @@ export default function CarrierMiniGrid({ stateAbbr }) {
             className="h-12 flex items-center justify-center bg-white rounded-lg border border-slate-200/70 px-2"
             style={c.nudge ? { transform: `translateY(${c.nudge}px)` } : undefined}
           >
-            <img
+            <Image
               src={c.src}
               alt={`${c.name} logo`}
-              className={`w-auto ${c.maxH || 'max-h-7'} object-contain`}
-              style={{ opacity: 0.9 }}
+              fittingType="fit"
+              className={`w-auto ${c.maxH || 'max-h-7'} object-contain opacity-90`}
             />
           </div>
         ))}
