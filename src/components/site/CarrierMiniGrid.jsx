@@ -2,8 +2,8 @@ import { Image } from '@/components/ui/image';
 
 const BASE_CARRIERS = [
   { name: 'Cigna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/f61175671_cigna_logo.png' },
-  { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png', maxH: 'max-h-[24px]' },
-  { name: 'Anthem Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/d22cfa78d_Anthem_Blue_Cross_Final_Verified_v5.png', maxH: 'max-h-7' },
+  { name: 'Aetna', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/ffa2e170e_aetna_logo.png', height: 'h-6' },
+  { name: 'Anthem Blue Cross Blue Shield', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/d22cfa78d_Anthem_Blue_Cross_Final_Verified_v5.png', height: 'h-7' },
 ];
 
 const KAISER = { name: 'Kaiser Permanente', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/64e3453c0_kaiser_permanente_transparent.png' };
@@ -28,7 +28,7 @@ export default function CarrierMiniGrid({ stateAbbr }) {
               src={c.src}
               alt={`${c.name} logo`}
               fittingType="fit"
-              className={`w-auto ${c.maxH || 'max-h-7'} object-contain opacity-90`}
+              className={`w-full ${c.height || 'h-7'} opacity-90`}
             />
           </div>
         ))}
