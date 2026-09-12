@@ -1,8 +1,7 @@
 import { Check } from 'lucide-react';
 
-const ITEMS = ['A+ Rating', 'Local Agents', '100% Free'];
-
-export default function TrustBadgeRow() {
+export default function TrustBadgeRow({ stateAbbr = '' }) {
+  const ITEMS = [stateAbbr === 'FL' ? 'Florida-Licensed' : 'Licensed Agents', 'In-House Team', '100% Free'];
   return (
     <div className="flex items-center justify-center gap-3.5 md:gap-7 md:mt-2 text-[12.5px] text-slate-500">
       {ITEMS.map((t) => (

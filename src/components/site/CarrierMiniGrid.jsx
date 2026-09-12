@@ -15,7 +15,7 @@ export default function CarrierMiniGrid({ stateAbbr }) {
   return (
     <div className="mb-6">
       <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
-        Compare plans from top carriers
+        Carrier and network availability varies by ZIP
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 max-w-md">
         {CARRIERS.map((c) => (

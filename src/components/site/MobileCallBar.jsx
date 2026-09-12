@@ -9,7 +9,7 @@ export default function MobileCallBar() {
           <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#22B573] border-2 border-[#1E293B]" />
         </span>
         <span className="leading-tight min-w-0">
-          <span className="block text-[10px] text-slate-300">Licensed Advisor Available</span>
+          <span className="block text-[10px] text-slate-300">Speak with a Licensed Advisor</span>
           <span className="dni-number block text-white font-bold text-sm">(855) 395-5001</span>
         </span>
       </div>

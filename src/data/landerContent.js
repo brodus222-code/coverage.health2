@@ -4,8 +4,8 @@
 export const STATES = {
   florida: {
     abbr: 'FL', name: 'Florida', exchange: 'Healthcare.gov (federal Marketplace)', stm: 'available',
-    headline: 'Florida health insurance quotes — compared in minutes',
-    intro: 'Florida has one of the largest Marketplace populations in the country, and 2026 premium increases hit Florida households hard. A licensed Florida agent compares ACA, private PPO, and supplemental options against your ZIP code and doctors.',
+    headline: 'Compare Florida health insurance options with a local licensed agent',
+    intro: 'Start with your ZIP and a few household details. An in-house agent who is licensed and physically based in Florida will help you compare available costs, coverage, and provider networks by phone — free and with no obligation.',
     facts: [
       'Florida uses Healthcare.gov for Marketplace enrollment — Open Enrollment runs Nov 1 – Jan 15.',
       'Short-term medical plans are available in Florida for households who miss Open Enrollment.',

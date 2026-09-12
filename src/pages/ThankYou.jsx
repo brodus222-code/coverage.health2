@@ -5,9 +5,9 @@ import TopBar from '@/components/site/TopBar';
 import SiteFooter from '@/components/site/SiteFooter';
 
 const TIMELINE = [
-  { icon: FileSearch, title: 'Right now', body: 'A licensed agent for your state is reviewing your household details and pulling live plan rates for your ZIP code.' },
-  { icon: PhoneCall, title: 'Within the hour', body: "You'll get a call from a local or toll-free number. Please pick up so we can lock in today's rates." },
-  { icon: ClipboardList, title: 'On the call', body: "Have your doctors' names and any current medications handy — it makes plan-matching faster." },
+  { icon: FileSearch, title: 'Request received', body: 'Your information has been securely saved for our in-house licensed team.' },
+  { icon: PhoneCall, title: 'During business hours', body: "An available licensed agent will call from a local or toll-free number to discuss your options." },
+  { icon: ClipboardList, title: 'On the call', body: "Have your doctors' names and any current medications handy — it makes the comparison faster." },
 ];
 
 export default function ThankYou() {
@@ -29,7 +29,7 @@ export default function ThankYou() {
           </div>
           <h1 className="font-display font-extrabold text-3xl md:text-4xl text-slate-900 tracking-tight mb-4">Your quote request is in.</h1>
           <p className="text-lg text-slate-600 max-w-[50ch] mx-auto">
-            A licensed agent for your state is reviewing your options now and will call you shortly — <b className="text-slate-900">please pick up so we can lock in today's rates.</b>
+            Your request is with our in-house licensed team. An available agent will call during business hours to review your coverage options.
           </p>
         </div>
 

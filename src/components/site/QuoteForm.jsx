@@ -8,7 +8,7 @@ import { isTestEnvironment, trackMetaLead, trackUetLead } from '@/lib/tracking';
 import { trackFunnel, leadAttributionFields } from '@/lib/funnel';
 import { secondsSinceSessionStart } from '@/lib/attribution';
 
-const STEP_NAMES = { 2: 'Household', 3: 'Age', 4: 'Income', 5: 'Name', 6: 'Contact info' };
+const STEP_NAMES = { 2: 'Household', 3: 'Age', 4: 'Income', 5: 'Contact info' };
 
 const emailLooksValid = (v) => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim());
 
@@ -25,7 +25,7 @@ function zipState(z) {
   return null;
 }
 
-const CONSENT_TEXT = 'By clicking "See My Quotes," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its licensed agent partners to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
+const CONSENT_TEXT = 'By clicking "Request My Plan Comparison," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its in-house licensed agents to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
 const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
@@ -44,7 +44,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   const [phone, setPhone] = useState('');
   const [textUpdates, setTextUpdates] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const total = 6;
+  const total = 5;
 
   // Records which screen each visitor reached, so drop-off is visible per step.
   useEffect(() => {
@@ -53,10 +53,6 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   }, [step]);
 
   const go = (n) => { setErr(''); setStep(n); };
-
-  const firstName = name.trim().split(' ')[0];
-  // Phone (and the closing pitch) only appear once a plausible email is in — one ask at a time.
-  const showPhone = emailLooksValid(email);
 
   const nextFromZip = () => {
     const st = /^[0-9]{5}$/.test(zip.trim()) ? zipState(zip.trim()) : null;
@@ -67,7 +63,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
     if (mode === 'hero') {
       const qs = new URLSearchParams(window.location.search);
       const out = new URLSearchParams();
-      ['utm_source', 'utm_campaign', 'utm_medium', 'gclid', 'fbclid', 'msclkid'].forEach((k) => { const v = qs.get(k); if (v) out.set(k, v); });
+      ['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'msclkid'].forEach((k) => { const v = qs.get(k); if (v) out.set(k, v); });
       out.set('zip', zip.trim());
       out.set('state', st);
       // Carries the lander's offer messaging into the wizard.
@@ -95,48 +91,54 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
   const submit = async (e) => {
     e.preventDefault();
     const digits = phone.replace(/\D/g, '');
+    if (name.trim().length < 2) return setErr('Please enter your name.');
     if (!/^1?[2-9]\d{9}$/.test(digits)) return setErr('Enter a valid 10-digit US phone number.');
+    if (email.trim() && !emailLooksValid(email)) return setErr('Enter a valid email address or leave it blank.');
     setErr('');
     setSubmitting(true);
-    const isTest = isTestEnvironment();
-    const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
-    const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
-    const metaFbp = fbpMatch ? fbpMatch[1] : '';
-    await base44.entities.Lead.create({
-      ...data,
-      variant: 'A',
-      full_name: name.trim(),
-      email: email.trim(),
-      phone: digits,
-      tcpa_consent: true,
-      text_updates_opt_in: textUpdates,
-      tcpa_consent_text: CONSENT_TEXT,
-      tcpa_timestamp: new Date().toISOString(),
-      ...leadAttributionFields(),
-      time_to_convert_seconds: secondsSinceSessionStart(),
-      landing_page: window.location.href,
-      user_agent: navigator.userAgent,
-      meta_event_id: metaEventId,
-      meta_fbp: metaFbp,
-    });
-    trackMetaLead({
-      content_name: 'Health Insurance Quote',
-      content_category: 'Health Insurance',
-      state: data.state || '',
-    }, metaEventId);
-    trackUetLead(email.trim().toLowerCase(), digits, metaEventId);
-    trackFunnel('lead_submit', { variant: 'A', state: data.state || '' });
-    base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '' } });
-    sessionStorage.setItem('lead_submitted', 'true');
-    await new Promise((r) => setTimeout(r, 1500));
-    navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}`);
+
+    try {
+      const isTest = isTestEnvironment();
+      const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
+      const metaFbp = fbpMatch ? fbpMatch[1] : '';
+      await base44.entities.Lead.create({
+        ...data,
+        variant: 'A',
+        full_name: name.trim(),
+        email: email.trim(),
+        phone: digits,
+        description: 'In-house plan comparison request',
+        tcpa_consent: true,
+        text_updates_opt_in: textUpdates,
+        tcpa_consent_text: CONSENT_TEXT,
+        tcpa_timestamp: new Date().toISOString(),
+        ...leadAttributionFields(),
+        time_to_convert_seconds: secondsSinceSessionStart(),
+        landing_page: window.location.href,
+        user_agent: navigator.userAgent,
+        meta_event_id: metaEventId,
+        meta_fbp: metaFbp,
+      });
+      trackMetaLead({ content_name: 'Plan Comparison Request', content_category: 'Health Insurance', state: data.state || '' }, metaEventId);
+      trackUetLead(email.trim().toLowerCase(), digits, metaEventId, 'plan_comparison');
+      trackFunnel('lead_submit', { variant: 'A', state: data.state || '', description: 'plan_comparison' });
+      base44.analytics.track({ eventName: 'lead_submit', properties: { state: data.state || '', lead_type: 'plan_comparison' } });
+      sessionStorage.setItem('lead_submitted', 'true');
+      await new Promise((r) => setTimeout(r, 900));
+      navigate(`/thank-you?st=${encodeURIComponent(data.state || '')}`);
+    } catch {
+      setSubmitting(false);
+      setErr('We could not save your request. Please check your connection and try again.');
+    }
   };
 
   return (
     <div className="relative" id="quote">
       <p className="font-display font-bold text-lg text-slate-900 leading-snug">
-        {mode === 'quote' ? 'A few quick questions to compare your options' : 'Start with your ZIP code'}
+        {mode === 'quote' ? 'A few quick questions for your plan comparison' : 'Start with your ZIP code'}
       </p>
+      {step === 1 && <p className="mt-1 text-[13px] leading-snug text-slate-600">An in-house licensed agent will review your request with you by phone.</p>}
       {step > 1 && (
         <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden" aria-label={`Step ${step} of ${total}`}>
           <div
@@ -152,7 +154,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
             <div className="mt-3">
               <label className="sr-only" htmlFor="zip">ZIP code</label>
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter your 5-digit ZIP code" autoComplete="postal-code" className={inputCls} />
-              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-3.5`}>Check Plans &amp; Prices <ArrowRight className="w-4 h-4" /></button>
+              <button type="button" onClick={nextFromZip} className={`${btnCls} mt-3.5`}>Start My Plan Comparison <ArrowRight className="w-4 h-4" /></button>
               <p className="mt-2.5 text-center text-xs text-slate-600">Takes about 2 minutes · Your information stays private</p>
               {locked && (
                 <a href={`/quote?lock=${locked.abbr}&lname=${encodeURIComponent(locked.name)}`} onClick={(e) => { e.preventDefault(); setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
@@ -182,9 +184,9 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
           {step === 4 && (
             <div>
               <h4 className="font-display font-bold text-lg text-slate-900 mb-2">Estimated household income</h4>
-              <p className="text-[13.5px] text-slate-600 mb-3.5">This checks whether you qualify for ACA subsidies that can lower your monthly premium — sometimes to $0.</p>
+              <p className="text-[13.5px] text-slate-600 mb-3.5">This helps your agent determine whether Marketplace savings may apply. Choose the closest range or “Not sure.”</p>
               <div className="grid grid-cols-2 gap-2.5">
-                {['Under $30k', '$30k–$60k', '$60k–$100k', 'Over $100k'].map((v) => (
+                {['Under $30k', '$30k–$60k', '$60k–$100k', 'Over $100k', 'Not sure'].map((v) => (
                   <button key={v} type="button" onClick={() => pick('income', v, 5)} className={choiceCls(data.income === v)}>{v}</button>
 
                 ))}
@@ -192,54 +194,29 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
             </div>
           )}
           {step === 5 && (
-            <div>
-              <h4 className="font-display font-bold text-lg text-slate-900 mb-2">Who should we address the quote to?</h4>
-              <p className="text-[13.5px] text-slate-600 mb-3.5">Your agent puts your name on the plan comparison so nothing gets mixed up.</p>
-              <label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="fullname">Full name</label>
-              <input id="fullname" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="First and last name" className={inputCls} />
-              <button
-                type="button"
-                onClick={() => { if (name.trim().length < 2) return setErr('Please enter your name so we know who to address the quote to.'); go(6); }}
-                className={`${btnCls} mt-4`}
-              >
-                Continue <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-          {step === 6 && (
             submitting ? (
               <MatchingAnimation state={data.state} />
             ) : (
-            <form onSubmit={submit}>
-              <h4 className="font-display font-bold text-lg text-slate-900 mb-4">
-                {firstName ? `${firstName}, where should we send your quotes?` : 'Where should we send your quotes?'}
-              </h4>
-              <div className="space-y-3.5">
-                <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" autoFocus className={inputCls} /></div>
-                {showPhone && (
-                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                    <div className="rounded-xl bg-[#FFF8E6] border border-[#EAB308]/40 px-3.5 py-3 mb-3">
-                      <p className="text-[13.5px] text-slate-800 leading-snug">
-                        <b className="text-slate-900">Last thing{firstName ? `, ${firstName}` : ''} —</b> plan prices and subsidy amounts have to be confirmed with a licensed agent before they can be quoted. Add your number and yours are confirmed in a 3-minute call, usually today.
-                      </p>
-                    </div>
-                    <label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label>
-                    <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} />
-                  </motion.div>
-                )}
-              </div>
-              <label className={`flex gap-2.5 items-start mt-4 cursor-pointer ${showPhone ? '' : 'hidden'}`}>
-                <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
-                <span className="text-[13px] font-semibold text-slate-800 leading-snug">Text me updates about my quote <span className="font-medium text-slate-500">(optional)</span></span>
-              </label>
-              <button type="submit" disabled={submitting || !showPhone} className={`${btnCls} mt-4`}>
-                {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>See My Quotes <ArrowRight className="w-4 h-4" /></>}
-              </button>
-              <p className="text-[11.5px] leading-relaxed text-slate-500 mt-3">
-                By clicking "See My Quotes," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its <Link to="/disclosures#partners" target="_blank" className="underline text-slate-700">licensed agent partners</Link> to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
-              </p>
-              <p className="text-center text-xs text-slate-500 mt-3">Reviewed by a licensed agent — not a robo-quote.</p>
-            </form>
+              <form onSubmit={submit}>
+                <h4 className="font-display font-bold text-lg text-slate-900 mb-2">Where can our licensed team reach you?</h4>
+                <p className="text-[13.5px] text-slate-600 mb-3.5">An in-house agent will call to review available options and confirm pricing. We do not sell or pass along your information.</p>
+                <div className="space-y-3.5">
+                  <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5" htmlFor="fullname">Full name</label><input id="fullname" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="First and last name" autoFocus className={inputCls} /></div>
+                  <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Phone</label><input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" inputMode="tel" autoComplete="tel" placeholder="(555) 555-5555" className={inputCls} /></div>
+                  <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email <span className="font-medium text-slate-500">(optional)</span></label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" className={inputCls} /></div>
+                </div>
+                <label className="flex gap-2.5 items-start mt-4 cursor-pointer">
+                  <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
+                  <span className="text-[13px] font-semibold text-slate-800 leading-snug">Text me updates about my request <span className="font-medium text-slate-500">(optional)</span></span>
+                </label>
+                <button type="submit" disabled={submitting} className={`${btnCls} mt-4`}>
+                  {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Request My Plan Comparison <ArrowRight className="w-4 h-4" /></>}
+                </button>
+                <p className="text-[11.5px] leading-relaxed text-slate-500 mt-3">
+                  By clicking "Request My Plan Comparison," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its in-house licensed agents to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
+                </p>
+                <p className="text-center text-xs text-slate-500 mt-3">Agent-assisted comparison — not an instant robo-quote.</p>
+              </form>
             )
           )}
         </motion.div>

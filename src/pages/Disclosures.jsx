@@ -51,9 +51,9 @@ export default function Disclosures() {
       <p><b>Fixed indemnity, limited medical, and MEC plans are not major medical insurance.</b> They pay limited, fixed benefits or cover a limited set of services, do not cap your out-of-pocket costs, and lack of comprehensive coverage may leave you responsible for significant medical bills. Federal rules require a consumer notice with these plans — read it and the plan brochure before enrolling.</p>
       <p><b>Dental, vision, and other ancillary products</b> are standalone supplemental benefits, not health insurance.</p>
 
-      <h2 id="partners">Marketing &amp; agent partners</h2>
-      <p>When you submit a quote request with consent, your information may be shared with, and you may be contacted by, HealthLink Insurance Agency LLC and one or more of the following licensed partners:</p>
-      <p>Our marketing and agent partner network includes HealthLink Insurance Agency LLC together with licensed insurance agents, agencies, and carriers across the states listed above. The specific carrier(s) and licensed agent(s) that contact you will depend on your state, the products you selected, and your coverage needs. A current, dated list of the partner agencies and carriers authorized to contact leads is available on request by emailing <a href="mailto:compliance@coverage.health">compliance@coverage.health</a>.</p>
+      <h2 id="partners">How your information is handled</h2>
+      <p>When you submit a quote or callback request, your information is handled only by HealthLink Insurance Agency LLC and its in-house licensed agents. We do not sell, transfer, or pass lead information to outside agents, agencies, call centers, or lead buyers.</p>
+      <p>Insurance carriers may receive information only when needed to quote, apply for, or service coverage that you choose to pursue with our team. If our information-sharing practices change in the future, this disclosure and the consent shown before submission will be updated before the new practice begins.</p>
 
       <h2>Questions or complaints</h2>
       <p>HealthLink Insurance Agency LLC · 2501 Chatham Rd, Suite R · Springfield, IL 62704</p>

@@ -75,11 +75,15 @@ export function getAttribution() {
     msclkid: qs.get('msclkid') || '',
     fbclid: qs.get('fbclid') || '',
   };
-  const hasFreshClick = Boolean(raw.gclid || raw.msclkid || raw.fbclid || raw.utm_source);
-
-  if (stored && !hasFreshClick) {
-    try { return JSON.parse(stored); } catch { /* fall through and rebuild */ }
+  let storedAttribution = null;
+  if (stored) {
+    try { storedAttribution = JSON.parse(stored); } catch { /* fall through and rebuild */ }
   }
+  const hasClickParams = Boolean(raw.gclid || raw.msclkid || raw.fbclid || raw.utm_source);
+  const isSameClick = storedAttribution && ['gclid', 'msclkid', 'fbclid', 'utm_source', 'utm_campaign'].every((key) => !raw[key] || raw[key] === storedAttribution[key]);
+  const hasFreshClick = hasClickParams && !isSameClick;
+
+  if (storedAttribution && !hasFreshClick) return storedAttribution;
 
   const referrer = document.referrer || '';
   const { channel, is_paid } = classifyChannel(raw, referrer);

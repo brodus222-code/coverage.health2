@@ -24,13 +24,13 @@ export function trackMetaLead(params = {}, eventId = '') {
 }
 
 // Microsoft Ads UET: enhanced conversions (hashed email/phone) + conversion.
-export function trackUetLead(email = '', phoneDigits = '', eventId = '') {
+export function trackUetLead(email = '', phoneDigits = '', eventId = '', leadType = 'quote_request') {
   if (isTestEnvironment()) return;
   if (typeof window.uet_report_conversion !== 'function') return;
   const normalizedPhone = `+1${phoneDigits.replace(/^1/, '').slice(-10)}`;
   window.uetq = window.uetq || [];
   window.uetq.push('set', { pid: { em: email.trim().toLowerCase(), ph: normalizedPhone } });
-  window.uet_report_conversion({ revenue_value: 1.0, currency: 'USD', transaction_id: eventId });
+  window.uet_report_conversion({ revenue_value: 1.0, currency: 'USD', transaction_id: eventId, event_category: 'lead', event_label: leadType });
 }
 
 // Microsoft Ads UET custom event for click-to-call. The Microsoft event goal is

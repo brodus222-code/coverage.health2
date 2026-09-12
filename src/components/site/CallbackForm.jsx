@@ -8,7 +8,7 @@ import { secondsSinceSessionStart } from '@/lib/attribution';
 
 const TIMES = ['Morning', 'Afternoon', 'Evening', 'ASAP'];
 
-const CONSENT_TEXT = 'By clicking "Request My Call," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its licensed agent partners to contact me about insurance products at the phone number provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
+const CONSENT_TEXT = 'By clicking "Request My Call," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its in-house licensed agents to contact me about insurance products at the phone number provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
 const inputCls = 'w-full px-4 py-3 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
 
@@ -30,39 +30,44 @@ export default function CallbackForm({ zip = '', state = '' }) {
     if (!time) return setErr('Pick the best time for us to call.');
     setErr('');
     setSubmitting(true);
-    const isTest = isTestEnvironment();
-    const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
-    const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
-    await base44.entities.Lead.create({
-      full_name: name.trim(),
-      phone: digits,
-      zip: zipVal.trim(),
-      state,
-      variant: 'A',
-      description: `Callback request — preferred time: ${time}`,
-      tcpa_consent: true,
-      tcpa_consent_text: CONSENT_TEXT,
-      tcpa_timestamp: new Date().toISOString(),
-      ...leadAttributionFields(),
-      time_to_convert_seconds: secondsSinceSessionStart(),
-      landing_page: window.location.href,
-      user_agent: navigator.userAgent,
-      meta_event_id: metaEventId,
-      meta_fbp: fbpMatch ? fbpMatch[1] : '',
-    });
-    trackMetaLead({ content_name: 'Callback Request', content_category: 'Health Insurance', state }, metaEventId);
-    trackUetLead('', digits, metaEventId);
-    trackFunnel('lead_submit', { variant: 'A', state });
-    base44.analytics.track({ eventName: 'callback_request', properties: { state, preferred_time: time } });
-    setSubmitting(false);
-    setDone(true);
+    try {
+      const isTest = isTestEnvironment();
+      const metaEventId = isTest ? '' : (crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      const fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
+      await base44.entities.Lead.create({
+        full_name: name.trim(),
+        phone: digits,
+        zip: zipVal.trim(),
+        state,
+        variant: 'A',
+        description: `Callback request — preferred time: ${time}`,
+        tcpa_consent: true,
+        tcpa_consent_text: CONSENT_TEXT,
+        tcpa_timestamp: new Date().toISOString(),
+        ...leadAttributionFields(),
+        time_to_convert_seconds: secondsSinceSessionStart(),
+        landing_page: window.location.href,
+        user_agent: navigator.userAgent,
+        meta_event_id: metaEventId,
+        meta_fbp: fbpMatch ? fbpMatch[1] : '',
+      });
+      trackMetaLead({ content_name: 'Callback Request', content_category: 'Health Insurance', state }, metaEventId);
+      trackUetLead('', digits, metaEventId, 'callback_request');
+      trackFunnel('lead_submit', { variant: 'A', state, description: 'callback_request' });
+      base44.analytics.track({ eventName: 'callback_request', properties: { state, preferred_time: time } });
+      setSubmitting(false);
+      setDone(true);
+    } catch {
+      setSubmitting(false);
+      setErr('We could not save your callback request. Please check your connection and try again.');
+    }
   };
 
   if (done) {
     return (
       <div className="text-center">
         <CheckCircle2 className="w-8 h-8 text-[#22B573] mx-auto" />
-        <p className="font-display font-bold text-slate-900 mt-2">You're on the list, {name.trim().split(' ')[0]}.</p>
+        <p className="font-display font-bold text-slate-900 mt-2">Your callback is requested, {name.trim().split(' ')[0]}.</p>
         <p className="text-[13.5px] text-slate-600 mt-1">A licensed agent will call you at {phone} — {time.toLowerCase() === 'asap' ? 'as soon as possible' : `in the ${time.toLowerCase()}`}.</p>
       </div>
     );
@@ -99,7 +104,7 @@ export default function CallbackForm({ zip = '', state = '' }) {
       </button>
       {err && <p className="text-red-600 text-[13px] mt-2">{err}</p>}
       <p className="text-[11px] leading-relaxed text-slate-500 mt-3">
-        By clicking "Request My Call," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its <Link to="/disclosures#partners" target="_blank" className="underline text-slate-700">licensed agent partners</Link> to contact me about insurance products at the phone number provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
+        By clicking "Request My Call," I provide my electronic signature and express written consent for <b>Coverage.Health (HealthLink Insurance Agency LLC)</b> and its in-house licensed agents to contact me about insurance products at the phone number provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the <Link to="/terms" target="_blank" className="underline text-slate-700">Terms of Use</Link> and <Link to="/privacy" target="_blank" className="underline text-slate-700">Privacy Policy</Link>.
       </p>
     </form>
   );

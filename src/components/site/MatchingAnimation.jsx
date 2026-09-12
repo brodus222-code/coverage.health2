@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { Search, Users, ShieldCheck } from 'lucide-react';
 
 const STEPS = [
-  { icon: Search, label: 'Searching plans in your state…' },
-  { icon: Users, label: 'Matching you with licensed agents…' },
-  { icon: ShieldCheck, label: 'Preparing your quotes…' },
+  { icon: Search, label: 'Saving your request…' },
+  { icon: Users, label: 'Notifying our in-house licensed team…' },
+  { icon: ShieldCheck, label: 'Preparing your next steps…' },
 ];
 
 export default function MatchingAnimation({ state }) {
@@ -37,7 +37,7 @@ export default function MatchingAnimation({ state }) {
               transition={{ duration: 0.3, delay: i * 0.45 }}
             >
               <Icon className="w-4 h-4 text-[#EAB308]" />
-              <span>{state ? s.label.replace('your state', state) : s.label.replace(' in your state', '')}</span>
+              <span>{s.label}</span>
             </motion.div>
           );
         })}
