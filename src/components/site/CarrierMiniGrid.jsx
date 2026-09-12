@@ -8,10 +8,12 @@ const BASE_CARRIERS = [
 
 const KAISER = { name: 'Kaiser Permanente', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/64e3453c0_kaiser_permanente_transparent.png' };
 const UHC = { name: 'UnitedHealthcare', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/e42e9acfd_uhc_logo.png' };
+const FLORIDA_BLUE = { name: 'Florida Blue', src: 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/1570c327b_image.png', height: 'h-9' };
 
 export default function CarrierMiniGrid({ stateAbbr }) {
   const second = (stateAbbr === 'CA' || stateAbbr === 'GA') ? KAISER : UHC;
-  const CARRIERS = [BASE_CARRIERS[0], second, BASE_CARRIERS[1], BASE_CARRIERS[2]];
+  const fourth = stateAbbr === 'FL' ? FLORIDA_BLUE : BASE_CARRIERS[2];
+  const CARRIERS = [BASE_CARRIERS[0], second, BASE_CARRIERS[1], fourth];
   return (
     <div className="mb-6">
       <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
