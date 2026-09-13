@@ -69,15 +69,7 @@
           "with": {
             "function_name": "sendLeadFollowUpEmail",
             "args": {
-              "email": "${ .check_lead_1.email }",
-              "full_name": "${ .check_lead_1.full_name }",
-              "phone": "${ .check_lead_1.phone }",
-              "state": "${ .check_lead_1.state }",
-              "zip": "${ .check_lead_1.zip }",
-              "age": "${ .check_lead_1.age }",
-              "age_range": "${ .check_lead_1.age_range }",
-              "household": "${ .check_lead_1.household }",
-              "income": "${ .check_lead_1.income }"
+              "lead_id": "${ .trigger.entity_id }"
             }
           },
           "then": "wait_7_more",

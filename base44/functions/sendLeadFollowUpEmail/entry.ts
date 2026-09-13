@@ -27,19 +27,35 @@ export default async function(req: Request): Promise<Response> {
     }
 
     const body = await req.json();
-
-    const rawEmail = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
-    if (!EMAIL_RE.test(rawEmail) || rawEmail.length > 254) {
-      return Response.json({ error: 'Invalid email address' }, { status: 400 });
+    const leadId = typeof body.lead_id === 'string' ? body.lead_id.trim() : '';
+    if (!leadId) {
+      return Response.json({ error: 'lead_id is required' }, { status: 400 });
     }
 
-    const full_name = sanitize(body.full_name, 100);
-    const zip = sanitize(body.zip, 10);
-    const state = sanitize(body.state, 50);
-    const household = sanitize(body.household, 20);
-    const age = typeof body.age === 'number' ? body.age : undefined;
-    const age_range = sanitize(body.age_range, 20);
-    const income = sanitize(body.income, 50);
+    // Use the caller's permissions: admins and workflow service-role calls can
+    // read leads; ordinary users cannot bypass Lead read restrictions.
+    const leads = await base44.entities.Lead.filter({ id: leadId }, undefined, 1);
+    const lead = leads[0];
+    if (!lead) {
+      return Response.json({ error: 'Lead not found' }, { status: 404 });
+    }
+    if (lead.tcpa_consent !== true || (lead.status || 'New') !== 'New' || lead.selected_plan) {
+      return Response.json({ skipped: true, reason: 'Lead is not eligible for follow-up' });
+    }
+
+    // Never use a recipient or personalization supplied in the invocation.
+    const rawEmail = typeof lead.email === 'string' ? lead.email.trim().toLowerCase() : '';
+    if (!EMAIL_RE.test(rawEmail) || rawEmail.length > 254) {
+      return Response.json({ error: 'Invalid stored email address' }, { status: 400 });
+    }
+
+    const full_name = sanitize(lead.full_name, 100);
+    const zip = sanitize(lead.zip, 10);
+    const state = sanitize(lead.state, 50);
+    const household = sanitize(lead.household, 20);
+    const age = typeof lead.age === 'number' ? lead.age : undefined;
+    const age_range = sanitize(lead.age_range, 20);
+    const income = sanitize(lead.income, 50);
 
     const firstName = full_name ? full_name.split(' ')[0] : 'there';
 
