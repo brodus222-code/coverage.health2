@@ -25,7 +25,7 @@ export default function HealthInsuranceGuide() {
         <div className="mt-10 flex flex-col sm:flex-row gap-3">
           <Link
             to="/quote"
-            className="inline-flex items-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold rounded-xl px-6 py-3.5 transition-colors"
+            className="inline-flex items-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] font-bold rounded-xl px-6 py-3.5 transition-colors"
           >
             See My Options <ArrowRight className="w-4 h-4" />
           </Link>

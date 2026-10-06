@@ -34,13 +34,13 @@ export default function Blog() {
               <Link key={a.id} to={`/blog/${a.slug}`} className="block group">
                 <article className="border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-shadow bg-white">
                   <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-500 mb-2">
-                    {a.category && <span className="text-[#CA8A04]">{a.category}</span>}
+                    {a.category && <span className="text-[#2563eb]">{a.category}</span>}
                     {a.published_date && <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{a.published_date}</span>}
                     {a.reading_time_minutes && <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{a.reading_time_minutes} min</span>}
                   </div>
-                  <h2 className="font-heading font-bold text-xl text-slate-900 mb-2 group-hover:text-[#CA8A04] transition-colors">{a.title}</h2>
+                  <h2 className="font-heading font-bold text-xl text-slate-900 mb-2 group-hover:text-[#2563eb] transition-colors">{a.title}</h2>
                   <p className="text-slate-600 text-[15px] leading-relaxed mb-3">{a.excerpt}</p>
-                  <span className="inline-flex items-center gap-1 text-[#CA8A04] font-semibold text-sm">Read article <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" /></span>
+                  <span className="inline-flex items-center gap-1 text-[#2563eb] font-semibold text-sm">Read article <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" /></span>
                 </article>
               </Link>
             ))}

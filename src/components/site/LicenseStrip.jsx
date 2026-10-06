@@ -7,7 +7,7 @@ export default function LicenseStrip() {
         <b className="text-white mr-1">Licensed &amp; serving:</b>
         {STATES.map((s, i) => (
           <span key={s} className="whitespace-nowrap">
-            {s}{i < STATES.length - 1 && <span className="text-[#EAB308] ml-2">·</span>}
+            {s}{i < STATES.length - 1 && <span className="text-[#3b82f6] ml-2">·</span>}
           </span>
         ))}
       </div>

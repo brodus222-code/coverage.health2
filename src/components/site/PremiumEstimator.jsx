@@ -32,7 +32,7 @@ export default function PremiumEstimator() {
     <div className="glass-card rounded-2xl p-7 md:p-10 grid lg:grid-cols-[1fr_auto] gap-10 items-center">
       <div>
         <div className="flex items-center gap-3 mb-6">
-          <span className="w-11 h-11 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center shrink-0">
+          <span className="w-11 h-11 rounded-xl bg-[#e8f4fd] text-[#3b82f6] grid place-items-center shrink-0">
             <Calculator className="w-5 h-5" />
           </span>
           <h3 className="font-display font-extrabold text-2xl text-slate-900 tracking-tight">Estimate your monthly premium</h3>
@@ -41,7 +41,7 @@ export default function PremiumEstimator() {
         <div className="mb-7">
           <div className="flex justify-between items-baseline mb-3">
             <label className="text-sm font-semibold text-slate-900">Your age</label>
-            <span className="font-display font-extrabold text-xl text-[#CA8A04]">{age}</span>
+            <span className="font-display font-extrabold text-xl text-[#2563eb]">{age}</span>
           </div>
           <Slider value={[age]} onValueChange={([v]) => setAge(v)} min={18} max={64} step={1} />
           <div className="flex justify-between text-xs text-slate-400 mt-1.5"><span>18</span><span>64</span></div>
@@ -55,7 +55,7 @@ export default function PremiumEstimator() {
                 key={h.label}
                 type="button"
                 onClick={() => setHousehold(h)}
-                className={`rounded-xl border-[1.5px] px-3 py-3 font-semibold text-sm transition-all ${household.label === h.label ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-700 hover:border-[#EAB308]'}`}
+                className={`rounded-xl border-[1.5px] px-3 py-3 font-semibold text-sm transition-all ${household.label === h.label ? 'border-[#3b82f6] bg-[#e8f4fd] text-slate-900' : 'border-slate-300 bg-white text-slate-700 hover:border-[#3b82f6]'}`}
               >
                 {h.label}
               </button>
@@ -70,7 +70,7 @@ export default function PremiumEstimator() {
           ${low}–${high}
         </p>
         <p className="text-sm text-slate-600 mb-5">per month, before subsidies</p>
-        <button type="button" onClick={scrollToQuote} className="w-full inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold rounded-xl px-5 py-3.5 transition-all hover:shadow-lg hover:shadow-[#EAB308]/30">
+        <button type="button" onClick={scrollToQuote} className="w-full inline-flex items-center justify-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] font-bold rounded-xl px-5 py-3.5 transition-all hover:shadow-lg hover:shadow-[#e8a020]/30">
           See my real prices <ArrowRight className="w-4 h-4" />
         </button>
         <p className="text-[11px] text-slate-500 leading-relaxed mt-4 text-left">

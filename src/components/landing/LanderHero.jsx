@@ -10,7 +10,7 @@ import TrustBadgeRow from '@/components/site/TrustBadgeRow';
 export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null, image = 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/9a19a46ca_generated_image.png', imageAlt = 'A smiling family of four walking together along a garden path — protected and at ease' }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
-      <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#EAB308]/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#3b82f6]/[0.06] blur-3xl" />
       <div className="max-w-7xl mx-auto px-5 md:px-10 pt-8 md:pt-20 pb-12 md:pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-y-8 lg:gap-y-0 gap-x-12 lg:gap-x-16 lg:items-stretch">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col">
           <div className="mb-2"><YearBadge /></div>

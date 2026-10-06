@@ -10,8 +10,8 @@ export default function TrafficChart({ series }) {
           <AreaChart data={series} margin={{ top: 4, right: 8, left: -18, bottom: 0 }}>
             <defs>
               <linearGradient id="visitsFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#EAB308" stopOpacity={0.28} />
-                <stop offset="100%" stopColor="#EAB308" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.28} />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
@@ -19,7 +19,7 @@ export default function TrafficChart({ series }) {
             <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#64748B' }} stroke="#CBD5E1" />
             <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E2E8F0', fontSize: 13 }} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
-            <Area type="monotone" dataKey="visits" name="Visitors" stroke="#EAB308" strokeWidth={2} fill="url(#visitsFill)" />
+            <Area type="monotone" dataKey="visits" name="Visitors" stroke="#3b82f6" strokeWidth={2} fill="url(#visitsFill)" />
             <Area type="monotone" dataKey="leads" name="Leads" stroke="#0F766E" strokeWidth={2} fill="#0F766E" fillOpacity={0.12} />
           </AreaChart>
         </ResponsiveContainer>

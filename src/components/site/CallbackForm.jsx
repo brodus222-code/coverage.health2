@@ -10,7 +10,7 @@ const TIMES = ['Morning', 'Afternoon', 'Evening', 'ASAP'];
 
 const CONSENT_TEXT = 'By clicking "Request My Call," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its in-house licensed agents to contact me about insurance products at the phone number provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
-const inputCls = 'w-full px-4 py-3 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
+const inputCls = 'w-full px-4 py-3 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#e8a020] focus:ring-4 focus:ring-[#e8a020]/20 transition-shadow';
 
 export default function CallbackForm({ zip = '', state = '' }) {
   const [name, setName] = useState('');
@@ -94,12 +94,12 @@ export default function CallbackForm({ zip = '', state = '' }) {
           <label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Best time to call</label>
           <div className="grid grid-cols-2 gap-2">
             {TIMES.map((t) => (
-              <button key={t} type="button" onClick={() => setTime(t)} className={`rounded-xl border-[1.5px] px-3 py-2.5 font-semibold text-[14px] transition-all ${time === t ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`}>{t}</button>
+              <button key={t} type="button" onClick={() => setTime(t)} className={`rounded-xl border-[1.5px] px-3 py-2.5 font-semibold text-[14px] transition-all ${time === t ? 'border-[#e8a020] bg-[#e8f4fd] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#e8a020]'}`}>{t}</button>
             ))}
           </div>
         </div>
       </div>
-      <button type="submit" disabled={submitting} className="w-full inline-flex items-center justify-center gap-2 mt-4 rounded-full bg-gradient-to-br from-[#1A202C] to-[#2D3A52] text-white font-bold text-[15px] px-6 py-3.5 hover:opacity-95 transition-opacity disabled:opacity-60">
+      <button type="submit" disabled={submitting} className="w-full inline-flex items-center justify-center gap-2 mt-4 rounded-full bg-gradient-to-br from-[#1a2744] to-[#2a3d63] text-white font-bold text-[15px] px-6 py-3.5 hover:opacity-95 transition-opacity disabled:opacity-60">
         {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Request My Call'}
       </button>
       {err && <p className="text-red-600 text-[13px] mt-2">{err}</p>}

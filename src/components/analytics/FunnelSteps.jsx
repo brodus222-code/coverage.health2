@@ -24,7 +24,7 @@ export default function FunnelSteps({ funnel }) {
             </div>
             <div className="h-2.5 rounded-full bg-slate-100 overflow-hidden">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308]"
+                className="h-full rounded-full bg-gradient-to-r from-[#60a5fa] to-[#3b82f6]"
                 style={{ width: `${top ? (stage.count / top) * 100 : 0}%` }}
               />
             </div>

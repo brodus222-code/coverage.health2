@@ -22,7 +22,7 @@ export default function RangeTabs({ value, onChange, includeTest, onToggleTest }
         ))}
       </div>
       <label className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-600 cursor-pointer">
-        <input type="checkbox" checked={includeTest} onChange={(e) => onToggleTest(e.target.checked)} className="w-4 h-4 accent-[#EAB308]" />
+        <input type="checkbox" checked={includeTest} onChange={(e) => onToggleTest(e.target.checked)} className="w-4 h-4 accent-[#3b82f6]" />
         Include preview/test traffic
       </label>
     </div>

@@ -24,7 +24,7 @@ export default function ThankYou() {
       <TopBar />
       <main className="flex-1 max-w-3xl mx-auto px-5 py-16 md:py-24 w-full">
         <div className="text-center mb-12">
-          <div className="w-16 h-16 rounded-full bg-[#EAB308] text-white grid place-items-center mx-auto mb-6 shadow-lg shadow-[#EAB308]/30">
+          <div className="w-16 h-16 rounded-full bg-[#3b82f6] text-white grid place-items-center mx-auto mb-6 shadow-lg shadow-[#3b82f6]/30">
             <Check className="w-8 h-8" strokeWidth={3} />
           </div>
           <h1 className="font-display font-extrabold text-3xl md:text-4xl text-slate-900 tracking-tight mb-4">Your quote request is in.</h1>
@@ -38,7 +38,7 @@ export default function ThankYou() {
           <div className="space-y-6">
             {TIMELINE.map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#e8f4fd] text-[#3b82f6] grid place-items-center shrink-0">
                   <Icon className="w-5 h-5" />
                 </div>
                 <div>
@@ -54,7 +54,7 @@ export default function ThankYou() {
           <p className="font-semibold text-slate-900 mb-3">Want your quotes right now? Skip the wait:</p>
           <a
             href="tel:+18553955001"
-            className="inline-flex items-center gap-2.5 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-lg rounded-xl px-8 py-4 transition-all hover:shadow-lg hover:shadow-[#EAB308]/40"
+            className="inline-flex items-center gap-2.5 bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] font-bold text-lg rounded-xl px-8 py-4 transition-all hover:shadow-lg hover:shadow-[#e8a020]/40"
           >
             <Phone className="w-5 h-5" /> <span className="dni-number">Call (855) 395-5001</span>
           </a>

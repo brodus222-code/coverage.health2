@@ -30,7 +30,7 @@ export default function BlogArticle() {
         {notFound ? (
           <div className="text-center py-20">
             <h1 className="font-heading font-bold text-2xl text-slate-900 mb-3">Article not found</h1>
-            <Link to="/blog" className="text-[#CA8A04] font-semibold underline">Back to blog</Link>
+            <Link to="/blog" className="text-[#2563eb] font-semibold underline">Back to blog</Link>
           </div>
         ) : !article ? (
           <div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>
@@ -38,7 +38,7 @@ export default function BlogArticle() {
           <article>
             <Link to="/blog" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-slate-900 mb-6"><ArrowLeft className="w-4 h-4" /> All articles</Link>
             <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-500 mb-3">
-              {article.category && <span className="text-[#CA8A04]">{article.category}</span>}
+              {article.category && <span className="text-[#2563eb]">{article.category}</span>}
               {article.published_date && <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{article.published_date}</span>}
               {article.reading_time_minutes && <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{article.reading_time_minutes} min read</span>}
             </div>

@@ -79,7 +79,7 @@ export default function LeadsTable({ leads }) {
             <tr key={lead.id} onClick={() => setSelected(lead)} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60 cursor-pointer">
               <td className="px-4 py-3 whitespace-nowrap text-slate-600">{format(new Date(lead.created_date), 'MMM d, h:mm a')}</td>
               <td className="px-4 py-3 font-semibold text-slate-900 whitespace-nowrap">{lead.full_name || '—'}</td>
-              <td className="px-4 py-3 whitespace-nowrap"><a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="text-[#CA8A04] font-medium hover:underline">{lead.phone}</a></td>
+              <td className="px-4 py-3 whitespace-nowrap"><a href={`tel:${lead.phone}`} onClick={(e) => e.stopPropagation()} className="text-[#2563eb] font-medium hover:underline">{lead.phone}</a></td>
               <td className="px-4 py-3 text-slate-600">{lead.email || '—'}</td>
               <td className="px-4 py-3 font-semibold text-slate-900">{lead.state || '—'}</td>
               <td className="px-4 py-3 text-slate-600">{lead.zip}</td>

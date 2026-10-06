@@ -34,11 +34,11 @@ export default function Quote() {
     <div className="min-h-screen bg-[#F8FAFC]">
       <TopBar staticLogo hideCall />
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
-        <div className="pointer-events-none absolute -top-40 -right-40 w-[420px] h-[420px] rounded-full bg-[#EAB308]/[0.06] blur-3xl" />
+        <div className="pointer-events-none absolute -top-40 -right-40 w-[420px] h-[420px] rounded-full bg-[#3b82f6]/[0.06] blur-3xl" />
         <div className="max-w-xl mx-auto px-4 md:px-6 pt-6 md:pt-12 pb-16 md:pb-24">
           {!hasZip && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} className="mb-5 text-center">
-              {offer && <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#CA8A04]">{offer.eyebrow}</p>}
+              {offer && <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#2563eb]">{offer.eyebrow}</p>}
               <h1 className="font-display font-extrabold text-3xl md:text-4xl leading-tight tracking-tight text-slate-900 text-balance">
                 {offer ? offer.headline : 'Find Affordable Health Coverage in Your Area'}
               </h1>
@@ -53,7 +53,7 @@ export default function Quote() {
           )}
           {hasZip && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} className="mb-4 flex items-center justify-center gap-2 text-sm font-semibold text-slate-600">
-              <MapPin className="w-4 h-4 text-[#EAB308]" />
+              <MapPin className="w-4 h-4 text-[#3b82f6]" />
               <span>Checking {offer ? offer.chip : 'affordable options'} for <b className="text-slate-900">{state}</b> · ZIP {zip}</span>
             </motion.div>
           )}
