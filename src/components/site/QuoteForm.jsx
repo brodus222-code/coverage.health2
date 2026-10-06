@@ -29,7 +29,7 @@ const CONSENT_TEXT = 'By clicking "Request My Plan Comparison," I provide my ele
 
 const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#e8a020] focus:ring-4 focus:ring-[#e8a020]/20 transition-shadow';
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#e8a020] bg-[#e8f4fd] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#e8a020]'}`;
-const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-white font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
+const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] shadow-md shadow-[#e8a020]/30 font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
 
 export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null, offer = '' }) {
   const navigate = useNavigate();

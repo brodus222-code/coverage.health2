@@ -13,7 +13,7 @@ export default function MobileCallBar() {
           <span className="dni-number block text-white font-bold text-sm">(855) 395-5001</span>
         </span>
       </div>
-      <a href="tel:+18553955001" data-call-source="Mobile call bar" className="bg-[#e8a020] hover:bg-[#d4911a] text-white font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
+      <a href="tel:+18553955001" data-call-source="Mobile call bar" className="bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] font-bold text-sm rounded-full px-5 py-2.5 whitespace-nowrap transition-colors">
         Call Now
       </a>
     </div>
