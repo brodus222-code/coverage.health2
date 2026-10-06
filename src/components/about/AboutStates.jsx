@@ -10,7 +10,7 @@ export default function AboutStates() {
         <div className="relative rounded-2xl border border-border bg-muted p-5 min-[520px]:p-4 md:p-6">
           <div className="pointer-events-none absolute inset-6 rounded-[45%_55%_48%_52%] border border-border bg-card/60" />
           <div className="relative grid grid-cols-3 gap-2 min-[520px]:grid-cols-5">
-            {STATES.map(([name, abbr]) => <div key={abbr} className="rounded-lg bg-emerald-800 px-2 py-3 text-center text-white shadow-sm min-[520px]:py-2"><b className="block font-display text-sm min-[520px]:text-[10px]">{abbr}</b><span className="block truncate text-[9px] text-emerald-100 min-[520px]:text-[7px]">{name}</span></div>)}
+            {STATES.map(([name, abbr]) => <div key={abbr} className="rounded-lg border border-[#3b82f6]/20 bg-[#e8f4fd] px-2 py-3 text-center text-[#1a2744] shadow-sm min-[520px]:py-2"><b className="block font-display text-sm min-[520px]:text-[10px]">{abbr}</b><span className="block truncate text-[9px] text-[#1a2744]/70 min-[520px]:text-[7px]">{name}</span></div>)}
           </div>
         </div>
       </div>
