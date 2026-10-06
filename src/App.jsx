@@ -40,6 +40,7 @@ import Ops from './pages/Ops';
 import HealthInsuranceGuide from './pages/HealthInsuranceGuide';
 import Blog from './pages/Blog';
 import BlogArticle from './pages/BlogArticle';
+import OnlineAdvisor from './pages/OnlineAdvisor';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -100,6 +101,7 @@ const AuthenticatedApp = () => {
       <Route path="/health-insurance-guide" element={<HealthInsuranceGuide />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogArticle />} />
+      <Route path="/online-advisor" element={<OnlineAdvisor />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
