@@ -4,7 +4,7 @@ import { Phone } from 'lucide-react';
 export default function TopBar({ staticLogo = false, hideCall = false }) {
   const brand = (
     <>
-      <span className="w-9 h-9 rounded-full bg-[#1A202C] text-white grid place-items-center font-display font-extrabold text-base shrink-0">C</span>
+      <span className="w-9 h-9 rounded-full bg-[#1a2744] text-white grid place-items-center font-display font-extrabold text-base shrink-0">C</span>
       <span className="leading-none">
         <span className="block font-display font-extrabold text-[17px] md:text-lg text-slate-900 tracking-tight">Coverage.Health</span>
         <span className="block text-[8.5px] md:text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400 mt-0.5">Powered by HealthLink</span>

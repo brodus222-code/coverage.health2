@@ -27,9 +27,9 @@ function zipState(z) {
 
 const CONSENT_TEXT = 'By clicking "Request My Plan Comparison," I provide my electronic signature and express written consent for Coverage.Health (HealthLink Insurance Agency LLC) and its in-house licensed agents to contact me about insurance products at the phone number and email provided, including by automatic telephone dialing system, artificial or prerecorded voice, text/SMS, and email, even if my number is on a Do-Not-Call registry. Coverage.Health does not sell or pass my information to lead buyers or outside partners. Consent is not a condition of purchase; message/data rates may apply. I can revoke consent anytime by replying STOP or emailing privacy@coverage.health. I have read and agree to the Terms of Use and Privacy Policy.';
 
-const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#EAB308] focus:ring-4 focus:ring-[#EAB308]/20 transition-shadow';
-const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#EAB308] bg-[#FFF8E6] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#EAB308]'}`;
-const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#EAB308] hover:bg-[#CA8A04] text-white font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
+const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 bg-white text-slate-900 text-base focus:outline-none focus:border-[#e8a020] focus:ring-4 focus:ring-[#e8a020]/20 transition-shadow';
+const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#e8a020] bg-[#e8f4fd] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#e8a020]'}`;
+const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-white font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
 
 export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null, offer = '' }) {
   const navigate = useNavigate();
@@ -142,7 +142,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       {step > 1 && (
         <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden" aria-label={`Step ${step} of ${total}`}>
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[#FBBF24] to-[#EAB308] shadow-[0_0_10px_#EAB308] transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-[#3b82f6] to-[#e8a020] shadow-[0_0_10px_#e8a020] transition-all duration-500"
             style={{ width: `${(step / total) * 100}%` }}
           />
         </div>
@@ -206,7 +206,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
                   <div><label className="block text-[13px] font-semibold text-slate-900 mb-1.5">Email <span className="font-medium text-slate-500">(optional)</span></label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="you@email.com" className={inputCls} /></div>
                 </div>
                 <label className="flex gap-2.5 items-start mt-4 cursor-pointer">
-                  <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#EAB308]" />
+                  <input type="checkbox" checked={textUpdates} onChange={(e) => setTextUpdates(e.target.checked)} className="mt-0.5 w-4 h-4 shrink-0 accent-[#e8a020]" />
                   <span className="text-[13px] font-semibold text-slate-800 leading-snug">Text me updates about my request <span className="font-medium text-slate-500">(optional)</span></span>
                 </label>
                 <button type="submit" disabled={submitting} className={`${btnCls} mt-4`}>

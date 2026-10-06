@@ -24,10 +24,10 @@ export default function Under65Plans() {
   return (
     <div className="min-h-screen bg-background">
       <TopBar staticLogo hideCall />
-      <main className="bg-gradient-to-b from-card to-background">
+      <main className="bg-gradient-to-b from-[#e8f4fd] via-[#f0f7ff] to-[#e6f0fa]">
         <section className="max-w-6xl mx-auto px-4 md:px-8 py-7 md:py-16 grid lg:grid-cols-[1fr_440px] gap-7 lg:gap-14 items-center">
           <div className="text-center lg:text-left">
-            <p className="inline-flex rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent-foreground">Coverage for Adults Under 65</p>
+            <p className="inline-flex rounded-full bg-[#fdf1dc] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#b97a12]">Coverage for Adults Under 65</p>
             <h1 className="mt-4 font-display text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground text-balance">Health Plans <span className="text-accent-foreground">from $56/mo</span></h1>
             <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">Compare individual and family health coverage available near you with help from a licensed agent.</p>
             <div className="mt-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center lg:items-start gap-2.5 text-sm font-semibold text-foreground">
