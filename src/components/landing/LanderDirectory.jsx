@@ -9,7 +9,7 @@ export default function LanderDirectory() {
           <h2 className="font-display font-extrabold text-slate-900 text-xl tracking-tight mb-4">Browse by state</h2>
           <div className="flex flex-wrap gap-2">
             {Object.entries(STATES).map(([slug, s]) => (
-              <Link key={slug} to={`/health-insurance/${slug}`} className="rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-[13.5px] font-semibold text-slate-700 hover:border-[#EAB308] hover:text-slate-900 transition-colors">
+              <Link key={slug} to={`/health-insurance/${slug}`} className="rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-[13.5px] font-semibold text-slate-700 hover:border-[#3b82f6] hover:text-slate-900 transition-colors">
                 {s.name}
               </Link>
             ))}
@@ -19,7 +19,7 @@ export default function LanderDirectory() {
           <h2 className="font-display font-extrabold text-slate-900 text-xl tracking-tight mb-4">Browse by situation</h2>
           <div className="flex flex-wrap gap-2">
             {Object.entries(CATEGORIES).map(([slug, c]) => (
-              <Link key={slug} to={`/coverage/${slug}`} className="rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-[13.5px] font-semibold text-slate-700 hover:border-[#EAB308] hover:text-slate-900 transition-colors">
+              <Link key={slug} to={`/coverage/${slug}`} className="rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-[13.5px] font-semibold text-slate-700 hover:border-[#3b82f6] hover:text-slate-900 transition-colors">
                 {c.eyebrow}
               </Link>
             ))}

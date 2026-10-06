@@ -30,8 +30,8 @@ export default function PlanCards() {
   return (
     <div className="grid md:grid-cols-3 gap-5 lg:gap-8">
       {PLANS.map(({ icon: Icon, title, body, pills, fit }) => (
-        <div key={title} onClick={() => navigate('/quote')} className="block bg-white border border-slate-200 rounded-2xl p-7 lg:p-8 transition-all hover:shadow-xl hover:shadow-slate-900/5 hover:-translate-y-1 hover:border-[#EAB308] cursor-pointer">
-          <div className="w-12 h-12 rounded-xl bg-[#FFF8E6] text-[#EAB308] grid place-items-center mb-5">
+        <div key={title} onClick={() => navigate('/quote')} className="block bg-white border border-slate-200 rounded-2xl p-7 lg:p-8 transition-all hover:shadow-xl hover:shadow-slate-900/5 hover:-translate-y-1 hover:border-[#3b82f6] cursor-pointer">
+          <div className="w-12 h-12 rounded-xl bg-[#e8f4fd] text-[#3b82f6] grid place-items-center mb-5">
             <Icon className="w-6 h-6" />
           </div>
           <h3 className="font-display font-bold text-lg text-slate-900 mb-2.5">{title}</h3>
@@ -41,8 +41,8 @@ export default function PlanCards() {
               <span key={p} className="text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 rounded-full px-3 py-1">{p}</span>
             ))}
           </div>
-          <p className="text-[13px] font-semibold text-[#CA8A04]">{fit}</p>
-          <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-[#CA8A04] group-hover:gap-2 transition-all">
+          <p className="text-[13px] font-semibold text-[#1a2744]">{fit}</p>
+          <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-[#1a2744] group-hover:gap-2 transition-all">
             See my quotes <ArrowRight className="w-4 h-4" />
           </span>
         </div>

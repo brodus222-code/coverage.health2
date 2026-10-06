@@ -9,7 +9,7 @@ export default function HowItWorks() {
     <div className="grid md:grid-cols-3 gap-5 lg:gap-8">
       {STEPS.map((s, i) => (
         <div key={s.title} className="bg-white border border-slate-200 rounded-2xl p-7 lg:p-8">
-          <div className="w-10 h-10 rounded-full bg-[#EAB308] text-white font-display font-extrabold grid place-items-center mb-5">{i + 1}</div>
+          <div className="w-10 h-10 rounded-full bg-[#3b82f6] text-white font-display font-extrabold grid place-items-center mb-5">{i + 1}</div>
           <h3 className="font-display font-bold text-[17px] text-slate-900 mb-2">{s.title}</h3>
           <p className="text-[15px] text-slate-600">{s.body}</p>
         </div>
