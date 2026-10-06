@@ -3,8 +3,8 @@ import { CheckCircle2, Loader2, Sparkles } from 'lucide-react';
 
 export default function AdvisorMessage({ message }) {
   const isUser = message.role === 'user';
-  const saving = message.tool_calls?.some((t) => ['pending', 'running', 'in_progress'].includes(t.status));
-  const saved = message.tool_calls?.some((t) => ['completed', 'success'].includes(t.status));
+  const saving = false;
+  const saved = message.saved;
   return (
     <div className={`flex gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
       {!isUser && (

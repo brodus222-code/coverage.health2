@@ -9,25 +9,28 @@ import AdvisorInput from '@/components/advisor/AdvisorInput';
 const GREETING = { role: 'assistant', content: "Hi! I'm the Coverage.Health Online Advisor. Ask me anything about health insurance, or I can gather a few details so an in-house licensed agent can prepare your **free plan comparison**. What can I help with?" };
 
 export default function OnlineAdvisor() {
-  const [conversation, setConversation] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [thinking, setThinking] = useState(false);
+  const [leadSaved, setLeadSaved] = useState(false);
   const endRef = useRef(null);
 
-  useEffect(() => {
-    document.title = 'Online Advisor | Coverage.Health';
-    base44.agents.createConversation({ agent_name: 'online_advisor', metadata: { name: 'Online Advisor chat' } }).then(setConversation);
-  }, []);
+  useEffect(() => { document.title = 'Online Advisor | Coverage.Health'; }, []);
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, thinking]);
 
-  useEffect(() => {
-    if (!conversation) return;
-    return base44.agents.subscribeToConversation(conversation.id, (d) => setMessages(d.messages));
-  }, [conversation?.id]);
-
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
-
-  const last = messages[messages.length - 1];
-  const thinking = last?.role === 'user';
-  const send = (content) => base44.agents.addMessage(conversation, { role: 'user', content });
+  const send = async (content) => {
+    const next = [...messages, { role: 'user', content }];
+    setMessages(next);
+    setThinking(true);
+    try {
+      const res = await base44.functions.invoke('advisorChat', { messages: [GREETING, ...next], lead_saved: leadSaved, session_id: sessionStorage.getItem('session_id') || '' });
+      const justSaved = res.data.lead_saved && !leadSaved;
+      setLeadSaved(res.data.lead_saved);
+      setMessages([...next, { role: 'assistant', content: res.data.reply, saved: justSaved }]);
+    } catch {
+      setMessages([...next, { role: 'assistant', content: 'Sorry, I had trouble responding. Please try again or call **(855) 395-5001**.' }]);
+    }
+    setThinking(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#e8f4fd] via-[#f0f7ff] to-white">
@@ -41,9 +44,7 @@ export default function OnlineAdvisor() {
             {thinking && <p className="flex items-center gap-2 text-sm text-slate-500 pl-10"><Loader2 className="w-4 h-4 animate-spin" /> Typing…</p>}
             <div ref={endRef} />
           </div>
-          {conversation
-            ? <AdvisorInput onSend={send} disabled={thinking} showStarters={messages.length === 0} />
-            : <p className="flex items-center justify-center gap-2 text-sm text-slate-500 py-3"><Loader2 className="w-4 h-4 animate-spin" /> Connecting…</p>}
+          <AdvisorInput onSend={send} disabled={thinking} showStarters={messages.length === 0} />
         </div>
         <p className="mt-3 text-[11px] leading-relaxed text-slate-500">AI assistant for general information only; not a licensed agent. Not a government website. Rates shown are examples; your licensed agent confirms pricing.</p>
       </main>
