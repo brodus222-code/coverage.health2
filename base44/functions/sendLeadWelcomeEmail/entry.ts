@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { requireAdmin } from '../../shared/requireAdmin.ts';
 import { secrets } from 'base44:runtime';
 
 import { sanitize, escapeHtml, sanitizeHtml, UNTRUSTED_DATA_NOTICE } from '../../shared/emailSanitize.ts';
@@ -26,14 +27,8 @@ export default async function(req: Request): Promise<Response> {
     // For user-authenticated calls, require admin role.
     // Service-role calls (from the workflow) have no user context —
     // isAuthenticated() is true but me() throws, which is expected.
-    try {
-      const currentUser = await base44.auth.me();
-      if (currentUser.role !== 'admin') {
-        return Response.json({ error: 'Forbidden' }, { status: 403 });
-      }
-    } catch {
-      // Service-role call from the workflow — isAuthenticated() passed.
-    }
+    const denied = await requireAdmin(base44);
+    if (denied) return denied;
 
     const body = await req.json();
 

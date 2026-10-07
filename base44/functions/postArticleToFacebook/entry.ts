@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { requireAdmin } from '../../shared/requireAdmin.ts';
 
 const BLOG_BASE_URL = 'https://coverage.health/blog';
 const COVERAGE_HEALTH_PAGE_ID = '1183580071498823';
@@ -12,14 +13,8 @@ export default async function(req: Request): Promise<Response> {
     if (!isAuthed) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    try {
-      const currentUser = await base44.auth.me();
-      if (currentUser.role !== 'admin') {
-        return Response.json({ error: 'Forbidden' }, { status: 403 });
-      }
-    } catch {
-      // Service-role call from the workflow — isAuthenticated() passed.
-    }
+    const denied = await requireAdmin(base44);
+    if (denied) return denied;
 
     const body = await req.json();
     const articleId = typeof body.article_id === 'string' ? body.article_id.trim() : '';

@@ -1,0 +1,49 @@
+{
+  "name": "AdvisorRateLimit",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Hashed visitor IP"
+    },
+    "window_start": {
+      "type": "string"
+    },
+    "count": {
+      "type": "number",
+      "default": 0
+    },
+    "lead_day": {
+      "type": "string"
+    },
+    "lead_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "key"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

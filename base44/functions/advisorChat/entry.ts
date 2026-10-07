@@ -22,15 +22,32 @@ Only after they clearly agree, call saveLead exactly once. If they decline, don'
 export default async function (req) {
   try {
     const base44 = createClientFromRequest(req);
-    const { messages, lead_saved, session_id } = await req.json();
-    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 60) {
+    const { messages, session_id } = await req.json();
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 40) {
       return Response.json({ error: "Invalid conversation" }, { status: 400 });
     }
     const history = messages
       .filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-      .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+      .map((m) => ({ role: m.role, content: m.content.slice(0, m.role === "user" ? 500 : 1500) }));
+    if (history.reduce((n, m) => n + m.content.length, 0) > 20000) {
+      return Response.json({ error: "Conversation too long" }, { status: 400 });
+    }
 
-    let saved = !!lead_saved;
+    // Per-visitor rate limit (hashed IP): 30 messages / 10 min, 1 saved request / day.
+    const ip = (req.headers.get("x-forwarded-for") || "unknown").split(",")[0].trim();
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("advisor:" + ip));
+    const key = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+    const RL = base44.asServiceRole.entities.AdvisorRateLimit;
+    const today = new Date().toISOString().slice(0, 10);
+    let rl = (await RL.filter({ key }, { limit: 1 })).items?.[0];
+    if (!rl) rl = await RL.create({ key, window_start: new Date().toISOString(), count: 0, lead_day: today, lead_count: 0 });
+    const fresh = Date.now() - new Date(rl.window_start).getTime() > 10 * 60 * 1000;
+    const count = fresh ? 1 : (rl.count || 0) + 1;
+    if (count > 30) return Response.json({ error: "Too many messages, please try again shortly or call (855) 395-5001." }, { status: 429 });
+    const leadCount = rl.lead_day === today ? rl.lead_count || 0 : 0;
+    await RL.update(rl.id, { count, window_start: fresh ? new Date().toISOString() : rl.window_start, lead_day: today, lead_count: leadCount });
+
+    let saved = leadCount >= 1;
     const { baseURL, token, headers } = base44.asServiceRole.aiGateway.connection();
     const models = createOpenAICompatible({ name: "base44", baseURL, apiKey: token, headers });
 
@@ -55,6 +72,7 @@ export default async function (req) {
               landing_page: "/online-advisor", session_id: session_id || "",
             });
             saved = true;
+            await RL.update(rl.id, { lead_day: today, lead_count: leadCount + 1 });
             return { success: true };
           },
         }),

@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { requireAdmin } from '../../shared/requireAdmin.ts';
 
 // Rotating pool of high-intent SEO topics for the under-65 health insurance market.
 // Each entry: the primary keyword + the editorial angle the article should take.
@@ -45,14 +46,8 @@ export default async function(req: Request): Promise<Response> {
     if (!isAuthed) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    try {
-      const currentUser = await base44.auth.me();
-      if (currentUser.role !== 'admin') {
-        return Response.json({ error: 'Forbidden' }, { status: 403 });
-      }
-    } catch {
-      // Service-role call from the workflow — isAuthenticated() passed.
-    }
+    const denied = await requireAdmin(base44);
+    if (denied) return denied;
 
     // Rotate through the topic pool based on how many articles already exist,
     // so each run produces a different topic until the pool cycles.
