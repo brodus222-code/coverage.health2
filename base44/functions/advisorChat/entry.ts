@@ -34,7 +34,9 @@ export default async function (req) {
     }
 
     // Per-visitor rate limit (hashed IP): 30 messages / 10 min, 1 saved request / day.
-    const ip = (req.headers.get("x-forwarded-for") || "unknown").split(",")[0].trim();
+    // Use the edge-attested connecting IP; the right-most X-Forwarded-For entry (appended by our proxy) as fallback.
+    const xff = (req.headers.get("x-forwarded-for") || "").split(",").map((s) => s.trim()).filter(Boolean);
+    const ip = req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip") || xff[xff.length - 1] || "unknown";
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("advisor:" + ip));
     const key = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
     const RL = base44.asServiceRole.entities.AdvisorRateLimit;
@@ -44,10 +46,18 @@ export default async function (req) {
     const fresh = Date.now() - new Date(rl.window_start).getTime() > 10 * 60 * 1000;
     const count = fresh ? 1 : (rl.count || 0) + 1;
     if (count > 30) return Response.json({ error: "Too many messages, please try again shortly or call (855) 395-5001." }, { status: 429 });
+    // Global daily ceiling across all visitors, so rotating identities can't bypass limits.
+    let g = (await RL.filter({ key: "__global__" }, { limit: 1 })).items?.[0];
+    if (!g) g = await RL.create({ key: "__global__", lead_day: today, count: 0, lead_count: 0 });
+    const gCount = g.lead_day === today ? (g.count || 0) + 1 : 1;
+    const gLeads = g.lead_day === today ? g.lead_count || 0 : 0;
+    if (gCount > 3000) return Response.json({ error: "The advisor is busy right now. Please call (855) 395-5001." }, { status: 429 });
+    await RL.update(g.id, { lead_day: today, count: gCount, lead_count: gLeads });
     const leadCount = rl.lead_day === today ? rl.lead_count || 0 : 0;
+    const leadsCapped = gLeads >= 200;
     await RL.update(rl.id, { count, window_start: fresh ? new Date().toISOString() : rl.window_start, lead_day: today, lead_count: leadCount });
 
-    let saved = leadCount >= 1;
+    let saved = leadCount >= 1 || leadsCapped;
     const { baseURL, token, headers } = base44.asServiceRole.aiGateway.connection();
     const models = createOpenAICompatible({ name: "base44", baseURL, apiKey: token, headers });
 
@@ -73,6 +83,7 @@ export default async function (req) {
             });
             saved = true;
             await RL.update(rl.id, { lead_day: today, lead_count: leadCount + 1 });
+            await RL.update(g.id, { lead_day: today, lead_count: gLeads + 1 });
             return { success: true };
           },
         }),
