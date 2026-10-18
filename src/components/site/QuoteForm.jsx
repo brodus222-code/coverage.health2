@@ -138,7 +138,7 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
       <p className="font-display font-bold text-lg text-slate-900 leading-snug">
         {mode === 'quote' ? 'A few quick questions for your plan comparison' : 'Start with your ZIP code'}
       </p>
-      {step === 1 && <p className="mt-1 text-[13px] leading-snug text-slate-600">An in-house licensed agent will review your request with you by phone.</p>}
+      {step === 1 && <p className="mt-1 text-[13px] leading-snug text-slate-600">{trustRow ? 'Takes about 2 minutes · Your information stays private' : 'An in-house licensed agent will review your request with you by phone.'}</p>}
       {step > 1 && (
         <div className="h-[3px] bg-slate-200 rounded-full my-4 overflow-hidden" aria-label={`Step ${step} of ${total}`}>
           <div
