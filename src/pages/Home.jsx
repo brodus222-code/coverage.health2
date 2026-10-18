@@ -27,7 +27,7 @@ export default function Home() {
             <h1 className="font-display font-extrabold text-slate-900 text-4xl md:text-5xl lg:text-[64px] leading-[1.05] tracking-tight lg:mb-6">
               Health insurance that fits your budget, <em className="not-italic text-[#3b82f6]">explained by a human.</em>
             </h1>
-            <div className="mt-6"><QuoteForm mode="hero" /></div>
+            <div className="mt-6"><QuoteForm mode="hero" trustRow /></div>
             <div className="mt-6 lg:mt-auto"><CarrierMiniGrid /></div>
             <div className="mt-5 lg:hidden"><SocialProof /></div>
           </motion.div>

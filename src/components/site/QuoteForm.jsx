@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Loader2, Lock, Trophy, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MatchingAnimation from '@/components/site/MatchingAnimation';
 import { isTestEnvironment, trackMetaLead, trackUetLead } from '@/lib/tracking';
@@ -31,7 +31,7 @@ const inputCls = 'w-full px-4 py-3.5 rounded-xl border-[1.5px] border-slate-300 
 const choiceCls = (active) => `rounded-xl border-[1.5px] px-4 py-3.5 font-semibold text-[15px] transition-all text-center ${active ? 'border-[#e8a020] bg-[#e8f4fd] text-slate-900' : 'border-slate-300 bg-white text-slate-800 hover:border-[#e8a020]'}`;
 const btnCls = 'w-full min-h-[52px] inline-flex items-center justify-center gap-2 bg-[#e8a020] hover:bg-[#d4911a] text-[#1a2744] shadow-md shadow-[#e8a020]/30 font-bold text-[17px] rounded-xl px-5 py-3.5 transition-colors disabled:opacity-60';
 
-export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null, offer = '' }) {
+export default function QuoteForm({ lockedState = null, mode = 'hero', initialData = null, offer = '', trustRow = false }) {
   const navigate = useNavigate();
   const [locked, setLocked] = useState(lockedState);
   const [step, setStep] = useState(mode === 'quote' ? 2 : 1);
@@ -155,7 +155,15 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
               <label className="sr-only" htmlFor="zip">ZIP code</label>
               <input id="zip" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))} inputMode="numeric" placeholder="Enter your 5-digit ZIP code" autoComplete="postal-code" className={inputCls} />
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-3.5`}>Start My Plan Comparison <ArrowRight className="w-4 h-4" /></button>
-              <p className="mt-2.5 text-center text-xs text-slate-600">Takes about 2 minutes · Your information stays private</p>
+              {trustRow ? (
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[12.5px] text-slate-500">
+                  <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-slate-900">Encrypted</b> — never sold to spam lists</span>
+                  <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-slate-900">4.8/5</b> customer rating</span>
+                  <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> <b className="text-slate-900">A+</b> rated agency</span>
+                </div>
+              ) : (
+                <p className="mt-2.5 text-center text-xs text-slate-600">Takes about 2 minutes · Your information stays private</p>
+              )}
               {locked && (
                 <a href={`/quote?lock=${locked.abbr}&lname=${encodeURIComponent(locked.name)}`} onClick={(e) => { e.preventDefault(); setLocked(null); setErr(''); }} className="block w-full text-center text-[13px] font-semibold text-slate-500 hover:text-slate-900 underline mt-3 transition-colors">
                   I need coverage in a different state
