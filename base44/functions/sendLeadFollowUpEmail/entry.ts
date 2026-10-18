@@ -2,7 +2,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { requireAdmin } from '../../shared/requireAdmin.ts';
 import { secrets } from 'base44:runtime';
 
-import { sanitize, sanitizeHtml, UNTRUSTED_DATA_NOTICE } from '../../shared/emailSanitize.ts';
+import { followUpEmail } from '../../shared/leadEmailTemplate.ts';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -44,67 +44,7 @@ export default async function(req: Request): Promise<Response> {
       return Response.json({ error: 'Invalid stored email address' }, { status: 400 });
     }
 
-    const full_name = sanitize(lead.full_name, 100);
-    const zip = sanitize(lead.zip, 10);
-    const state = sanitize(lead.state, 50);
-    const household = sanitize(lead.household, 20);
-    const age = typeof lead.age === 'number' ? lead.age : undefined;
-    const age_range = sanitize(lead.age_range, 20);
-    const income = sanitize(lead.income, 50);
-
-    const firstName = full_name ? full_name.split(' ')[0] : 'there';
-
-    const profileBits = [];
-    if (state) profileBits.push(`located in ${state}`);
-    if (household) profileBits.push(`household of ${household}`);
-    if (age) profileBits.push(`age ${age}`);
-    else if (age_range) profileBits.push(`age range ${age_range}`);
-    if (income) profileBits.push(`income bracket "${income}"`);
-    const profileContext = profileBits.length ? profileBits.join(', ') : 'seeking health coverage';
-
-    const prompt = `You are writing a friendly follow-up email for Coverage.Health, a licensed health insurance agency (HealthLink Insurance Agency LLC).
-
-<LEAD_DATA>
-${UNTRUSTED_DATA_NOTICE}
-- Name: ${full_name || 'Not provided'}
-- First name to use in greeting: ${firstName}
-- ZIP: ${zip || 'Not provided'}
-- State: ${state || 'Not provided'}
-- Household size: ${household || 'Not provided'}
-- Age: ${age || age_range || 'Not provided'}
-- Income bracket: ${income || 'Not provided'}
-- Profile summary: ${profileContext}
-</LEAD_DATA>
-
-This person requested a health insurance quote about a week ago but hasn't moved forward yet. Write a warm, low-pressure follow-up email that:
-1. Gently checks in — acknowledges they requested a quote and we haven't connected yet
-2. Reminds them of the value — personalized plan options from top carriers (Blue Cross Blue Shield, UnitedHealthcare, Anthem), potential ACA subsidies that could lower their premium
-3. Mentions their specific situation naturally (${profileContext}) so it feels personal, not generic
-4. Offers two easy next steps: reply to this email, or call (855) 395-5001 (Mon–Fri, 8am–8pm ET)
-5. Reassures them there's no obligation — we're here to help them find the best fit
-6. Closes warmly, signed "The Coverage.Health Team"
-
-STYLE REQUIREMENTS:
-- Clean, responsive HTML email with inline styles (no external CSS, no <style> tags)
-- Max-width 600px container, centered, with padding
-- Calm, trustworthy color palette: white background, dark slate text (#1A202C), gold accent (#EAB308) for the headline or key elements
-- Keep body text concise (150-200 words)
-- Include a prominent call-to-action button linking to tel:+18553955001
-- Address them by first name in the greeting
-- Do NOT include legal disclaimers, TCPA text, or footers about licensing
-
-Return a JSON object with "subject" (an engaging, personalized subject line under 60 chars) and "html" (the complete HTML email).`;
-
-    const llmResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          subject: { type: 'string' },
-          html: { type: 'string' }
-        }
-      }
-    });
+    const email = followUpEmail(lead);
 
     const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -115,8 +55,8 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       body: JSON.stringify({
         from: 'Coverage.Health <no-reply@coverage.health>',
         to: [rawEmail],
-        subject: String(llmResult.subject || 'Following up on your Coverage.Health quote').slice(0, 200),
-        html: sanitizeHtml(String(llmResult.html || ''))
+        subject: email.subject,
+        html: email.html
       })
     });
 
@@ -126,7 +66,7 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
     }
 
     const resendData = await resendRes.json();
-    return Response.json({ success: true, message_id: resendData.id, subject: llmResult.subject });
+    return Response.json({ success: true, message_id: resendData.id, subject: email.subject });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }

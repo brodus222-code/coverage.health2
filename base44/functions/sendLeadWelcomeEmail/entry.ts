@@ -2,7 +2,8 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { requireAdmin } from '../../shared/requireAdmin.ts';
 import { secrets } from 'base44:runtime';
 
-import { sanitize, escapeHtml, sanitizeHtml, UNTRUSTED_DATA_NOTICE } from '../../shared/emailSanitize.ts';
+import { sanitize, escapeHtml } from '../../shared/emailSanitize.ts';
+import { welcomeEmail } from '../../shared/leadEmailTemplate.ts';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -47,59 +48,7 @@ export default async function(req: Request): Promise<Response> {
     const age_range = sanitize(body.age_range, 20);
     const income = sanitize(body.income, 50);
 
-    const firstName = full_name ? full_name.split(' ')[0] : 'there';
-
-    const profileBits = [];
-    if (state) profileBits.push(`located in ${state}`);
-    if (household) profileBits.push(`household of ${household}`);
-    if (age) profileBits.push(`age ${age}`);
-    else if (age_range) profileBits.push(`age range ${age_range}`);
-    if (income) profileBits.push(`income bracket "${income}"`);
-    const profileContext = profileBits.length ? profileBits.join(', ') : 'seeking health coverage';
-
-    const prompt = `You are writing a personalized welcome email for Coverage.Health, a licensed health insurance agency (HealthLink Insurance Agency LLC).
-
-<LEAD_DATA>
-${UNTRUSTED_DATA_NOTICE}
-- Name: ${full_name || 'Not provided'}
-- First name to use in greeting: ${firstName}
-- ZIP: ${zip || 'Not provided'}
-- State: ${state || 'Not provided'}
-- Household size: ${household || 'Not provided'}
-- Age: ${age || age_range || 'Not provided'}
-- Income bracket: ${income || 'Not provided'}
-- Profile summary: ${profileContext}
-</LEAD_DATA>
-
-Write a high-quality, professional, warm HTML email that:
-1. Confirms we received their health insurance quote request
-2. Briefly and naturally acknowledges their specific situation (${profileContext}) — be specific but not invasive or repetitive
-3. Explains the next step: a licensed insurance advisor will call them within one business day to review personalized plan options from top carriers
-4. Provides the direct phone number (855) 395-5001 and mentions business hours (Mon–Fri, 8am–8pm ET) in case they want to talk sooner
-5. Reassures them there is no obligation — we compare plans from carriers like Blue Cross Blue Shield, UnitedHealthcare, and Anthem to find the best fit
-6. Closes warmly, signed "The Coverage.Health Team"
-
-STYLE REQUIREMENTS:
-- Clean, responsive HTML email with inline styles (no external CSS, no <style> tags)
-- Max-width 600px container, centered, with padding
-- Use a calm, trustworthy color palette: white background, dark slate text (#1A202C), gold accent (#EAB308) for the headline or key elements
-- Keep body text concise (150-200 words)
-- Include a prominent call-to-action button linking to tel:+18553955001
-- Address them by first name in the greeting
-- Do NOT include legal disclaimers, TCPA text, or footers about licensing — those are handled elsewhere
-
-Return a JSON object with "subject" (an engaging, personalized subject line under 60 chars) and "html" (the complete HTML email).`;
-
-    const llmResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          subject: { type: 'string' },
-          html: { type: 'string' }
-        }
-      }
-    });
+    const email = welcomeEmail(body);
 
     const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -110,8 +59,8 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       body: JSON.stringify({
         from: 'Coverage.Health <no-reply@coverage.health>',
         to: [rawEmail],
-        subject: String(llmResult.subject || 'Your Coverage.Health quote request').slice(0, 200),
-        html: sanitizeHtml(String(llmResult.html || ''))
+        subject: email.subject,
+        html: email.html
       })
     });
 
@@ -177,7 +126,7 @@ Return a JSON object with "subject" (an engaging, personalized subject line unde
       })
     });
 
-    return Response.json({ success: true, message_id: resendData.id, subject: llmResult.subject, notification_sent: notifyRes.ok });
+    return Response.json({ success: true, message_id: resendData.id, subject: email.subject, notification_sent: notifyRes.ok });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
