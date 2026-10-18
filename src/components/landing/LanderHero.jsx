@@ -7,7 +7,7 @@ import YearBadge from '@/components/site/YearBadge';
 import SocialProof from '@/components/site/SocialProof';
 import TrustBadgeRow from '@/components/site/TrustBadgeRow';
 
-export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null, image = 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/9a19a46ca_generated_image.png', imageAlt = 'A smiling family of four walking together along a garden path — protected and at ease' }) {
+export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null, image = 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c43b50088_image_20261018_182915.jpg', imageAlt = 'A licensed agent on a friendly video call with a customer reviewing health coverage' }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC]">
       <div className="pointer-events-none absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-[#3b82f6]/[0.06] blur-3xl" />

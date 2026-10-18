@@ -56,8 +56,8 @@ export default function VariantC() {
 
               <div className="hidden lg:block mt-8 rounded-[18px] overflow-hidden ring-1 ring-[#DCE6F0] shadow-[0_20px_50px_-24px_rgba(19,42,71,0.35)]">
                 <Image
-                  src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/9a19a46ca_generated_image.png"
-                  alt="A smiling family of four walking together along a garden path"
+                  src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c43b50088_image_20261018_182915.jpg"
+                  alt="A licensed agent on a friendly video call with a customer reviewing health coverage"
                   className="w-full h-[300px]"
                   focalPointY={0.4}
                 />
