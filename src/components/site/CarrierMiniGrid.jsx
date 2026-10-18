@@ -15,10 +15,7 @@ export default function CarrierMiniGrid({ stateAbbr }) {
   const fourth = stateAbbr === 'FL' ? FLORIDA_BLUE : BASE_CARRIERS[2];
   const CARRIERS = [BASE_CARRIERS[0], second, BASE_CARRIERS[1], fourth];
   return (
-    <div className="mb-6">
-      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">
-        Carrier and network availability varies by ZIP
-      </p>
+    <div className="mb-6 mt-3">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 max-w-md">
         {CARRIERS.map((c) => (
           <div
