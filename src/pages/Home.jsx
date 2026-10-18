@@ -35,10 +35,10 @@ export default function Home() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }} className="hidden lg:block lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 self-start">
             <div className="rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(15,23,42,0.25)] ring-1 ring-slate-200/60">
               <Image
-                src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/9a19a46ca_generated_image.png"
-                alt="A smiling family of four walking together along a garden path — protected and at ease"
+                src="https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c43b50088_image_20261018_182915.jpg"
+                alt="A licensed agent on a friendly video call with a customer reviewing health coverage"
                 className="w-full h-[540px]"
-                focalPointY={0.4}
+                focalPointY={0.35}
               />
             </div>
             <div className="mt-6"><SocialProof /></div>
