@@ -157,9 +157,9 @@ export default function QuoteForm({ lockedState = null, mode = 'hero', initialDa
               <button type="button" onClick={nextFromZip} className={`${btnCls} mt-3.5`}>Start My Plan Comparison <ArrowRight className="w-4 h-4" /></button>
               {trustRow ? (
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[12.5px] text-slate-500">
-                  <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-slate-900">Encrypted</b> — never sold to spam lists</span>
-                  <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-slate-900">4.8/5</b> customer rating</span>
                   <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5" /> <b className="text-slate-900">A+</b> rated agency</span>
+                  <span className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5" /> <b className="text-slate-900">4.8/5</b> customer rating</span>
+                  <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> <b className="text-slate-900">Encrypted</b> — never sold to spam lists</span>
                 </div>
               ) : (
                 <p className="mt-2.5 text-center text-xs text-slate-600">Takes about 2 minutes · Your information stays private</p>
