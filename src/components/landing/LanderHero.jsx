@@ -5,7 +5,6 @@ import QuoteForm from '@/components/site/QuoteForm';
 import CarrierMiniGrid from '@/components/site/CarrierMiniGrid';
 import YearBadge from '@/components/site/YearBadge';
 import SocialProof from '@/components/site/SocialProof';
-import TrustBadgeRow from '@/components/site/TrustBadgeRow';
 
 export default function LanderHero({ eyebrow, headline, intro, bullets, lockedState = null, image = 'https://media.base44.com/images/public/6a6ba5b40f4a59615638b4b9/c43b50088_image_20261018_182915.jpg', imageAlt = 'A licensed agent on a friendly video call with a customer reviewing health coverage' }) {
   return (
@@ -29,7 +28,6 @@ export default function LanderHero({ eyebrow, headline, intro, bullets, lockedSt
             </div>
           )}
           <div className="mt-6"><QuoteForm mode="hero" lockedState={lockedState} /></div>
-          <div className="mt-5 lg:mt-auto [&>div]:mx-auto"><TrustBadgeRow stateAbbr={lockedState?.abbr} /></div>
           <div className="mt-5 [&_p]:text-center [&>div>div]:mx-auto"><CarrierMiniGrid stateAbbr={lockedState?.abbr} /></div>
           <div className="mt-5 lg:hidden"><SocialProof /></div>
         </motion.div>
